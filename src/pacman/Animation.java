@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 /**
  *
- * @author --FranciscoHernández--
+ * @author nicolasbuitragoh
  */
 public class Animation {
 private ArrayList<OneScene> scenes;

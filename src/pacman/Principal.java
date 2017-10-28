@@ -21,12 +21,13 @@ public class Principal extends JFrame {
     public Thread movieLoop;
     public Canvas c;
     public Pacman J1;
-    public int[][] mundo = {{1,0,0,1,0,0,0,1},
-                            {1,1,0,0,0,1,1,1},
-                            {1,0,0,0,0,0,0,1},
-                            {1,0,0,1,1,1,1,1},
-                            {1,0,0,0,0,0,0,1},
-                            {1,1,1,1,0,1,1,1}
+    public int[][] mundo = {{1,1,1,1,0,0,1,1,1,1},
+                            {1,0,0,0,0,0,0,1,0,1},
+                            {1,1,0,1,0,0,1,1,0,1},
+                            {0,0,0,0,0,0,0,0,0,0},
+                            {1,1,1,1,0,1,1,1,0,1},
+                            {1,0,0,0,0,0,0,0,0,1},
+                            {1,1,1,1,0,0,1,1,1,1}
     };
     public Principal(int w, int h)throws Exception{
         c= new Canvas();
@@ -60,8 +61,8 @@ public class Principal extends JFrame {
                }
             }
         });
-        J1=new Pacman(50, 50, 8, 8, "PacmanSprites");//Los ultimos dos son velocidad
-        String []names={"arriba","adelante","abajo","atras"};
+        J1=new Pacman(100, 120, 8, 8, "PacmanSprites");//Los ultimos dos son velocidad
+        String []names={"adelante","arriba","abajo","atras"};
         J1.loadPics(names);
         movieLoop=new Thread(new Runnable() {
 
@@ -75,8 +76,8 @@ public class Principal extends JFrame {
                     try{
 //                        g.setColor(Color.BLACK);
 //                        g.fillRect(0,0, c.getWidth(), c.getHeight());                        
-                        for (int i = 0; i < 6; i++) {
-                            for (int j = 0; j < 8; j++) {
+                        for (int i = 0; i < 7; i++) {
+                            for (int j = 0; j < 10; j++) {
                                 if(mundo[i][j]==1){
                                     g.setColor(Color.BLUE);
                                     g.fillRect(100*j,100*i, 100, 100);
@@ -106,8 +107,10 @@ public class Principal extends JFrame {
     
     public static void main(String[] args) {
         try{
-            Principal p= new Principal(800,600);
+            Principal p= new Principal(1000,700);
             p.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            p.setResizable(false);
+            p.setLocationRelativeTo(null);
             p.setVisible(true);
             p.movieLoop.start();
         }catch(Exception e){
