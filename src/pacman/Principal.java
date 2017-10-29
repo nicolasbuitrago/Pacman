@@ -21,6 +21,7 @@ public class Principal extends JFrame {
     public Thread movieLoop;
     public Canvas c;
     public Pacman J1;
+    public Tablero tablero;
     public int[][] mundo = {{1,1,1,1,1,0,1,1,1,1,1},
                             {1,0,0,0,0,0,0,0,0,0,1},
                             {1,1,0,1,0,0,1,1,1,0,1},
@@ -46,7 +47,7 @@ public class Principal extends JFrame {
     };
     
     public Principal(int w, int h)throws Exception{
-        c= new Canvas();
+        c= new Canvas();                                 tablero = new Tablero(mundo);
         this.setSize(w, h);
         c.setSize(w, h);
         this.add(c);
@@ -97,6 +98,7 @@ public class Principal extends JFrame {
                                 if(mundo[i][j]==1){
                                     g.setColor(Color.BLUE);
                                     g.fillRect(100*j,100*i, 100, 100);
+                                    
                                 }else{
                                     g.setColor(Color.BLACK);
                                     g.fillRect(100*j,100*i, 100, 100);
@@ -106,9 +108,9 @@ public class Principal extends JFrame {
                         currentTime = System.currentTimeMillis() - startTime;
                         switch(J1.currentDirection){
                             case Pacman.RIGTH:{ J1.moveRigth(currentTime); break;}
-                            case Pacman.DOWN:{J1.moveDown(currentTime); break;}
-                            case Pacman.LEFT:{ J1.moveLeft(currentTime); break;}
-                            case Pacman.UP:{J1.moveUp(currentTime); break;}
+                            case Pacman.DOWN:{  J1.moveDown (currentTime); break;}
+                            case Pacman.LEFT:{  J1.moveLeft (currentTime); break;}
+                            case Pacman.UP:{    J1.moveUp   (currentTime); break;}
                         }
                         J1.draw(g);
                         Thread.sleep(30);
