@@ -20,6 +20,8 @@ public class Pacman {
     public static final int LEFT=3;
     public static final int NONE=-1;
     
+    public static final int RADIO = 28;
+    
     Animation[] animations;
     int x;
     int y;
@@ -44,13 +46,20 @@ public class Pacman {
             String name=names[j];
             animations[j]=new Animation();
             for (int i = 1; i <= 2; i++) {
-                System.out.println("/" +path+"//"+name+i+".png");
+                System.out.println(path+"//"+name+i+".png");
                 animations[j].addScene(
-                new ImageIcon(getClass().getResource("/" +path+"//"+name+i+".png")).getImage()    , 100);
+                new ImageIcon(getClass().getResource(path+"//"+name+i+".png")).getImage()    , 100);
             }
         }
        
     }
+    
+    private double getDistancia(int x, int y){
+        return Math.sqrt(Math.pow(Math.abs(x - this.x),2) + Math.pow(Math.abs(y - this.y),2));
+    }
+    
+    
+    
     public void moveRigth(long time){
         x+=vx;
         currentAnimation=Pacman.RIGTH;

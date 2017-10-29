@@ -21,14 +21,30 @@ public class Principal extends JFrame {
     public Thread movieLoop;
     public Canvas c;
     public Pacman J1;
-    public int[][] mundo = {{1,1,1,1,0,0,1,1,1,1},
-                            {1,0,0,0,0,0,0,1,0,1},
-                            {1,1,0,1,0,0,1,1,0,1},
-                            {0,0,0,0,0,0,0,0,0,0},
-                            {1,1,1,1,0,1,1,1,0,1},
-                            {1,0,0,0,0,0,0,0,0,1},
-                            {1,1,1,1,0,0,1,1,1,1}
+    public int[][] mundo = {{1,1,1,1,1,0,1,1,1,1,1},
+                            {1,0,0,0,0,0,0,0,0,0,1},
+                            {1,1,0,1,0,0,1,1,1,0,1},
+                            {0,0,0,0,0,0,0,1,0,0,0},
+                            {1,1,1,1,0,1,1,1,0,0,1},
+                            {1,0,0,0,0,0,0,0,0,0,1},
+                            {1,1,1,1,1,0,1,1,1,1,1}
+//            {1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1},
+//            {1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1},
+//            {1,1,0,1,0,0,1,1,1,0,1,1,1,0,1,0,0,1,1,1,0,1},
+//            {0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0},
+//            {1,1,1,1,0,1,1,1,0,0,1,1,1,1,1,0,1,1,1,0,0,1},
+//            {1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1},
+//            {1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1},
+//            {1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1},
+//            {1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1},
+//            {1,1,0,1,0,0,1,1,1,0,1,1,1,0,1,0,0,1,1,1,0,1},
+//            {0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0},
+//            {1,1,1,1,0,1,1,1,0,0,1,1,1,1,1,0,1,1,1,0,0,1},
+//            {1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1},
+//            {1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1}
+
     };
+    
     public Principal(int w, int h)throws Exception{
         c= new Canvas();
         this.setSize(w, h);
@@ -61,7 +77,7 @@ public class Principal extends JFrame {
                }
             }
         });
-        J1=new Pacman(100, 120, 8, 8, "PacmanSprites");//Los ultimos dos son velocidad
+        J1=new Pacman(100, 120, 8, 8, "/PacmanSprites");//Los ultimos dos son velocidad
         String []names={"adelante","arriba","abajo","atras"};
         J1.loadPics(names);
         movieLoop=new Thread(new Runnable() {
@@ -69,7 +85,7 @@ public class Principal extends JFrame {
             @Override
             public void run() {
                 c.createBufferStrategy(2);
-                Graphics g=c.getBufferStrategy().getDrawGraphics();
+                Graphics g = c.getBufferStrategy().getDrawGraphics();
                 long startTime=System.currentTimeMillis();
                 long currentTime=0;
                 while(true){
@@ -77,7 +93,7 @@ public class Principal extends JFrame {
 //                        g.setColor(Color.BLACK);
 //                        g.fillRect(0,0, c.getWidth(), c.getHeight());                        
                         for (int i = 0; i < 7; i++) {
-                            for (int j = 0; j < 10; j++) {
+                            for (int j = 0; j < 11; j++) {
                                 if(mundo[i][j]==1){
                                     g.setColor(Color.BLUE);
                                     g.fillRect(100*j,100*i, 100, 100);
@@ -87,7 +103,7 @@ public class Principal extends JFrame {
                                 }
                             }
                         }
-                        currentTime=System.currentTimeMillis()-startTime;
+                        currentTime = System.currentTimeMillis() - startTime;
                         switch(J1.currentDirection){
                             case Pacman.RIGTH:{ J1.moveRigth(currentTime); break;}
                             case Pacman.DOWN:{J1.moveDown(currentTime); break;}
@@ -107,7 +123,7 @@ public class Principal extends JFrame {
     
     public static void main(String[] args) {
         try{
-            Principal p= new Principal(1000,700);
+            Principal p= new Principal(1100,700);
             p.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             p.setResizable(false);
             p.setLocationRelativeTo(null);
