@@ -60,28 +60,36 @@ public class Pacman {
     
     
     
-    public void moveRigth(long time){
-        x+=vx;
-        currentAnimation=Pacman.RIGTH;
-        animations[Pacman.RIGTH].update(time);
+    public void moveRigth(Tablero tablero, long time){
+        if (tablero.isCamino(x + vx, y)) {
+            x += vx;
+            currentAnimation = Pacman.RIGTH;
+            animations[Pacman.RIGTH].update(time);
+        }
     }
     
-    public void moveLeft(long time){
-        x-=vx;
-        currentAnimation=Pacman.LEFT;
-        animations[Pacman.LEFT].update(time);
+    public void moveLeft(Tablero tablero, long time){
+        if (tablero.isCamino(x - vx, y)) {
+            x -= vx;
+            currentAnimation = Pacman.LEFT;
+            animations[Pacman.LEFT].update(time);
+        }
     }
     
-     public void moveUp(long time){
-        y-=vy;
-        currentAnimation=Pacman.UP;
-        animations[Pacman.UP].update(time);
+    public void moveUp(Tablero tablero, long time) {
+        if (tablero.isCamino(x, y - vy)) {
+            y -= vy;
+            currentAnimation = Pacman.UP;
+            animations[Pacman.UP].update(time);
+        }
     }
      
-     public void moveDown(long time){
-        y+=vy;
-        currentAnimation=Pacman.DOWN;
-        animations[Pacman.DOWN].update(time);
+    public void moveDown(Tablero tablero, long time) {
+        if (tablero.isCamino(x, y + vy)) {
+            y += vy;
+            currentAnimation = Pacman.DOWN;
+            animations[Pacman.DOWN].update(time);
+        }
     }
      
      public void draw(Graphics g){

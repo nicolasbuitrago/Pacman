@@ -107,10 +107,10 @@ public class Principal extends JFrame {
                         }
                         currentTime = System.currentTimeMillis() - startTime;
                         switch(J1.currentDirection){
-                            case Pacman.RIGTH:{ J1.moveRigth(currentTime); break;}
-                            case Pacman.DOWN:{  J1.moveDown (currentTime); break;}
-                            case Pacman.LEFT:{  J1.moveLeft (currentTime); break;}
-                            case Pacman.UP:{    J1.moveUp   (currentTime); break;}
+                            case Pacman.RIGTH:{ J1.moveRigth(tablero,currentTime); break;}
+                            case Pacman.DOWN:{  J1.moveDown (tablero,currentTime); break;}
+                            case Pacman.LEFT:{  J1.moveLeft (tablero,currentTime); break;}
+                            case Pacman.UP:{    J1.moveUp   (tablero,currentTime); break;}
                         }
                         J1.draw(g);
                         Thread.sleep(30);

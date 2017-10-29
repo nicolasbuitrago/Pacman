@@ -13,12 +13,24 @@ import java.awt.Rectangle;
  */
 public class Cuadrante {
     
-    Rectangle rect;
-    boolean is;
+    private Rectangle rect;
+    private boolean is;
 
     public Cuadrante(int x, int y, int size, boolean is){
-        Rectangle rect = new Rectangle(x, y, size, size);if(rect.intersects(100, 120, 56,56)) System.out.println(y/100+","+x/100);
+        this.rect = new Rectangle(x, y, size, size);  //if(rect.intersects(100, 120, 56,56)) System.out.println(y/100+","+x/100);
         this.is = is;
+    }
+
+    public int getX() {
+        return rect.x;
+    }
+    
+    public int getY() {
+        return rect.y;
+    }
+
+    public boolean isIs() {
+        return is;
     }
     
     public boolean intersects(int x, int y){

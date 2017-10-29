@@ -25,10 +25,34 @@ public class Tablero {
             }
         }
     }
-    
-//    public void add(int i, int j, int size){
+
+    public boolean isCamino(int x, int y) {
+//        int inicio = 0, fin = 7 - 1, centro;
+//        while (inicio <= fin) {
+//            centro = (fin + inicio) / 2;
+//            if (tablero[1][centro].getX() == x) {
+//                break;
+//            } else if (x < tablero[1][centro].getX()) {
+//                fin = centro - 1;
+//            } else {
+//                inicio = centro + 1;
+//            }
+//        }
+
+//        Cuadrante c = tablero[x/100][y/100];
+//        boolean in = c.intersects(x, y);
 //        
-//        tablero[i][j] = ;
-//    }
+//        return tablero[x/100][y/100].isIs();
+        
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 11; j++) {
+                Cuadrante c = tablero[i][j];
+                if(c.intersects(x, y)&& !c.isIs()){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
     
 }
