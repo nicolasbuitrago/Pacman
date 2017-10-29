@@ -61,24 +61,24 @@ public class Principal extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                switch(e.getKeyCode()){
-                   case KeyEvent.VK_UP:{J1.currentDirection=Pacman.UP; break;}
-                   case KeyEvent.VK_DOWN:{J1.currentDirection=Pacman.DOWN; break;}
-                   case KeyEvent.VK_LEFT:{J1.currentDirection=Pacman.LEFT; break;}
-                   case KeyEvent.VK_RIGHT:{J1.currentDirection=Pacman.RIGTH; break;}
+                   case KeyEvent.VK_UP   :{ J1.currentDirection=Pacman.UP; break;}
+                   case KeyEvent.VK_DOWN :{ J1.currentDirection=Pacman.DOWN; break;}
+                   case KeyEvent.VK_LEFT :{ J1.currentDirection=Pacman.LEFT; break;}
+                   case KeyEvent.VK_RIGHT:{ J1.currentDirection=Pacman.RIGTH; break;}
                }
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
                switch(e.getKeyCode()){
-                   case KeyEvent.VK_UP:{J1.currentDirection=Pacman.NONE; break;}
-                   case KeyEvent.VK_DOWN:{J1.currentDirection=Pacman.NONE; break;}
-                   case KeyEvent.VK_LEFT:{J1.currentDirection=Pacman.NONE; break;}
-                   case KeyEvent.VK_RIGHT:{J1.currentDirection=Pacman.NONE; break;}
+                    case KeyEvent.VK_UP   :{ J1.currentDirection=Pacman.NONE; break;}
+                    case KeyEvent.VK_DOWN :{ J1.currentDirection=Pacman.NONE; break;}
+                    case KeyEvent.VK_LEFT :{ J1.currentDirection=Pacman.NONE; break;}
+                    case KeyEvent.VK_RIGHT:{ J1.currentDirection=Pacman.NONE; break;}
                }
             }
         });
-        J1=new Pacman(100, 120, 8, 8, "/PacmanSprites");//Los ultimos dos son velocidad
+        J1=new Pacman(100, 120, 9, 9, "/PacmanSprites");//Los ultimos dos son velocidad
         String []names={"adelante","arriba","abajo","atras"};
         J1.loadPics(names);
         movieLoop=new Thread(new Runnable() {
