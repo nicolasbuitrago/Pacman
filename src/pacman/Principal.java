@@ -83,6 +83,7 @@ public class Principal extends JFrame {
         String[] names = {"adelante","arriba","abajo","atras"};
         J1.loadPics(names);
         movieLoop = new Thread( J1.getMovieLoop(c, tablero));
+        Sound sound = new Sound(J1);
         
     }
     

@@ -29,6 +29,11 @@ public abstract class Personaje {
     protected String path;
     protected int currentAnimation;
     protected int currentDirection;
+    protected int currentStatus;
+    
+    public static final int NORMAL = 0;
+    public static final int MUERTO = 1;
+    public static final int COMIENDO = 2;
     
     public Personaje (int x, int y, int vx, int vy, String path){
         this.path = path;
