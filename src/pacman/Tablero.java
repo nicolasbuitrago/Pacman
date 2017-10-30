@@ -5,6 +5,9 @@
  */
 package pacman;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 /**
  *
  * @author nicolasbuitrago
@@ -13,20 +16,37 @@ public class Tablero {
     
     private Cuadrante[][] tablero;
     private int m,n;
+    private final int TAM_CUADRANTE = 50;
 
     public Tablero(int[][] mundo, int m, int n) {
         this.tablero = new Cuadrante[m][n];
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (mundo[i][j] == 1) {
-                    tablero[i][j] = new Cuadrante(100 * j, 100 * i, 100, false);
+                    tablero[i][j] = new Cuadrante(TAM_CUADRANTE * j, TAM_CUADRANTE * i, TAM_CUADRANTE, false);
                 } else {
-                    tablero[i][j] = new Cuadrante(100 * j, 100 * i, 100, true);
+                    tablero[i][j] = new Cuadrante(TAM_CUADRANTE * j, TAM_CUADRANTE * i, TAM_CUADRANTE, true);
                 }
             }
         }
         this.m = m;
         this.n = n;
+    }
+    
+    public void paitTablero(Graphics g){
+//        g.setColor(Color.BLACK);
+//        g.fillRect(0,0, c.getWidth(), c.getHeight());                        
+        for (int i = 0; i < this.m; i++) {
+            for (int j = 0; j < this.n; j++) {
+                if (tablero[i][j].isIs()) {
+                    g.setColor(Color.BLACK);
+                    g.fillRect(TAM_CUADRANTE * j, TAM_CUADRANTE * i, TAM_CUADRANTE, TAM_CUADRANTE);
+                } else {
+                    g.setColor(Color.BLUE);
+                    g.fillRect(TAM_CUADRANTE * j, TAM_CUADRANTE * i, TAM_CUADRANTE, TAM_CUADRANTE);
+                }
+            }
+        }
     }
 
     public boolean isCamino(int x, int y) {

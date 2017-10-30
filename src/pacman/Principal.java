@@ -20,33 +20,33 @@ public class Principal extends JFrame {
     public Canvas c;
     public Personaje J1;
     public Tablero tablero;
-    public int[][] mundo = {{1,1,1,1,1,0,1,1,1,1,1},
-                            {1,0,0,0,0,0,0,0,0,0,1},
-                            {1,1,0,1,0,0,1,1,1,0,1},
-                            {0,0,0,0,0,0,0,1,0,0,0},
-                            {1,1,1,1,0,1,1,1,0,0,1},
-                            {1,0,0,0,0,0,0,0,0,0,1},
-                            {1,1,1,1,1,0,1,1,1,1,1}
-//            {1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1},
-//            {1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1},
-//            {1,1,0,1,0,0,1,1,1,0,1,1,1,0,1,0,0,1,1,1,0,1},
-//            {0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0},
-//            {1,1,1,1,0,1,1,1,0,0,1,1,1,1,1,0,1,1,1,0,0,1},
-//            {1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1},
-//            {1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1},
-//            {1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1},
-//            {1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1},
-//            {1,1,0,1,0,0,1,1,1,0,1,1,1,0,1,0,0,1,1,1,0,1},
-//            {0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0},
-//            {1,1,1,1,0,1,1,1,0,0,1,1,1,1,1,0,1,1,1,0,0,1},
-//            {1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1},
-//            {1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1}
+    public int[][] mundo = {//{1,1,1,1,1,0,1,1,1,1,1},
+//                            {1,0,0,0,0,0,0,0,0,0,1},
+//                            {1,1,0,1,0,0,1,1,1,0,1},
+//                            {0,0,0,0,0,0,0,1,0,0,0},
+//                            {1,1,1,1,0,1,1,1,0,0,1},
+//                            {1,0,0,0,0,0,0,0,0,0,1},
+//                            {1,1,1,1,1,0,1,1,1,1,1}
+            {1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1},
+            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1},
+            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1},
+            {1,0,0,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,0,0,1},
+            {1,1,1,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,1,0,0,1},
+            {1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,1,0,0,1},
+            {0,0,0,0,0,0,1,1,1,1,1,0,0,1,1,1,0,0,0,0,0,0},
+            {0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0},
+            {1,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1,1,1},
+            {1,0,0,1,0,0,1,1,0,0,0,0,0,0,1,0,0,1,1,0,0,1},
+            {1,0,0,1,0,0,1,1,0,0,0,0,0,0,1,0,0,0,1,0,0,1},
+            {1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1},
+            {1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1},
+            {1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1}
 
     };
     
     public Principal(int w, int h)throws Exception{
         c = new Canvas();
-        tablero = new Tablero(mundo, 7, 11);
+        tablero = new Tablero(mundo, 14, 22);
         this.setSize(w, h);
         c.setSize(w, h);
         this.add(c);
@@ -60,20 +60,20 @@ public class Principal extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                switch(e.getKeyCode()){
-                   case KeyEvent.VK_UP   :{ J1.currentDirection=Pacman.UP; break;}
-                   case KeyEvent.VK_DOWN :{ J1.currentDirection=Pacman.DOWN; break;}
-                   case KeyEvent.VK_LEFT :{ J1.currentDirection=Pacman.LEFT; break;}
-                   case KeyEvent.VK_RIGHT:{ J1.currentDirection=Pacman.RIGTH; break;}
+                   case KeyEvent.VK_UP   :{ J1.currentDirection = Personaje.UP; break;}
+                   case KeyEvent.VK_DOWN :{ J1.currentDirection = Personaje.DOWN; break;}
+                   case KeyEvent.VK_LEFT :{ J1.currentDirection = Personaje.LEFT; break;}
+                   case KeyEvent.VK_RIGHT:{ J1.currentDirection = Personaje.RIGTH; break;}
                }
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
                switch(e.getKeyCode()){
-                    case KeyEvent.VK_UP   :{ J1.currentDirection=Pacman.NONE; break;}
-                    case KeyEvent.VK_DOWN :{ J1.currentDirection=Pacman.NONE; break;}
-                    case KeyEvent.VK_LEFT :{ J1.currentDirection=Pacman.NONE; break;}
-                    case KeyEvent.VK_RIGHT:{ J1.currentDirection=Pacman.NONE; break;}
+                    case KeyEvent.VK_UP   :{ J1.currentDirection = Personaje.NONE; break;}
+                    case KeyEvent.VK_DOWN :{ J1.currentDirection = Personaje.NONE; break;}
+                    case KeyEvent.VK_LEFT :{ J1.currentDirection = Personaje.NONE; break;}
+                    case KeyEvent.VK_RIGHT:{ J1.currentDirection = Personaje.NONE; break;}
                }
             }
             
@@ -88,7 +88,7 @@ public class Principal extends JFrame {
     
     public static void main(String[] args) {
         try{
-            Principal p= new Principal(1100,700);
+            Principal p= new Principal(1100,725);
             p.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             p.setResizable(false);
             p.setLocationRelativeTo(null);

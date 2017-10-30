@@ -6,7 +6,6 @@
 package pacman;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Graphics;
 
 /**
@@ -32,19 +31,9 @@ public class Fantasma extends Personaje{
                 long currentTime = 0;
                 while(true){
                     try{
-//                        g.setColor(Color.BLACK);
-//                        g.fillRect(0,0, c.getWidth(), c.getHeight());                        
-                        for (int i = 0; i < tablero.getM(); i++) {
-                            for (int j = 0; j < tablero.getN(); j++) {
-                                if(tablero.getTablero()[i][j].isIs()){
-                                    g.setColor(Color.BLACK);
-                                    g.fillRect(100*j,100*i, 100, 100); 
-                                }else{
-                                    g.setColor(Color.BLUE);
-                                    g.fillRect(100*j,100*i, 100, 100);
-                                }
-                            }
-                        }
+                        
+                        tablero.paitTablero(g);
+                        
                         currentTime = System.currentTimeMillis() - startTime;
                         switch(J1.currentDirection){
                             case Personaje.RIGTH:{ J1.moveRigth(tablero,currentTime); break;}
