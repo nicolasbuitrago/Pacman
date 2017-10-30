@@ -47,23 +47,15 @@ public class Sound implements Runnable {
     @Override
     public void run() {
         
-        start();
+        play(start,4500);
         
-        if (!start.isRunning() && !chomp.isActive()) {
-            loop(chomp);
-        }
         while (true) {
-
-            try {
-                Thread.sleep(4500);
-            } catch (InterruptedException ex) {
-                System.out.println("OOPS");
-            }
-
+            System.out.println("cs = "+this.pacman.currentStatus);
             if (cp != this.pacman.currentStatus) {
                 switch (this.pacman.currentStatus) {
                     case Personaje.NORMAL: {
-                        loop(chomp);
+                        stop();
+                        if(!isActive())loop(chomp);
                         this.cp = Personaje.NORMAL;
                         break;
                     }
@@ -71,7 +63,6 @@ public class Sound implements Runnable {
                         stop(chomp);
                         play(death,1500);
                         this.cp = Personaje.MUERTO;
-                        this.pacman.currentStatus = Personaje.NORMAL;
                         break;
                     }
                     case Personaje.COMIENDO: {
@@ -123,6 +114,10 @@ public class Sound implements Runnable {
         }
         return clip;
     }
+    
+    public boolean isActive(){
+        return death.isActive() || eat.isActive();
+    }
 
     public void play(Clip clip) {
         clip.setFramePosition(0);  // Must always rewind!
@@ -136,40 +131,13 @@ public class Sound implements Runnable {
 
     public void stop(Clip clip) {
         clip.stop();
-        clip.drain();
-    }
-    
-    public void start(){
-        play(start);
-        try {
-            Thread.sleep(4500);
-        } catch (InterruptedException ex) {
-            System.out.println("OOPS");
-        }
-    }
-    
-    public void death(){
-        play(death);
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException ex) {
-            System.out.println("OOPS");
-        }
+//        clip.drain();
     }
     
     public void play(Clip clip, int time){
         play(clip);
         try {
             Thread.sleep(time);
-        } catch (InterruptedException ex) {
-            System.out.println("OOPS");
-        }
-    }
-    
-    public void eat(){
-        play(eat);
-        try {
-            Thread.sleep(1000);
         } catch (InterruptedException ex) {
             System.out.println("OOPS");
         }
