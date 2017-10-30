@@ -22,6 +22,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public class Sound implements Runnable {
 
+    Thread t;
     private Clip start, chomp, death, eat;
     private Personaje pacman, fantasma;
     private int cp, cf;
@@ -40,7 +41,8 @@ public class Sound implements Runnable {
         this.fantasma = fantasma;
         this.cf = -1;
 
-        new Thread(this).start();
+        t = new Thread(this);
+        t.start();
         // play, stop, loop the sound clip
     }
 
@@ -63,6 +65,7 @@ public class Sound implements Runnable {
                         stop(chomp);
                         play(death,1500);
                         this.cp = Personaje.MUERTO;
+                        t.suspend();
                         break;
                     }
                     case Personaje.COMIENDO: {
