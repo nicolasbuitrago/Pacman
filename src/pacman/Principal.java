@@ -48,7 +48,8 @@ public class Principal extends JFrame {
     };
     
     public Principal(int w, int h)throws Exception{
-        c = new Canvas();                                 tablero = new Tablero(mundo);
+        c = new Canvas();
+        tablero = new Tablero(mundo, 7, 11);
         this.setSize(w, h);
         c.setSize(w, h);
         this.add(c);
@@ -84,46 +85,8 @@ public class Principal extends JFrame {
 //        J1 = new Fantasma(100, 120, 9, 9, "/Fantasma");
         String[] names = {"adelante","arriba","abajo","atras"};
         J1.loadPics(names);
-        movieLoop = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                c.createBufferStrategy(2);
-                Graphics g = c.getBufferStrategy().getDrawGraphics();
-                long startTime = System.currentTimeMillis();
-                long currentTime = 0;
-                while(true){
-                    try{
-//                        g.setColor(Color.BLACK);
-//                        g.fillRect(0,0, c.getWidth(), c.getHeight());                        
-                        for (int i = 0; i < 7; i++) {
-                            for (int j = 0; j < 11; j++) {
-                                if(mundo[i][j]==1){
-                                    g.setColor(Color.BLUE);
-                                    g.fillRect(100*j,100*i, 100, 100);
-                                    
-                                }else{
-                                    g.setColor(Color.BLACK);
-                                    g.fillRect(100*j,100*i, 100, 100);
-                                }
-                            }
-                        }
-                        currentTime = System.currentTimeMillis() - startTime;
-                        switch(J1.currentDirection){
-                            case Pacman.RIGTH:{ J1.moveRigth(tablero,currentTime); break;}
-                            case Pacman.DOWN:{  J1.moveDown (tablero,currentTime); break;}
-                            case Pacman.LEFT:{  J1.moveLeft (tablero,currentTime); break;}
-                            case Pacman.UP:{    J1.moveUp   (tablero,currentTime); break;}
-                        }
-                        J1.draw(g);
-                        Thread.sleep(30);
-                        c.getBufferStrategy().show();
-                    }catch(Exception e){
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
+        movieLoop = new Thread( J1.getMovieLoop(c, tablero));
+        
     }
     
     public static void main(String[] args) {

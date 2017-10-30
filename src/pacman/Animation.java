@@ -13,7 +13,8 @@ import java.util.ArrayList;
  * @author nicolasbuitrago
  */
 public class Animation {
-private ArrayList<OneScene> scenes;
+    
+    private ArrayList<OneScene> scenes;
     private int sceneIndex;
     private long movieTime;
     private long totalTime;

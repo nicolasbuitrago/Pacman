@@ -11,12 +11,13 @@ package pacman;
  */
 public class Tablero {
     
-    Cuadrante[][] tablero;
+    private Cuadrante[][] tablero;
+    private int m,n;
 
-    public Tablero(int[][] mundo) {
-        this.tablero = new Cuadrante[7][11];
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 11; j++) {
+    public Tablero(int[][] mundo, int m, int n) {
+        this.tablero = new Cuadrante[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
                 if (mundo[i][j] == 1) {
                     tablero[i][j] = new Cuadrante(100 * j, 100 * i, 100, false);
                 } else {
@@ -24,6 +25,8 @@ public class Tablero {
                 }
             }
         }
+        this.m = m;
+        this.n = n;
     }
 
     public boolean isCamino(int x, int y) {
@@ -44,8 +47,8 @@ public class Tablero {
 //        
 //        return tablero[x/100][y/100].isIs();
         
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 11; j++) {
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
                 Cuadrante c = tablero[i][j];
                 if(c.intersects(x, y)&& !c.isIs()){
                     return false;
@@ -53,6 +56,18 @@ public class Tablero {
             }
         }
         return true;
+    }
+
+    public Cuadrante[][] getTablero() {
+        return tablero;
+    }
+
+    public int getM() {
+        return m;
+    }
+
+    public int getN() {
+        return n;
     }
     
 }
