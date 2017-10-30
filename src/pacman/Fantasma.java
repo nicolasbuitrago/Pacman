@@ -51,5 +51,8 @@ public class Fantasma extends Personaje{
             }
         };
     }
-    
+ 
+    private class Camino{
+        
+    }
 }
