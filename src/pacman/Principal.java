@@ -65,7 +65,7 @@ public class Principal extends JFrame {
                    case KeyEvent.VK_LEFT :{ J1.currentDirection = Personaje.LEFT; break;}
                    case KeyEvent.VK_RIGHT:{ J1.currentDirection = Personaje.RIGTH; break;}
                    case KeyEvent.VK_A : { J1.currentStatus = Personaje.MUERTO; break;}
-                   case KeyEvent.VK_S : { J1.currentStatus = Personaje.COMIENDO; break;}
+                   case KeyEvent.VK_E : { J1.currentStatus = Personaje.COMIENDO; break;}
                }
             }
 

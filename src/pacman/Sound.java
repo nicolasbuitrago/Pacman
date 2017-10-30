@@ -50,6 +50,7 @@ public class Sound implements Runnable {
     public void run() {
         
         play(start,4500);
+        start.close();
         
         while (true) {
             System.out.println("cs = "+this.pacman.currentStatus);
@@ -64,7 +65,7 @@ public class Sound implements Runnable {
                     case Personaje.MUERTO: {
                         stop(chomp);
                         play(death,1500);
-                        this.cp = Personaje.MUERTO;
+                        this.cp = Personaje.MUERTO; close();
                         t.suspend();
                         break;
                     }
@@ -144,6 +145,12 @@ public class Sound implements Runnable {
         } catch (InterruptedException ex) {
             System.out.println("OOPS");
         }
+    }
+    
+    public void close(){
+        chomp.close();
+        eat.close();
+        death.close();
     }
     
     public void stop(){
