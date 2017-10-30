@@ -21,14 +21,14 @@ public abstract class Personaje {
     public static final int LEFT = 3;
     public static final int NONE = -1;
     
-    Animation[] animations;
-    int x;
-    int y;
-    int vx;
-    int vy;
-    String path;
-    int currentAnimation;
-    int currentDirection;
+    protected Animation[] animations;
+    protected int x;
+    protected int y;
+    protected int vx;
+    protected int vy;
+    protected String path;
+    protected int currentAnimation;
+    protected int currentDirection;
     
     public Personaje (int x, int y, int vx, int vy, String path){
         this.path = path;

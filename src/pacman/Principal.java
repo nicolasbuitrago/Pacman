@@ -18,8 +18,7 @@ public class Principal extends JFrame {
 
     public Thread movieLoop;
     public Canvas c;
-    public Pacman J1;
-//    public Fantasma J1;
+    public Personaje J1;
     public Tablero tablero;
     public int[][] mundo = {{1,1,1,1,1,0,1,1,1,1,1},
                             {1,0,0,0,0,0,0,0,0,0,1},
