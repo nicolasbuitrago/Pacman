@@ -21,6 +21,7 @@ public class Principal extends JFrame {
     public Thread movieLoop;
     public Canvas c;
     public Pacman J1;
+//    public Fantasma J1;
     public Tablero tablero;
     public int[][] mundo = {{1,1,1,1,1,0,1,1,1,1,1},
                             {1,0,0,0,0,0,0,0,0,0,1},
@@ -47,7 +48,7 @@ public class Principal extends JFrame {
     };
     
     public Principal(int w, int h)throws Exception{
-        c= new Canvas();                                 tablero = new Tablero(mundo);
+        c = new Canvas();                                 tablero = new Tablero(mundo);
         this.setSize(w, h);
         c.setSize(w, h);
         this.add(c);
@@ -77,18 +78,20 @@ public class Principal extends JFrame {
                     case KeyEvent.VK_RIGHT:{ J1.currentDirection=Pacman.NONE; break;}
                }
             }
+            
         });
-        J1=new Pacman(100, 120, 9, 9, "/PacmanSprites");//Los ultimos dos son velocidad
-        String []names={"adelante","arriba","abajo","atras"};
+        J1 = new Pacman(100, 120, 9, 9, "/Pacman");//Los ultimos dos son velocidad
+//        J1 = new Fantasma(100, 120, 9, 9, "/Fantasma");
+        String[] names = {"adelante","arriba","abajo","atras"};
         J1.loadPics(names);
-        movieLoop=new Thread(new Runnable() {
+        movieLoop = new Thread(new Runnable() {
 
             @Override
             public void run() {
                 c.createBufferStrategy(2);
                 Graphics g = c.getBufferStrategy().getDrawGraphics();
-                long startTime=System.currentTimeMillis();
-                long currentTime=0;
+                long startTime = System.currentTimeMillis();
+                long currentTime = 0;
                 while(true){
                     try{
 //                        g.setColor(Color.BLACK);

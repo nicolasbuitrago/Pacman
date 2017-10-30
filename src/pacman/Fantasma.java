@@ -12,15 +12,13 @@ import javax.swing.ImageIcon;
  *
  * @author nicolasbuitrago
  */
-public class Pacman {
-
-    public static final int RIGTH=0;
-    public static final int UP=1;
-    public static final int DOWN=2;
-    public static final int LEFT=3;
-    public static final int NONE=-1;
+public class Fantasma {
     
-    public static final int RADIO = 28;
+    public static final int RIGTH = 0;
+    public static final int UP = 1;
+    public static final int DOWN = 2;
+    public static final int LEFT = 3;
+    public static final int NONE = -1;
     
     Animation[] animations;
     int x;
@@ -31,13 +29,13 @@ public class Pacman {
     int currentAnimation;
     int currentDirection;
     
-    public Pacman (int x, int y, int vx, int vy, String path){
+    public Fantasma (int x, int y, int vx, int vy, String path){
         this.path = path;
         this.x = x;
         this.y = y;
         this.vx = vx;
         this.vy = vy;
-        this.currentDirection = -1;
+        this.currentDirection = NONE;
         this.animations = new Animation[4];
     }
     
@@ -50,13 +48,12 @@ public class Pacman {
                 animations[j].addScene(
                 new ImageIcon(getClass().getResource("/Sprites"+path+"//"+name+i+".png")).getImage()    , 100);
             }
-//            animations[j].addScene( new ImageIcon(getClass().getResource(path+"//muerte1.png")).getImage()    , 100);
         }
     }
     
     private double getDistancia(int x, int y){
         return Math.sqrt(Math.pow(Math.abs(x - this.x),2) + Math.pow(Math.abs(y - this.y),2));
-    }
+    }   
     
     public void moveRigth(Tablero tablero, long time){
         if (tablero.isCamino(x + vx, y)) {
@@ -93,5 +90,4 @@ public class Pacman {
     public void draw(Graphics g) {
         g.drawImage(animations[currentAnimation].getImage(), x, y, null);
     }
-
 }
