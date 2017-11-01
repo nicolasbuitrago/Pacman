@@ -91,7 +91,7 @@ public class Principal extends JFrame {
     
     public static void main(String[] args) {
         try{
-            Principal p= new Principal(1100,725);
+            Principal p = new Principal(Tablero.WIDTH,Tablero.HEIGHT);
             p.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             p.setResizable(false);
             p.setLocationRelativeTo(null);

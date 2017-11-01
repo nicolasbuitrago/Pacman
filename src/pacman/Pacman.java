@@ -52,4 +52,44 @@ public class Pacman extends Personaje{
         };
     }
     
+    @Override
+    public void moveRigth(Tablero tablero, long time){
+        if (tablero.isCamino(x + vx, y)) {
+            x += vx;
+            if(x>Tablero.WIDTH) x = -56;
+            currentAnimation = Personaje.RIGTH;
+            animations[Personaje.RIGTH].update(time);
+        }
+    }
+    
+    @Override
+    public void moveLeft(Tablero tablero, long time){
+        if (tablero.isCamino(x - vx, y)) {
+            x -= vx;
+            if(x<-25) x = Tablero.WIDTH;
+            currentAnimation = Personaje.LEFT;
+            animations[Personaje.LEFT].update(time);
+        }
+    }
+    
+    @Override
+    public void moveUp(Tablero tablero, long time) {
+        if (tablero.isCamino(x, y - vy)) {
+            y -= vy;
+            if(y<-25) y = Tablero.HEIGHT;
+            currentAnimation = Personaje.UP;
+            animations[Personaje.UP].update(time);
+        }
+    }
+     
+    @Override
+    public void moveDown(Tablero tablero, long time) {
+        if (tablero.isCamino(x, y + vy)) {
+            y += vy;
+            if(y>Tablero.HEIGHT) y = -56;
+            currentAnimation = Personaje.DOWN;
+            animations[Personaje.DOWN].update(time);
+        }
+    }
+    
 }

@@ -7,8 +7,6 @@ package pacman;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  *
@@ -19,6 +17,8 @@ public class Tablero {
     private Cuadrante[][] tablero;
     private int m,n;
     private final int TAM_CUADRANTE = 50;
+    public static final int WIDTH = 1100;
+    public static final int HEIGHT = 725;
 
     public Tablero(int[][] mundo, int m, int n) {
         this.tablero = new Cuadrante[m][n];
@@ -96,6 +96,8 @@ public class Tablero {
         }
         return true;
     }
+    
+    
 
 //    private Ruta dijkstra(Cuadrante ni,Cuadrante nf){
 //        int[] distancia = new int[nodos.size()];
