@@ -18,6 +18,7 @@ public class Pacman extends Personaje{
         super(x, y, vx, vy, path);
     }
     
+    @Override
     public Runnable getMovieLoop(Canvas c, Tablero tablero){
         Pacman J1 = this;
         

@@ -18,6 +18,7 @@ public class Fantasma extends Personaje{
         super(x, y, vx, vy, path);
     }
     
+    @Override
     public Runnable getMovieLoop(Canvas c, Tablero tablero){
         Fantasma F = this;
         

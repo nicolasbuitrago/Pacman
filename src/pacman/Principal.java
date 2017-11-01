@@ -6,6 +6,7 @@
 package pacman;
 
 import java.awt.Canvas;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JFrame;
@@ -16,7 +17,7 @@ import javax.swing.JFrame;
  */
 public class Principal extends JFrame {
 
-    public Thread movPac, movFant;
+    public Thread movLoop, movFant;
     public Canvas c;
     public Personaje J1, F;
     public Tablero tablero;
@@ -64,8 +65,15 @@ public class Principal extends JFrame {
                    case KeyEvent.VK_DOWN :{ J1.currentDirection = Personaje.DOWN; break;}
                    case KeyEvent.VK_LEFT :{ J1.currentDirection = Personaje.LEFT; break;}
                    case KeyEvent.VK_RIGHT:{ J1.currentDirection = Personaje.RIGTH; break;}
-                   case KeyEvent.VK_A : { F.currentStatus = Personaje.DOWN; break;}
-                   case KeyEvent.VK_E : { F.currentStatus = Personaje.UP; break;}
+//                   case KeyEvent.VK_S : { F.currentStatus = Personaje.DOWN; break;}
+//                   case KeyEvent.VK_W : { F.currentStatus = Personaje.UP; break;}
+               }
+               switch(e.getKeyChar()){
+                   case 'w':{F.currentDirection = Personaje.UP; break;}
+                   case 'a':{F.currentDirection = Personaje.LEFT; break;}
+                   case 's':{F.currentDirection = Personaje.DOWN;break;}
+                   case 'd':{F.currentDirection = Personaje.RIGTH; break;}
+//                   case 'z':{F.currentDirection = Personaje break;}
                }
             }
 
@@ -77,6 +85,13 @@ public class Principal extends JFrame {
                     case KeyEvent.VK_LEFT :{ J1.currentDirection = Personaje.NONE; break;}
                     case KeyEvent.VK_RIGHT:{ J1.currentDirection = Personaje.NONE; break;}
                }
+               switch(e.getKeyChar()){
+                   case 'w':{F.currentDirection = Personaje.NONE; break;}
+                   case 'a':{F.currentDirection = Personaje.NONE; break;}
+                   case 's':{F.currentDirection = Personaje.NONE; break;}
+                   case 'd':{F.currentDirection = Personaje.NONE; break;}
+//                   case 'z':{F.currentDirection = Personaje break;}
+               }
             }
             
         });
@@ -85,9 +100,42 @@ public class Principal extends JFrame {
         String[] names = {"adelante","arriba","abajo","atras"};
         J1.loadPics(names);
         F.loadPics(names);
-        movPac = new Thread( J1.getMovieLoop(c, tablero),"Movimientos Pacman"); movPac.setPriority(Thread.MAX_PRIORITY);
+        movLoop = new Thread( () -> {
+            c.createBufferStrategy(2);
+            Graphics g = c.getBufferStrategy().getDrawGraphics();
+            long startTime = System.currentTimeMillis();
+            long currentTime = 0;
+            while(true){
+                try{
+                    
+                    tablero.paitTablero(g);
+                    
+                    currentTime = System.currentTimeMillis() - startTime;
+                    switch(J1.currentDirection){
+                        case Pacman.RIGTH:{ J1.moveRigth(tablero,currentTime); break;}
+                        case Pacman.DOWN:{  J1.moveDown (tablero,currentTime); break;}
+                        case Pacman.LEFT:{  J1.moveLeft (tablero,currentTime); break;}
+                        case Pacman.UP:{    J1.moveUp   (tablero,currentTime); break;}
+                    }
+                    J1.draw(g);
+                    switch(F.currentDirection){
+                            case Personaje.RIGTH:{ F.moveRigth(tablero,currentTime); break;}
+                            case Personaje.DOWN:{  F.moveDown (tablero,currentTime); break;}
+                            case Personaje.LEFT:{  F.moveLeft (tablero,currentTime); break;}
+                            case Personaje.UP:{    F.moveUp   (tablero,currentTime); break;}
+                    }
+                    F.draw(g);
+                    
+                    Thread.sleep(30);
+                    c.getBufferStrategy().show();
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        },"Movimientos"); 
+//        movLoop.setPriority(Thread.MAX_PRIORITY);
         //Sound sound = new Sound(J1,F);
-        movFant = new Thread(F.getMovieLoop(c, tablero));
+//        movFant = new Thread(F.getMovieLoop(c, tablero));
     }
     
     public static void main(String[] args) {
@@ -97,7 +145,7 @@ public class Principal extends JFrame {
             p.setResizable(false);
             p.setLocationRelativeTo(null);
             p.setVisible(true);
-            p.movPac.start(); p.movFant.start();
+            p.movLoop.start();
         }catch(Exception e){
             e.printStackTrace();
         }
