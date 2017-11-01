@@ -5,7 +5,6 @@
  */
 package pacman;
 
-import java.awt.Canvas;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
 
@@ -24,6 +23,7 @@ public abstract class Personaje {
     protected Animation[] animations;
     protected int x;
     protected int y;
+    protected Cuadrante cuadrante;
     protected int vx;
     protected int vy;
     protected String path;
@@ -57,8 +57,20 @@ public abstract class Personaje {
             }
         }
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setCuadrante(Cuadrante cuadrante) {
+        this.cuadrante = cuadrante;
+    }
     
-    public abstract Runnable getMovieLoop(Canvas c, Tablero tablero);
+//    public abstract Runnable getMovieLoop(Canvas c, Tablero tablero);
     
     private double getDistancia(int x, int y){
         return Math.sqrt(Math.pow(Math.abs(x - this.x),2) + Math.pow(Math.abs(y - this.y),2));
@@ -68,7 +80,7 @@ public abstract class Personaje {
         if (tablero.isCamino(x + vx, y)) {
             x += vx;
             currentAnimation = Personaje.RIGTH;
-            animations[Personaje.RIGTH].update(time);
+            animations[Personaje.RIGTH].update(time);//tablero.setCuadrante(this);
         }
     }
     
@@ -76,7 +88,7 @@ public abstract class Personaje {
         if (tablero.isCamino(x - vx, y)) {
             x -= vx;
             currentAnimation = Personaje.LEFT;
-            animations[Personaje.LEFT].update(time);
+            animations[Personaje.LEFT].update(time);//tablero.setCuadrante(this);
         }
     }
     
@@ -84,7 +96,7 @@ public abstract class Personaje {
         if (tablero.isCamino(x, y - vy)) {
             y -= vy;
             currentAnimation = Personaje.UP;
-            animations[Personaje.UP].update(time);
+            animations[Personaje.UP].update(time);//tablero.setCuadrante(this);
         }
     }
      
@@ -92,7 +104,7 @@ public abstract class Personaje {
         if (tablero.isCamino(x, y + vy)) {
             y += vy;
             currentAnimation = Personaje.DOWN;
-            animations[Personaje.DOWN].update(time);
+            animations[Personaje.DOWN].update(time);//tablero.setCuadrante(this);
         }
     }
      

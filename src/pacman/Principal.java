@@ -108,7 +108,7 @@ public class Principal extends JFrame {
             while(true){
                 try{
                     
-                    tablero.paitTablero(g);
+                    tablero.paintTablero(g);
                     
                     currentTime = System.currentTimeMillis() - startTime;
                     switch(J1.currentDirection){
@@ -119,10 +119,10 @@ public class Principal extends JFrame {
                     }
                     J1.draw(g);
                     switch(F.currentDirection){
-                            case Personaje.RIGTH:{ F.moveRigth(tablero,currentTime); break;}
-                            case Personaje.DOWN:{  F.moveDown (tablero,currentTime); break;}
-                            case Personaje.LEFT:{  F.moveLeft (tablero,currentTime); break;}
-                            case Personaje.UP:{    F.moveUp   (tablero,currentTime); break;}
+                        case Personaje.RIGTH:{ F.moveRigth(tablero,currentTime); break;}
+                        case Personaje.DOWN:{  F.moveDown (tablero,currentTime); break;}
+                        case Personaje.LEFT:{  F.moveLeft (tablero,currentTime); break;}
+                        case Personaje.UP:{    F.moveUp   (tablero,currentTime); break;}
                     }
                     F.draw(g);
                     

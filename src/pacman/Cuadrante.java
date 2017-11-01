@@ -9,12 +9,13 @@ import java.awt.Rectangle;
 
 /**
  *
- * @author Nicolás
+ * @author nicolasbuitrago
  */
 public class Cuadrante {
     
     private Rectangle rect;
     private boolean is;
+    private int name;
 
     public Cuadrante(int x, int y, int size, boolean is){
         this.rect = new Rectangle(x, y, size, size);  //if(rect.intersects(100, 120, 56,56)) System.out.println(y/100+","+x/100);
@@ -31,6 +32,14 @@ public class Cuadrante {
 
     public boolean isIs() {
         return is;
+    }
+
+    public int getName() {
+        return name;
+    }
+
+    public void setName(int name) {
+        this.name = name;
     }
     
     public boolean intersects(int x, int y){

@@ -18,7 +18,6 @@ public class Pacman extends Personaje{
         super(x, y, vx, vy, path);
     }
     
-    @Override
     public Runnable getMovieLoop(Canvas c, Tablero tablero){
         Pacman J1 = this;
         
@@ -33,7 +32,7 @@ public class Pacman extends Personaje{
                 while(true){
                     try{
                         
-                        tablero.paitTablero(g);
+                        tablero.paintTablero(g);
                         
                         currentTime = System.currentTimeMillis() - startTime;
                         switch(J1.currentDirection){
@@ -60,6 +59,7 @@ public class Pacman extends Personaje{
             if(x>Tablero.WIDTH) x = -50;
             currentAnimation = Personaje.RIGTH;
             animations[Personaje.RIGTH].update(time);
+            tablero.setCuadrante(this);
         }
     }
     
@@ -69,7 +69,7 @@ public class Pacman extends Personaje{
             x -= vx;
             if(x<-25) x = Tablero.WIDTH;
             currentAnimation = Personaje.LEFT;
-            animations[Personaje.LEFT].update(time);
+            animations[Personaje.LEFT].update(time);tablero.setCuadrante(this);
         }
     }
     
@@ -79,7 +79,7 @@ public class Pacman extends Personaje{
             y -= vy;
             if(y<-25) y = Tablero.HEIGHT;
             currentAnimation = Personaje.UP;
-            animations[Personaje.UP].update(time);
+            animations[Personaje.UP].update(time);tablero.setCuadrante(this);
         }
     }
      
@@ -89,7 +89,7 @@ public class Pacman extends Personaje{
             y += vy;
             if(y>Tablero.HEIGHT) y = -50;
             currentAnimation = Personaje.DOWN;
-            animations[Personaje.DOWN].update(time);
+            animations[Personaje.DOWN].update(time);tablero.setCuadrante(this);
         }
     }
     

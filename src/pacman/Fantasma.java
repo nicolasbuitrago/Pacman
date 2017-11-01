@@ -7,6 +7,7 @@ package pacman;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 /**
  *
@@ -18,22 +19,19 @@ public class Fantasma extends Personaje{
         super(x, y, vx, vy, path);
     }
     
-    @Override
-    public Runnable getMovieLoop(Canvas c, Tablero tablero){
+    public Runnable getMovieLoop(Pacman J, Tablero tablero){
         Fantasma F = this;
         
         return new Runnable() {
 
             @Override
             public void run() {
-                c.createBufferStrategy(2);
-                Graphics g = c.getBufferStrategy().getDrawGraphics();
                 long startTime = System.currentTimeMillis();
                 long currentTime = 0;
                 while(true){
                     try{
                         
-                        tablero.paitTablero(g);
+                        
                         
                         currentTime = System.currentTimeMillis() - startTime;
                         switch(F.currentDirection){
@@ -42,9 +40,7 @@ public class Fantasma extends Personaje{
                             case Personaje.LEFT:{  F.moveLeft (tablero,currentTime); break;}
                             case Personaje.UP:{    F.moveUp   (tablero,currentTime); break;}
                         }
-                        F.draw(g);
-//                        Thread.sleep(30);
-                        c.getBufferStrategy().show();
+                        Thread.sleep(2000);
                     }catch(Exception e){
                         e.printStackTrace();
                     }
@@ -53,7 +49,47 @@ public class Fantasma extends Personaje{
         };
     }
  
-    private class Camino{
-        
-    }
+//    private class Camino {
+//        
+//        private ArrayList<Cuadrante> ruta;
+//        private int distancia;
+//
+//        public Camino() {
+//            this.distancia = 0;
+//            this.ruta = new ArrayList();
+//        }
+//        
+//        
+//
+//        private Camino dijkstra(Cuadrante inicio, Cuadrante  fin, Tablero tablero) {
+//            int[][] distancia = new int[tablero.getM()][tablero.getN()];
+//            boolean[][] visto = new boolean[tablero.getM()][tablero.getN()];
+//            ArrayList<Camino> rutas = new ArrayList();
+//            for (int i = 0; i < tablero.getM(); i++) {
+//                for (int j = 0; j < tablero.getN(); j++) {
+//                    distancia[i][j] = Integer.MAX_VALUE;
+//                    visto[i][j] = false;
+//                }
+//            }
+//            distancia[ni.getName()] = 0;
+//            ArrayList<Nodo> cola = new ArrayList();  // cola de prioridad
+//            Ruta ruta = new Ruta();
+//            ruta.add(ni);
+//            cola.add(ni);
+//            rutas.add(ruta);
+//            while (!cola.isEmpty()) {
+//                Nodo nod = extraerPrimero(cola);
+//                int u = nod.getName();
+//                visto[nod.getName()] = true;
+//                for (int j = 0; j < nodos.size(); j++) {
+//                    if (adyacencia[u][j] == 1 && distancia[j] > distancia[u] + distancia(nod, nodos.get(j))) {
+//                        distancia[j] = distancia[u] + distancia(nod, nodos.get(j));
+//                        add(rutas, nod, nodos.get(j));
+//                        cola.add(nodos.get(j)); //  if(j==nf.getName()){ imprimirRuta(Ruta.rutaMasCorta(rutas,nf));System.out.println("+++++");}
+//                    }
+//                }
+//            }
+//            return Ruta.rutaMasCorta(rutas, nf);
+//        }
+//    }
 }

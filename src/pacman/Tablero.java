@@ -7,6 +7,9 @@ package pacman;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  *
@@ -15,6 +18,8 @@ import java.awt.Graphics;
 public class Tablero {
     
     private Cuadrante[][] tablero;
+    private ArrayList<Cuadrante> grafo;
+    private int[][] adyacencia;
     private int m,n;
     private final int TAM_CUADRANTE = 50;
     public static final int WIDTH = 1100;
@@ -22,15 +27,21 @@ public class Tablero {
 
     public Tablero(int[][] mundo, int m, int n) {
         this.tablero = new Cuadrante[m][n];
+        this.adyacencia = new int[grafo.size()][grafo.size()];inicializarAdyacencia();
+        this.grafo = new ArrayList();
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (mundo[i][j] == 1) {
                     tablero[i][j] = new Cuadrante(TAM_CUADRANTE * j, TAM_CUADRANTE * i, TAM_CUADRANTE, false);
                 } else {
-                    tablero[i][j] = new Cuadrante(TAM_CUADRANTE * j, TAM_CUADRANTE * i, TAM_CUADRANTE, true);
+                    Cuadrante c = new Cuadrante(TAM_CUADRANTE * j, TAM_CUADRANTE * i, TAM_CUADRANTE, true);
+                    c.setName(grafo.size());
+                    tablero[i][j] = c;
+                    grafo.add(c);
                 }
             }
         }
+        getAdyacencia();
         this.m = m;
         this.n = n;
     }
@@ -47,7 +58,7 @@ public class Tablero {
         return n;
     }
     
-    public void paitTablero(Graphics g){
+    public void paintTablero(Graphics g){
 //        g.setColor(Color.BLACK);
 //        g.fillRect(0,0, c.getWidth(), c.getHeight());                        
         for (int i = 0; i < this.m; i++) {
@@ -97,8 +108,123 @@ public class Tablero {
         return true;
     }
     
+    public void setCuadrante(Personaje J){
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                Cuadrante c = tablero[i][j];
+                if(c.intersects(J.getX(), J.getY())&& !c.isIs()){
+                    J.setCuadrante(c);
+                }
+            }
+        }
+    }
     
+    private void inicializarAdyacencia(){
+        for (int i = 0; i < grafo.size(); i++) {
+            for (int j = 0; j < grafo.size(); j++) {
+                adyacencia[i][j] = 0;
+            }
+        }
+    }
+    
+    private void getAdyacencia(int i, int j){
+        if(grafo.contains(tablero[i+1][j])){
+            adyacencia[tablero[i][j].getName()][tablero[i+1][j].getName()] = 1;
+        }
+        if(grafo.contains(tablero[i-1][j])){
+            adyacencia[tablero[i][j].getName()][tablero[i-1][j].getName()] = 1;
+        }
+        if(grafo.contains(tablero[i][j+1])){
+            adyacencia[tablero[i][j].getName()][tablero[i][j+1].getName()] = 1;
+        }
+        if(grafo.contains(tablero[i][j-1])){
+            adyacencia[tablero[i][j].getName()][tablero[i][j-1].getName()] = 1;
+        }
+    }
+    
+    private void getAdyacencia(){
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (tablero[i][j].isIs()){
+                    getAdyacencia(i,j);
+                }
+            }
+        }
+    }
 
+    private class Camino {
+        
+        private ArrayList<Cuadrante> ruta;
+        private int distancia;
+
+        public Camino() {
+            this.distancia = 0;
+            this.ruta = new ArrayList();
+        }
+        
+        void add(Cuadrante cuadrante){
+            ruta.add(cuadrante);
+            distancia++;
+        }
+
+        private Camino dijkstra(Cuadrante inicio, Cuadrante  fin, Tablero tablero) {
+            int[] distancia = new int[grafo.size()];
+            boolean[] visto = new boolean[grafo.size()];
+            ArrayList<Camino> caminos = new ArrayList();
+            for (Cuadrante cuadrante : grafo) {
+                int i = cuadrante.getName();
+                distancia[i] = Integer.MAX_VALUE;
+                visto[i++] = false;
+            }
+            distancia[inicio.getName()] = 0;Queue<Cuadrante> cola = new LinkedList();
+//            ArrayList<Cuadrante> cola = new ArrayList();  // cola de prioridad
+            Camino camino = new Camino();
+            camino.add(inicio);
+            cola.add(inicio);
+            caminos.add(camino);
+            while (!cola.isEmpty()) {
+//                Cuadrante nod = extraerPrimero(cola);
+                Cuadrante cuad = cola.poll();
+                int u = cuad.getName();
+                visto[cuad.getName()] = true;
+                for (int j = 0; j < grafo.size(); j++) {
+                    if (adyacencia[u][j] == 1 && distancia[j] > distancia[u] + 1) {
+                        distancia[j] = distancia[u] + 1;
+                        add(caminos, cuad, grafo.get(j));
+                        cola.add(grafo.get(j)); //  if(j==nf.getName()){ imprimirRuta(Ruta.rutaMasCorta(rutas,nf));System.out.println("+++++");}
+                    }
+                }
+            }
+            return Ruta.rutaMasCorta(caminos, nf);
+        }
+
+        private void add(ArrayList<Camino> caminos, Cuadrante cuad, Cuadrante get) {
+            
+        }
+        
+        private Cuadrante extraerPrimero(ArrayList<Cuadrante> n) {
+            Cuadrante nod = n.get(0);
+            n.remove(nod);
+            return nod;
+        }
+        
+        private Camino subRutaMasCorta(ArrayList<Camino> rutas, Nodo nod) {
+            Camino min = new Camino();
+            min.addDistancia(Integer.MAX_VALUE);
+            for (Camino ruta : rutas) {
+                Camino r = ruta.subRuta(nod);
+                if (ruta.contains(nod) && min.compareTo(r) > 0) {
+                    min = r;
+                    min.addDistancia(distancia(min));
+                }
+            }
+            return min;
+        }
+    }
+    
+    
+    
+    
 //    private Ruta dijkstra(Cuadrante ni,Cuadrante nf){
 //        int[] distancia = new int[nodos.size()];
 //        boolean[] visto = new boolean[nodos.size()];
