@@ -19,7 +19,7 @@ public class Fantasma extends Personaje{
     }
     
     public Runnable getMovieLoop(Canvas c, Tablero tablero){
-        Fantasma J1 = this;
+        Fantasma F = this;
         
         return new Runnable() {
 
@@ -35,14 +35,14 @@ public class Fantasma extends Personaje{
                         tablero.paitTablero(g);
                         
                         currentTime = System.currentTimeMillis() - startTime;
-                        switch(J1.currentDirection){
-                            case Personaje.RIGTH:{ J1.moveRigth(tablero,currentTime); break;}
-                            case Personaje.DOWN:{  J1.moveDown (tablero,currentTime); break;}
-                            case Personaje.LEFT:{  J1.moveLeft (tablero,currentTime); break;}
-                            case Personaje.UP:{    J1.moveUp   (tablero,currentTime); break;}
+                        switch(F.currentDirection){
+                            case Personaje.RIGTH:{ F.moveRigth(tablero,currentTime); break;}
+                            case Personaje.DOWN:{  F.moveDown (tablero,currentTime); break;}
+                            case Personaje.LEFT:{  F.moveLeft (tablero,currentTime); break;}
+                            case Personaje.UP:{    F.moveUp   (tablero,currentTime); break;}
                         }
-                        J1.draw(g);
-                        Thread.sleep(30);
+                        F.draw(g);
+//                        Thread.sleep(30);
                         c.getBufferStrategy().show();
                     }catch(Exception e){
                         e.printStackTrace();

@@ -16,7 +16,7 @@ import javax.swing.JFrame;
  */
 public class Principal extends JFrame {
 
-    public Thread movieLoop;
+    public Thread movPac, movFant;
     public Canvas c;
     public Personaje J1, F;
     public Tablero tablero;
@@ -64,8 +64,8 @@ public class Principal extends JFrame {
                    case KeyEvent.VK_DOWN :{ J1.currentDirection = Personaje.DOWN; break;}
                    case KeyEvent.VK_LEFT :{ J1.currentDirection = Personaje.LEFT; break;}
                    case KeyEvent.VK_RIGHT:{ J1.currentDirection = Personaje.RIGTH; break;}
-                   case KeyEvent.VK_A : { J1.currentStatus = Personaje.MUERTO; break;}
-                   case KeyEvent.VK_E : { J1.currentStatus = Personaje.COMIENDO; break;}
+                   case KeyEvent.VK_A : { F.currentStatus = Personaje.DOWN; break;}
+                   case KeyEvent.VK_E : { F.currentStatus = Personaje.UP; break;}
                }
             }
 
@@ -81,12 +81,13 @@ public class Principal extends JFrame {
             
         });
         J1 = new Pacman(100, 120, 9, 9, "/Pacman");//Los ultimos dos son velocidad
-        F = new Fantasma(100, 120, 9, 9, "/Fantasma");
+        F = new Fantasma(959, 120, 9, 9, "/Fantasma");
         String[] names = {"adelante","arriba","abajo","atras"};
         J1.loadPics(names);
-        movieLoop = new Thread( J1.getMovieLoop(c, tablero));
-        Sound sound = new Sound(J1,F);
-        
+        F.loadPics(names);
+        movPac = new Thread( J1.getMovieLoop(c, tablero),"Movimientos Pacman"); movPac.setPriority(Thread.MAX_PRIORITY);
+        //Sound sound = new Sound(J1,F);
+        movFant = new Thread(F.getMovieLoop(c, tablero));
     }
     
     public static void main(String[] args) {
@@ -96,7 +97,7 @@ public class Principal extends JFrame {
             p.setResizable(false);
             p.setLocationRelativeTo(null);
             p.setVisible(true);
-            p.movieLoop.start();
+            p.movPac.start(); p.movFant.start();
         }catch(Exception e){
             e.printStackTrace();
         }
