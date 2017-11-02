@@ -23,9 +23,9 @@ public class Tablero {
     private ArrayList<Cuadrante> grafo;
     private int[][] adyacencia;
     private int m,n;
-    private final int TAM_CUADRANTE = 45;
-    public static final int WIDTH = 1125;
-    public static final int HEIGHT = 675;
+    private final int TAM_CUADRANTE = 50;
+    public static final int WIDTH = 1100;
+    public static final int HEIGHT = 725;
 
     public Tablero(int[][] mundo, int m, int n) {
         this.tablero = new Cuadrante[m][n];
