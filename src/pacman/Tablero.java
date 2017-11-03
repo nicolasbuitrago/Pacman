@@ -116,7 +116,7 @@ public class Tablero {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 Cuadrante c = tablero[i][j];
-                if(c.intersects(J.getX(), J.getY())&& !c.isIs()){
+                if(c.intersects(J.getX(), J.getY())&& c.isIs()){
                     J.setCuadrante(c);
                 }
             }

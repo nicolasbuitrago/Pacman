@@ -135,7 +135,7 @@ public class Principal extends JFrame {
         },"Movimientos"); 
 //        movLoop.setPriority(Thread.MAX_PRIORITY);
         //Sound sound = new Sound(J1,F);
-        movFant = new Thread(((Fantasma)F).getMovieLoop((Pacman)J1, tablero));
+        movFant = new Thread(((Fantasma)F).getMovieLoop((Pacman)J1, tablero),"MovFant");
     }
     
     public static void main(String[] args) {
