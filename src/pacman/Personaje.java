@@ -70,6 +70,10 @@ public abstract class Personaje {
         this.cuadrante = cuadrante;
     }
     
+    public Cuadrante getCuadrante() {
+        return this.cuadrante;
+    }
+    
 //    public abstract Runnable getMovieLoop(Canvas c, Tablero tablero);
     
     private double getDistancia(int x, int y){

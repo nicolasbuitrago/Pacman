@@ -52,43 +52,43 @@ public class Sound implements Runnable {
         play(start,4500);
         start.close();
         
-//        while (true) {
-//            System.out.println("cs = "+this.pacman.currentStatus);
-//            if (cp != this.pacman.currentStatus) {
-//                switch (this.pacman.currentStatus) {
-//                    case Personaje.NORMAL: {
-//                        stop();
-//                        if(!isActive() && !chomp.isActive())loop(chomp);
-//                        this.cp = Personaje.NORMAL;
-//                        break;
-//                    }
-//                    case Personaje.MUERTO: {
-//                        stop(chomp);
-//                        play(death,1500);
-//                        this.cp = Personaje.MUERTO; close();
-//                        t.suspend();
-//                        break;
-//                    }
-//                    case Personaje.COMIENDO: {
-//                        stop(chomp);
-//                        play(eat,1000);
-//                        this.cp = Personaje.COMIENDO;
-//                        this.pacman.currentStatus = Personaje.NORMAL;
-//                        break;
-//                    }
-//                }
-//            }
-//
-//            if (cp != this.pacman.currentStatus) {
-//                switch (this.fantasma.currentStatus) {
-//                    case Personaje.MUERTO: {
-//                        
-//                        this.cf = Personaje.MUERTO;
-//                        break;
-//                    }
-//                }
-//            }
-//        }
+        while (true) {
+            System.out.println("cs = "+this.pacman.currentStatus);
+            if (cp != this.pacman.currentStatus) {
+                switch (this.pacman.currentStatus) {
+                    case Personaje.NORMAL: {
+                        stop();
+                        if(!isActive() && !chomp.isActive())loop(chomp);
+                        this.cp = Personaje.NORMAL;
+                        break;
+                    }
+                    case Personaje.MUERTO: {
+                        stop(chomp);
+                        play(death,1500);
+                        this.cp = Personaje.MUERTO; close();
+                        t.suspend();
+                        break;
+                    }
+                    case Personaje.COMIENDO: {
+                        stop(chomp);
+                        play(eat,1000);
+                        this.cp = Personaje.COMIENDO;
+                        this.pacman.currentStatus = Personaje.NORMAL;
+                        break;
+                    }
+                }
+            }
+
+            if (cp != this.pacman.currentStatus) {
+                switch (this.fantasma.currentStatus) {
+                    case Personaje.MUERTO: {
+                        
+                        this.cf = Personaje.MUERTO;
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     private Clip getClip(String fileName) {

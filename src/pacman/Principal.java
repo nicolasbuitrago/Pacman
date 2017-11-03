@@ -90,7 +90,7 @@ public class Principal extends JFrame {
                    case 'a':{F.currentDirection = Personaje.NONE; break;}
                    case 's':{F.currentDirection = Personaje.NONE; break;}
                    case 'd':{F.currentDirection = Personaje.NONE; break;}
-//                   case 'z':{F.currentDirection = Personaje break;}
+                   case 'z':{J1.currentStatus = Personaje.COMIENDO; break;}
                }
             }
             
@@ -134,8 +134,8 @@ public class Principal extends JFrame {
             }
         },"Movimientos"); 
 //        movLoop.setPriority(Thread.MAX_PRIORITY);
-        //Sound sound = new Sound(J1,F);
-//        movFant = new Thread(F.getMovieLoop(c, tablero));
+        Sound sound = new Sound(J1,F);
+       // movFant = new Thread(((Fantasma)F).getMovieLoop((Pacman)J1, tablero),"MovFant");
     }
     
     public static void main(String[] args) {
@@ -145,7 +145,7 @@ public class Principal extends JFrame {
             p.setResizable(false);
             p.setLocationRelativeTo(null);
             p.setVisible(true);
-            p.movLoop.start();
+            p.movLoop.start();p.movFant.start();
         }catch(Exception e){
             e.printStackTrace();
         }
