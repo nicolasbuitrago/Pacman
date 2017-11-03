@@ -11,6 +11,7 @@ import java.awt.List;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -252,16 +253,19 @@ public class Tablero {
             this.distancia = distancia;
         }
 
+
         private Camino(List sub) {
             this.ruta = new ArrayList();
             this.ruta.addAll((Collection<? extends Cuadrante>) sub);
             this.distancia = 0;
+
         }
         
         void add(Cuadrante cuadrante){
             ruta.add(cuadrante);
             distancia++;
         }
+
         
         boolean contains(Cuadrante cuadrante){
             return this.ruta.contains(cuadrante);
@@ -321,14 +325,17 @@ public class Tablero {
             for (int i = 0; i < this.ruta.size(); i++) {
                 if (!this.ruta.get(i).equals(other.ruta.get(i))) {
                     return false;
+
                 }
             }
             return true;
         }
 
+
         
         
         
+
     }
     
     
