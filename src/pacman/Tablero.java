@@ -7,9 +7,10 @@ package pacman;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.List;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
-import java.util.Objects;
 import java.util.Queue;
 
 /**
@@ -166,6 +167,12 @@ public class Tablero {
         public Camino(int distancia) {
             this.distancia = distancia;
         }
+
+        private Camino(List sub) {
+            this.ruta = new ArrayList();
+            this.ruta.addAll((Collection<? extends Cuadrante>) sub);
+            this.distancia = 0;
+        }
         
         void add(Cuadrante cuadrante){
             ruta.add(cuadrante);
@@ -209,18 +216,31 @@ public class Tablero {
                     }
                 }
             }
-            return Ruta.rutaMasCorta(caminos, nf);
+            return rutaMasCorta(caminos, fin);
+        }
+        
+        public Camino rutaMasCorta(ArrayList<Camino> caminos, Cuadrante cf) {
+            Camino min = new Camino(Integer.MAX_VALUE);
+            for (Camino camino : caminos) {
+                if (camino.compareTo(min) < 0 && camino.ruta.get(camino.ruta.size() - 1).equals(cf)) {
+                    min = camino;
+                }//else if(min.compareTo(ruta)==0) System.out.println("SON IGUALES LAS RUTAS =0");
+            }
+            return min;
         }
 
         private void add(ArrayList<Camino> caminos, Cuadrante cuad, Cuadrante cu) {
             Camino camino = subRutaMasCorta(caminos, cuad);
             camino.add(cu);
-            camino.addDistancia(distancia(cuad, cu));
+            camino.addDistancia(1);
             caminos.add(camino);
         }
         
         private Camino subCamino(Cuadrante cuad) {
-            
+            Camino camino;
+            List a = (List) this.ruta.subList(0, this.ruta.indexOf(cuad) + 1);
+            camino = new Camino(a);
+            return camino;
         }
         
         private void addDistancia(int distancia){
