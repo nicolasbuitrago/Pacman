@@ -5,9 +5,7 @@
  */
 package pacman;
 
-import java.awt.Canvas;
-import java.awt.Graphics;
-import java.util.ArrayList;
+import pacman.Tablero.Camino;
 
 /**
  *
@@ -27,20 +25,20 @@ public class Fantasma extends Personaje{
             @Override
             public void run() {
                 long startTime = System.currentTimeMillis();
-                long currentTime = 0;
+                long currentTime = 0; int Jcd = J.currentDirection;
                 while(true){
                     try{
-                        
-                        
-                        
+                        if(J.currentDirection != Jcd){tablero.setCuadrante(F);
+                        Camino camino = tablero.dijkstra(cuadrante, J.getCuadrante(), tablero);
+                        F.currentDirection = tablero.getDirection(camino.get(0), camino.get(1));
                         currentTime = System.currentTimeMillis() - startTime;
                         switch(F.currentDirection){
                             case Personaje.RIGTH:{ F.moveRigth(tablero,currentTime); break;}
                             case Personaje.DOWN:{  F.moveDown (tablero,currentTime); break;}
                             case Personaje.LEFT:{  F.moveLeft (tablero,currentTime); break;}
                             case Personaje.UP:{    F.moveUp   (tablero,currentTime); break;}
-                        }
-                        Thread.sleep(2000);
+                        }}
+                        Thread.sleep(5000);
                     }catch(Exception e){
                         e.printStackTrace();
                     }
