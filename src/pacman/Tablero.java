@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.Queue;
 
 /**
@@ -152,7 +153,7 @@ public class Tablero {
         }
     }
 
-    private class Camino {
+    private class Camino implements Comparable{
         
         private ArrayList<Cuadrante> ruta;
         private int distancia;
@@ -162,9 +163,22 @@ public class Tablero {
             this.ruta = new ArrayList();
         }
         
+        public Camino(int distancia) {
+            this.distancia = distancia;
+        }
+        
         void add(Cuadrante cuadrante){
             ruta.add(cuadrante);
             distancia++;
+        }
+        
+        boolean contains(Cuadrante cuadrante){
+            return this.ruta.contains(cuadrante);
+        }
+        
+        @Override
+        public int compareTo(Object o) {
+            return this.distancia - ((Camino) o).distancia; //Si this es mayor que o return es positivo >0
         }
 
         private Camino dijkstra(Cuadrante inicio, Cuadrante  fin, Tablero tablero) {
@@ -198,28 +212,74 @@ public class Tablero {
             return Ruta.rutaMasCorta(caminos, nf);
         }
 
-        private void add(ArrayList<Camino> caminos, Cuadrante cuad, Cuadrante get) {
+        private void add(ArrayList<Camino> caminos, Cuadrante cuad, Cuadrante cu) {
+            Camino camino = subRutaMasCorta(caminos, cuad);
+            camino.add(cu);
+            camino.addDistancia(distancia(cuad, cu));
+            caminos.add(camino);
+        }
+        
+        private Camino subCamino(Cuadrante cuad) {
             
         }
         
-        private Cuadrante extraerPrimero(ArrayList<Cuadrante> n) {
-            Cuadrante nod = n.get(0);
-            n.remove(nod);
-            return nod;
+        private void addDistancia(int distancia){
+            this.distancia += distancia;
         }
         
-        private Camino subRutaMasCorta(ArrayList<Camino> rutas, Nodo nod) {
-            Camino min = new Camino();
-            min.addDistancia(Integer.MAX_VALUE);
-            for (Camino ruta : rutas) {
-                Camino r = ruta.subRuta(nod);
-                if (ruta.contains(nod) && min.compareTo(r) > 0) {
-                    min = r;
-                    min.addDistancia(distancia(min));
+//        private Cuadrante extraerPrimero(ArrayList<Cuadrante> n) {
+//            Cuadrante nod = n.get(0);
+//            n.remove(nod);
+//            return nod;
+//        }
+        
+        private Camino subRutaMasCorta(ArrayList<Camino> rutas, Cuadrante cuad) {
+            Camino min = new Camino(Integer.MAX_VALUE);
+            for (Camino camino : rutas) {
+                Camino c = camino.subCamino(cuad);
+                if (camino.contains(cuad) && min.compareTo(c) > 0) {
+                    min = c;
+                    min.addDistancia(min.ruta.size());
                 }
             }
             return min;
         }
+
+        @Override
+        public int hashCode() {
+            int hash = 7;
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final Camino other = (Camino) obj;
+            if (this.distancia != other.distancia) {
+                return false;
+            }
+            if(this.ruta.size() != other.ruta.size()){
+                return false;
+            }
+            for (int i = 0; i < this.ruta.size(); i++) {
+                if (!this.ruta.get(i).equals(other.ruta.get(i))) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        
+        
+        
     }
     
     

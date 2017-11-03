@@ -6,6 +6,7 @@
 package pacman;
 
 import java.awt.Rectangle;
+import java.util.Objects;
 
 /**
  *
@@ -45,4 +46,35 @@ public class Cuadrante {
     public boolean intersects(int x, int y){
         return this.rect.intersects(x,y,56,56);
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 31 * hash + (this.is ? 1 : 0);
+        hash = 31 * hash + this.name;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Cuadrante other = (Cuadrante) obj;
+        if (this.is != other.is) {
+            return false;
+        }
+        if (this.name != other.name) {
+            return false;
+        }
+        return Objects.equals(this.rect, other.rect);
+    }
+    
+    
 }
