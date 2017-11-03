@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -162,6 +163,18 @@ public class Tablero {
             this.ruta = new ArrayList();
         }
         
+        public Camino(int distancia) {
+            this.distancia = distancia;
+        }
+
+        public int getDistancia() {
+            return distancia;
+        }
+        
+        boolean contains(Cuadrante cuadrante){
+            return this.ruta.contains(cuadrante);
+        }
+        
         void add(Cuadrante cuadrante){
             ruta.add(cuadrante);
             distancia++;
@@ -195,30 +208,36 @@ public class Tablero {
                     }
                 }
             }
-            return Ruta.rutaMasCorta(caminos, nf);
+            return Camino.rutaMasCorta(caminos, fin);
         }
 
         private void add(ArrayList<Camino> caminos, Cuadrante cuad, Cuadrante get) {
-            
+
         }
-        
-        private Cuadrante extraerPrimero(ArrayList<Cuadrante> n) {
-            Cuadrante nod = n.get(0);
-            n.remove(nod);
-            return nod;
-        }
-        
-        private Camino subRutaMasCorta(ArrayList<Camino> rutas, Nodo nod) {
-            Camino min = new Camino();
-            min.addDistancia(Integer.MAX_VALUE);
-            for (Camino ruta : rutas) {
-                Camino r = ruta.subRuta(nod);
-                if (ruta.contains(nod) && min.compareTo(r) > 0) {
+
+//        private Cuadrante extraerPrimero(ArrayList<Cuadrante> camino) {
+//            Cuadrante nod = camino.get(0);
+//            camino.remove(nod);
+//            return nod;
+//        }
+
+        private Camino subRutaMasCorta(ArrayList<Camino> rutas, Cuadrante cuad) {
+            Camino min = new Camino(Integer.MAX_VALUE);
+            for (Camino camino : rutas) {
+                Camino r = camino.subRuta(cuad);
+                if (camino.contains(cuad) && min.compareTo(r) > 0) {
                     min = r;
                     min.addDistancia(distancia(min));
                 }
             }
             return min;
+        }
+
+        private Camino subRuta(Cuadrante cuad) {
+            Camino ruta;
+            List a = this.ruta.subList(0, this.ruta.indexOf(nodo) + 1);
+            ruta = new Camino(a);
+            return ruta;
         }
     }
     
