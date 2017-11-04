@@ -132,7 +132,7 @@ public class Principal extends JFrame {
                         case Pacman.DOWN:{  J1.moveDown (tablero,currentTime); break;}
                         case Pacman.LEFT:{  J1.moveLeft (tablero,currentTime); break;}
                         case Pacman.UP:{    J1.moveUp   (tablero,currentTime); break;}
-                    } System.out.println("J1:  x = "+J1.x+",   y = "+J1.y);
+                    } //System.out.println("J1:  x = "+J1.x+",   y = "+J1.y);
                     J1.draw(g);
                     switch(F.currentDirection){
                         case Personaje.RIGTH:{ F.moveRigth(tablero,currentTime); break;}

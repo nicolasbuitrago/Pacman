@@ -251,13 +251,23 @@ public class Tablero {
     private void paintPuntos(Graphics g){
         g.setColor(Color.WHITE);
         for (Punto punto : puntos) {
-            g.fillOval(punto.getX(), punto.getY(), Punto.RADIO, Punto.RADIO);
+            g.fillOval(punto.getX(), punto.getY(), Punto.RADIO*2, Punto.RADIO*2);
         }
+    }
+
+    boolean validComePunto(int x, int y) {
+        for (Punto punto : puntos) {
+            if (punto.intersects(x, y)) {
+                this.puntos.remove(punto);
+                return true;
+            } 
+        }
+        return false;
     }
         
     private class Punto{
         int x, y;
-        static final int RADIO = 35;
+        static final int RADIO = 15;
 
         public Punto(int x, int y) {
             this.x = x;
@@ -270,6 +280,10 @@ public class Tablero {
 
         public int getY() {
             return y;
+        }
+        
+        boolean intersects(int x,int y){
+            return new javafx.scene.shape.Circle(this.x+RADIO,this.y+RADIO,RADIO).intersects(x, y, Personaje.RADIO, Personaje.RADIO);
         }
 
         @Override
