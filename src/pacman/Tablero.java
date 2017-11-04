@@ -7,7 +7,6 @@ package pacman;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.List;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -24,9 +23,9 @@ public class Tablero {
     private ArrayList<Cuadrante> grafo;
     private int[][] adyacencia;
     private int m,n;
-    private final int TAM_CUADRANTE = 50;
-    public static final int WIDTH = 1100;
-    public static final int HEIGHT = 725;
+    private final int TAM_CUADRANTE = 45;
+    public static final int WIDTH = 1125;
+    public static final int HEIGHT = 675;
 
     public Tablero(int[][] mundo, int m, int n) {
         this.tablero = new Cuadrante[m][n];
@@ -282,7 +281,7 @@ public class Tablero {
         
         private Camino subCamino(Cuadrante cuad) {
             Camino camino;
-            List a = (List) this.ruta.subList(0, this.ruta.indexOf(cuad) + 1);
+            List a = this.ruta.subList(0, this.ruta.indexOf(cuad) + 1);
             camino = new Camino(a);
             return camino;
         }

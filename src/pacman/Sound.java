@@ -58,8 +58,11 @@ public class Sound implements Runnable {
                 switch (this.pacman.currentStatus) {
                     case Personaje.NORMAL: {
                         stop();
+                        System.out.println("dddddddd");
                         if(!isActive() && !chomp.isActive())loop(chomp);
+                        System.out.println("wwwww");
                         this.cp = Personaje.NORMAL;
+                        System.out.println("ssss");
                         break;
                     }
                     case Personaje.MUERTO: {
@@ -71,7 +74,7 @@ public class Sound implements Runnable {
                     }
                     case Personaje.COMIENDO: {
                         stop(chomp);
-                        play(eat,1000);
+                       // play(eat,1000);
                         this.cp = Personaje.COMIENDO;
                         this.pacman.currentStatus = Personaje.NORMAL;
                         break;
