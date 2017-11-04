@@ -93,7 +93,7 @@ public class Principal extends JFrame {
                    case 'a':{F.currentDirection = Personaje.LEFT; break;}
                    case 's':{F.currentDirection = Personaje.DOWN;break;}
                    case 'd':{F.currentDirection = Personaje.RIGTH; break;}
-//                   case 'z':{F.currentDirection = Personaje break;}
+//                   case 'z':{J1.currentStatus = Personaje.MUERTO; break;}
                }
             }
 
@@ -120,10 +120,10 @@ public class Principal extends JFrame {
             c.createBufferStrategy(2);
             Graphics g = c.getBufferStrategy().getDrawGraphics();
             long startTime = System.currentTimeMillis();
-            long currentTime = 0;
+            long currentTime = 0;// boolean sw = true;
             while(true){
                 try{
-                    
+                        
                     tablero.paintTablero(g);
                     
                     currentTime = System.currentTimeMillis() - startTime;
@@ -144,10 +144,16 @@ public class Principal extends JFrame {
                     
                     Thread.sleep(30);
                     c.getBufferStrategy().show();
+                    
+                    if (tablero.isEmptyPuntos() || J1.currentStatus == Personaje.MUERTO) {
+                        tablero.paintTablero(g);J1.draw(g);F.draw(g);
+                        c.getBufferStrategy().show();
+                        break;
+                    }
                 }catch(Exception e){
                     e.printStackTrace();
                 }
-            }
+            }// System.out.println(tablero.isEmptyPuntos());
         },"Movimientos"); 
 //        movLoop.setPriority(Thread.MAX_PRIORITY);
 //        Sound sound = new Sound(J1,F);

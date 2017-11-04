@@ -78,7 +78,7 @@ public class Tablero {
                 }
             }
         }
-        paintPuntos(g);
+        if(!this.puntos.isEmpty()) paintPuntos(g);
     }
 
     public boolean isCamino(int x, int y) {
@@ -263,6 +263,10 @@ public class Tablero {
             } 
         }
         return false;
+    }
+    
+    public boolean isEmptyPuntos(){
+        return this.puntos.isEmpty();
     }
         
     private class Punto{
