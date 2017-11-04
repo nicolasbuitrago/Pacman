@@ -104,22 +104,23 @@ public class Pacman extends Personaje{
     private class Puntaje{
         private JLabel lblPuntaje;
         private int puntaje;
+        private final String PUNTAJE = "PUNTAJE: ";
 
         public Puntaje() {
-            this.lblPuntaje = new JLabel("Puntaje: 0");
-            this.lblPuntaje.setFont(new java.awt.Font("Tahoma", 0, 12));
+            this.lblPuntaje = new JLabel(PUNTAJE+"0");
+            this.lblPuntaje.setFont(new java.awt.Font("Tahoma", 1, 12));
             this.lblPuntaje.setBounds(15, 5, 200, 20);
             this.puntaje = 0;
         }
         
         public void addPunto(){
             this.puntaje++;
-            this.lblPuntaje.setText("Puntaje: "+this.puntaje);
+            this.lblPuntaje.setText(PUNTAJE+this.puntaje);
         }
         
         public void addPuntos(){
             this.puntaje += 10;
-            this.lblPuntaje.setText("Puntaje: "+this.puntaje);
+            this.lblPuntaje.setText(PUNTAJE+this.puntaje);
         }
         
     }

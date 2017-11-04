@@ -62,8 +62,8 @@ public class Principal extends JFrame {
         c = new Canvas();
         tablero = new Tablero(mundo, 15, 25);
         
-        J1 = new Pacman(523, 320, 9, 9, "/Pacman");//Los ultimos dos son velocidad
-        F = new Fantasma(406, 590, 9, 9, "/Fantasma");
+        J1 = new Pacman(523, 320, 8, 8, "/Pacman");//Los ultimos dos son velocidad
+        F = new Fantasma(406, 590, 8, 8, "/Fantasma");
         String[] names = {"adelante","arriba","abajo","atras"};
         J1.loadPics(names);
         F.loadPics(names);
@@ -132,7 +132,7 @@ public class Principal extends JFrame {
                         case Pacman.DOWN:{  J1.moveDown (tablero,currentTime); break;}
                         case Pacman.LEFT:{  J1.moveLeft (tablero,currentTime); break;}
                         case Pacman.UP:{    J1.moveUp   (tablero,currentTime); break;}
-                    }System.out.println("J1:  x = "+J1.x+",   y = "+J1.y);
+                    } System.out.println("J1:  x = "+J1.x+",   y = "+J1.y);
                     J1.draw(g);
                     switch(F.currentDirection){
                         case Personaje.RIGTH:{ F.moveRigth(tablero,currentTime); break;}

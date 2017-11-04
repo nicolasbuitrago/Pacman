@@ -8,6 +8,7 @@ package pacman;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class Tablero {
     
     private Cuadrante[][] tablero;
     private ArrayList<Cuadrante> grafo;
+    private ArrayList<Punto> puntos;
     private int[][] adyacencia;
     private int m,n;
     private final int TAM_CUADRANTE = 45;
@@ -29,7 +31,7 @@ public class Tablero {
 
     public Tablero(int[][] mundo, int m, int n) {
         this.tablero = new Cuadrante[m][n];
-        
+        this.puntos = getPuntos();
         this.grafo = new ArrayList();
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
@@ -76,6 +78,7 @@ public class Tablero {
                 }
             }
         }
+        paintPuntos(g);
     }
 
     public boolean isCamino(int x, int y) {
@@ -209,34 +212,97 @@ public class Tablero {
     }
     
     Camino rutaMasCorta(ArrayList<Camino> caminos, Cuadrante cf) {
-            Camino min = new Camino(Integer.MAX_VALUE);
-            for (Camino camino : caminos) {
-                if (camino.compareTo(min) < 0 && camino.ruta.get(camino.ruta.size() - 1).equals(cf)) {
-                    min = camino;
-                }//else if(min.compareTo(ruta)==0) System.out.println("SON IGUALES LAS RUTAS =0");
+        Camino min = new Camino(Integer.MAX_VALUE);
+        for (Camino camino : caminos) {
+            if (camino.compareTo(min) < 0 && camino.ruta.get(camino.ruta.size() - 1).equals(cf)) {
+                min = camino;
+            }//else if(min.compareTo(ruta)==0) System.out.println("SON IGUALES LAS RUTAS =0");
+        }
+        return min;
+    }
+
+    private void add(ArrayList<Camino> caminos, Cuadrante cuad, Cuadrante cu) {
+        Camino camino = subRutaMasCorta(caminos, cuad);
+        camino.add(cu);
+        camino.addDistancia(1);
+        caminos.add(camino);
+    }
+
+        
+    private Camino subRutaMasCorta(ArrayList<Camino> rutas, Cuadrante cuad) {
+        Camino min = new Camino(Integer.MAX_VALUE);
+        for (Camino camino : rutas) {
+            Camino c = camino.subCamino(cuad);
+            if (camino.contains(cuad) && min.compareTo(c) > 0) {
+                min = c;
+                min.addDistancia(min.ruta.size());
             }
-            return min;
+        }
+        return min;
+    }
+
+    private ArrayList<Punto> getPuntos() {
+        List<Punto> list = Arrays.asList(new Punto(595,48),new Punto(499,48),new Punto(51,140),new Punto(906,364),
+                new Punto(907,140),new Punto(683,408),new Punto(1040,590),new Punto(54,590),
+                new Punto(235,320),new Punto(411,504));
+        return new ArrayList(list);
+    }
+    
+    private void paintPuntos(Graphics g){
+        g.setColor(Color.WHITE);
+        for (Punto punto : puntos) {
+            g.fillOval(punto.getX(), punto.getY(), Punto.RADIO, Punto.RADIO);
+        }
+    }
+        
+    private class Punto{
+        int x, y;
+        static final int RADIO = 35;
+
+        public Punto(int x, int y) {
+            this.x = x;
+            this.y = y;
         }
 
-        private void add(ArrayList<Camino> caminos, Cuadrante cuad, Cuadrante cu) {
-            Camino camino = subRutaMasCorta(caminos, cuad);
-            camino.add(cu);
-            camino.addDistancia(1);
-            caminos.add(camino);
+        public int getX() {
+            return x;
         }
-        
-        
-        private Camino subRutaMasCorta(ArrayList<Camino> rutas, Cuadrante cuad) {
-            Camino min = new Camino(Integer.MAX_VALUE);
-            for (Camino camino : rutas) {
-                Camino c = camino.subCamino(cuad);
-                if (camino.contains(cuad) && min.compareTo(c) > 0) {
-                    min = c;
-                    min.addDistancia(min.ruta.size());
-                }
+
+        public int getY() {
+            return y;
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 7;
+            hash = 83 * hash + this.x;
+            hash = 83 * hash + this.y;
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
             }
-            return min;
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final Punto other = (Punto) obj;
+            if (this.x != other.x) {
+                return false;
+            }
+            if (this.y != other.y) {
+                return false;
+            }
+            return true;
         }
+        
+        
+    }
 
     class Camino implements Comparable{
         
