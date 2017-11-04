@@ -7,6 +7,7 @@ package pacman;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
+import javax.swing.JLabel;
 
 /**
  *
@@ -14,8 +15,15 @@ import java.awt.Graphics;
  */
 public class Pacman extends Personaje{
     
+    private Puntaje puntaje;
+    
     public Pacman (int x, int y, int vx, int vy, String path){
         super(x, y, vx, vy, path);
+        this.puntaje = new Puntaje();
+    }
+
+    public JLabel getPuntaje() {
+        return puntaje.lblPuntaje;
     }
     
     public Runnable getMovieLoop(Canvas c, Tablero tablero){
@@ -91,6 +99,29 @@ public class Pacman extends Personaje{
             currentAnimation = Personaje.DOWN;
             animations[Personaje.DOWN].update(time);tablero.setCuadrante(this);
         }
+    }
+    
+    private class Puntaje{
+        private JLabel lblPuntaje;
+        private int puntaje;
+
+        public Puntaje() {
+            this.lblPuntaje = new JLabel("Puntaje: 0");
+            this.lblPuntaje.setFont(new java.awt.Font("Tahoma", 0, 12));
+            this.lblPuntaje.setBounds(15, 5, 200, 20);
+            this.puntaje = 0;
+        }
+        
+        public void addPunto(){
+            this.puntaje++;
+            this.lblPuntaje.setText("Puntaje: "+this.puntaje);
+        }
+        
+        public void addPuntos(){
+            this.puntaje += 10;
+            this.lblPuntaje.setText("Puntaje: "+this.puntaje);
+        }
+        
     }
     
 }

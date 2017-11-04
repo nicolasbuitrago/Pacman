@@ -19,23 +19,10 @@ public class Principal extends JFrame {
 
     public Thread movLoop, movFant;
     public Canvas c;
-    public Personaje J1, F;
+    public Pacman J1;
+    public Fantasma F;
     public Tablero tablero;
     public int[][] mundo = {
-//            {1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1},
-//            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1},
-//            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1},
-//            {1,0,0,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,0,0,1},
-//            {1,1,1,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,1,0,0,1},
-//            {1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,1,0,0,1},
-//            {0,0,0,0,0,0,1,1,1,1,1,0,0,1,1,1,0,0,0,0,0,0},
-//            {0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0},
-//            {1,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1,1,1},
-//            {1,0,0,1,0,0,1,1,0,0,0,0,0,0,1,0,0,1,1,0,0,1},
-//            {1,0,0,1,0,0,1,1,0,0,0,0,0,0,1,0,0,0,1,0,0,1},
-//            {1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1},
-//            {1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1},
-//            {1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1}
         
             {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
             {1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -52,14 +39,39 @@ public class Principal extends JFrame {
             {1,0,1,1,1,0,1,0,1,0,1,1,1,0,1,0,1,0,1,1,1,1,1,0,1},
             {1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1},
             {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+            
+//            {1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1},
+//            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//            {1,0,1,1,1,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1,0,1,0,1},
+//            {1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,1},
+//            {1,1,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,0,1,0,1,0,1},
+//            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,1},
+//            {1,0,1,1,1,0,1,1,0,1,1,0,0,1,1,0,1,1,1,0,1,0,1,0,1},
+//            {0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
+//            {1,0,1,0,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1},
+//            {1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//            {1,0,1,0,1,0,1,0,1,1,1,0,1,0,1,1,1,1,1,1,1,0,1,0,1},
+//            {1,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,1},
+//            {1,0,1,1,1,0,1,0,1,0,1,1,1,0,1,0,1,0,1,1,1,1,1,0,1},
+//            {1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1},
+//            {1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1}
 
     };
     
     public Principal(int w, int h)throws Exception{
         c = new Canvas();
         tablero = new Tablero(mundo, 15, 25);
-        this.setSize(w, h);
+        
+        J1 = new Pacman(523, 320, 9, 9, "/Pacman");//Los ultimos dos son velocidad
+        F = new Fantasma(406, 590, 9, 9, "/Fantasma");
+        String[] names = {"adelante","arriba","abajo","atras"};
+        J1.loadPics(names);
+        F.loadPics(names);
+        this.setLayout(null);
+        this.setSize(w, h+60);
+        c.setLocation(0, 35);
         c.setSize(w, h);
+        this.add(J1.getPuntaje());
         this.add(c);
         this.addKeyListener(new KeyListener() {
 
@@ -75,8 +87,6 @@ public class Principal extends JFrame {
                    case KeyEvent.VK_DOWN :{ J1.currentDirection = Personaje.DOWN; break;}
                    case KeyEvent.VK_LEFT :{ J1.currentDirection = Personaje.LEFT; break;}
                    case KeyEvent.VK_RIGHT:{ J1.currentDirection = Personaje.RIGTH; break;}
-//                   case KeyEvent.VK_S : { F.currentStatus = Personaje.DOWN; break;}
-//                   case KeyEvent.VK_W : { F.currentStatus = Personaje.UP; break;}
                }
                switch(e.getKeyChar()){
                    case 'w':{F.currentDirection = Personaje.UP; break;}
@@ -100,16 +110,12 @@ public class Principal extends JFrame {
                    case 'a':{F.currentDirection = Personaje.NONE; break;}
                    case 's':{F.currentDirection = Personaje.NONE; break;}
                    case 'd':{F.currentDirection = Personaje.NONE; break;}
-                   case 'z':{J1.currentStatus = Personaje.COMIENDO; break;}
+//                   case 'z':{J1.currentStatus = Personaje.NONE; break;}
                }
             }
             
         });
-        J1 = new Pacman(100, 140, 9, 9, "/Pacman");//Los ultimos dos son velocidad
-        F = new Fantasma(950, 120, 9, 9, "/Fantasma");
-        String[] names = {"adelante","arriba","abajo","atras"};
-        J1.loadPics(names);
-        F.loadPics(names);
+        
         movLoop = new Thread( () -> {
             c.createBufferStrategy(2);
             Graphics g = c.getBufferStrategy().getDrawGraphics();
@@ -126,7 +132,7 @@ public class Principal extends JFrame {
                         case Pacman.DOWN:{  J1.moveDown (tablero,currentTime); break;}
                         case Pacman.LEFT:{  J1.moveLeft (tablero,currentTime); break;}
                         case Pacman.UP:{    J1.moveUp   (tablero,currentTime); break;}
-                    }
+                    }System.out.println("J1:  x = "+J1.x+",   y = "+J1.y);
                     J1.draw(g);
                     switch(F.currentDirection){
                         case Personaje.RIGTH:{ F.moveRigth(tablero,currentTime); break;}
