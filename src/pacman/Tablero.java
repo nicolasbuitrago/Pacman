@@ -7,12 +7,15 @@ package pacman;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
+import java.util.PriorityQueue;
 
 /**
  *
@@ -22,15 +25,17 @@ public class Tablero {
     
     private Cuadrante[][] tablero;
     private ArrayList<Cuadrante> grafo;
+    private ArrayList<Punto> puntos;
+    Map<Integer, ArrayList<Cuadrante>> adyacencias;
     private int[][] adyacencia;
     private int m,n;
-    private final int TAM_CUADRANTE = 50;
-    public static final int WIDTH = 1100;
-    public static final int HEIGHT = 725;
+    private final int TAM_CUADRANTE = 45;
+    public static final int WIDTH = 1125;
+    public static final int HEIGHT = 675;
 
     public Tablero(int[][] mundo, int m, int n) {
         this.tablero = new Cuadrante[m][n];
-        
+        this.puntos = getPuntos();
         this.grafo = new ArrayList();
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
@@ -44,11 +49,13 @@ public class Tablero {
                 }
             }
         }
-        this.adyacencia = new int[grafo.size()][grafo.size()];
-        inicializarAdyacencia();
-        getAdyacencia();
         this.m = m;
         this.n = n;
+        
+        this.adyacencia = new int[grafo.size()][grafo.size()];
+        inicializarAdyacencia(); adyacencias = new HashMap();
+        getAdyacencia(); 
+        getAdyacencias();
     }
     
     public Cuadrante[][] getTablero() {
@@ -77,6 +84,7 @@ public class Tablero {
                 }
             }
         }
+        if(!this.puntos.isEmpty()) paintPuntos(g);
     }
 
     public boolean isCamino(int x, int y) {
@@ -133,18 +141,22 @@ public class Tablero {
     }
     
     private void getAdyacencia(int i, int j){
-        if(grafo.contains(tablero[i+1][j])){
+        if(i<m-1){
+        if(i<m && grafo.contains(tablero[i+1][j])){
             adyacencia[tablero[i][j].getName()][tablero[i+1][j].getName()] = 1;
-        }
-        if(grafo.contains(tablero[i-1][j])){
+        }}
+        if(i>0){
+        if(i>0 && grafo.contains(tablero[i-1][j])){
             adyacencia[tablero[i][j].getName()][tablero[i-1][j].getName()] = 1;
-        }
-        if(grafo.contains(tablero[i][j+1])){
+        }}
+        if(j<n-1){
+        if(j<n-1 && grafo.contains(tablero[i][j+1])){
             adyacencia[tablero[i][j].getName()][tablero[i][j+1].getName()] = 1;
-        }
-        if(grafo.contains(tablero[i][j-1])){
+        }}
+        if(j>0){
+        if(j>0 && grafo.contains(tablero[i][j-1])){
             adyacencia[tablero[i][j].getName()][tablero[i][j-1].getName()] = 1;
-        }
+        }}
     }
     
     private void getAdyacencia(){
@@ -155,6 +167,56 @@ public class Tablero {
                 }
             }
         }
+    }
+    
+    private void getAdyacencias(){
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (tablero[i][j].isIs()){
+                    adyacencias.put(tablero[i][j].getName(), getAdyacencias(i, j));
+                }
+            }
+        }
+    }
+    
+    private ArrayList<Cuadrante> getAdyacencias(int i, int j){
+        ArrayList<Cuadrante> cuads = new ArrayList();
+        
+        if (i < m - 1) {
+            if (grafo.contains(tablero[i + 1][j])) {
+                cuads.add(tablero[i+1][j]);
+            }
+        }
+        if (i > 0) {
+            if (grafo.contains(tablero[i - 1][j])) {
+                cuads.add(tablero[i-1][j]);
+            }
+        }
+        if (j < n-1) {
+            if (grafo.contains(tablero[i][j + 1])) {
+                cuads.add(tablero[i][j+1]);
+            }
+        }
+        if (j > 0) {
+            if (grafo.contains(tablero[i][j - 1])) {
+                cuads.add(tablero[i][j-1]);
+            }
+        }
+        
+//        if(i<m && grafo.contains(tablero[i+1][j])){
+//            
+//        }
+//        if(i>0 && grafo.contains(tablero[i-1][j])){
+//            
+//        }
+//        if(j<n && grafo.contains(tablero[i][j+1])){
+//            cuads.add(tablero[i][j+1]);
+//        }
+//        if(j>0 && grafo.contains(tablero[i][j-1])){
+//            cuads.add(tablero[i][j-1]);
+//        }
+        
+        return cuads;
     }
     
     public int getDirection(Cuadrante inicio, Cuadrante fin){
@@ -179,6 +241,7 @@ public class Tablero {
     
     public Camino dijkstra(Cuadrante inicio, Cuadrante fin, Tablero tablero) {
         int[] distancia = new int[grafo.size()];
+//        Map<Integer, Integer> distancia = new HashMap();
         boolean[] visto = new boolean[grafo.size()];
         ArrayList<Camino> caminos = new ArrayList();
         for (Cuadrante cuadrante : grafo) {
@@ -187,57 +250,146 @@ public class Tablero {
             visto[i++] = false;
         }
         distancia[inicio.getName()] = 0;
+//        PriorityQueue<Cuadrante> cola = new PriorityQueue();
         Queue<Cuadrante> cola = new LinkedList();
-//            ArrayList<Cuadrante> cola = new ArrayList();  // cola de prioridad
+//        ArrayList<Cuadrante> cola = new ArrayList();  // cola de prioridad
         Camino camino = new Camino();
         camino.add(inicio);
         cola.add(inicio);
         caminos.add(camino);
         while (!cola.isEmpty()) {
-//                Cuadrante nod = extraerPrimero(cola);
             Cuadrante cuad = cola.poll();
             int u = cuad.getName();
             visto[cuad.getName()] = true;
-            for (int j = 0; j < grafo.size(); j++) {
-                if (adyacencia[u][j] == 1 && distancia[j] > distancia[u] + 1) {
-                    distancia[j] = distancia[u] + 1;
-                    add(caminos, cuad, grafo.get(j));
-                    cola.add(grafo.get(j)); //  if(j==nf.getName()){ imprimirRuta(Ruta.rutaMasCorta(rutas,nf));System.out.println("+++++");}
+            ArrayList<Cuadrante> cuads = adyacencias.get(u);
+            for (Cuadrante cuadrante : adyacencias.get(u)) {
+                if (distancia[cuadrante.getName()] > distancia[u] + 1) {
+                    distancia[cuadrante.getName()] = distancia[u] + 1;
+                    add(caminos, cuad, grafo.get(cuadrante.getName()));
+                    cola.add(grafo.get(cuadrante.getName())); //  if(j==nf.getName()){ imprimirRuta(Ruta.rutaMasCorta(rutas,nf));System.out.println("+++++");}
                 }
             }
+//            for (int j = 0; j < grafo.size(); j++) {
+//                if (adyacencia[u][j] == 1 && distancia[j] > distancia[u] + 1) {
+//                    distancia[j] = distancia[u] + 1;
+//                    add(caminos, cuad, grafo.get(j));
+//                    cola.add(grafo.get(j)); //  if(j==nf.getName()){ imprimirRuta(Ruta.rutaMasCorta(rutas,nf));System.out.println("+++++");}
+//                }
+//            }
         }
         return rutaMasCorta(caminos, fin);
     }
     
     Camino rutaMasCorta(ArrayList<Camino> caminos, Cuadrante cf) {
-            Camino min = new Camino(Integer.MAX_VALUE);
-            for (Camino camino : caminos) {
-                if (camino.compareTo(min) < 0 && camino.ruta.get(camino.ruta.size() - 1).equals(cf)) {
-                    min = camino;
-                }//else if(min.compareTo(ruta)==0) System.out.println("SON IGUALES LAS RUTAS =0");
+        Camino min = new Camino(Integer.MAX_VALUE);
+        for (Camino camino : caminos) {
+            if (camino.compareTo(min) < 0 && camino.ruta.get(camino.ruta.size() - 1).equals(cf)) {
+                min = camino;
+            }//else if(min.compareTo(ruta)==0) System.out.println("SON IGUALES LAS RUTAS =0");
+        }
+        return min;
+    }
+
+    private void add(ArrayList<Camino> caminos, Cuadrante cuad, Cuadrante cu) {
+        Camino camino = subRutaMasCorta(caminos, cuad);
+        camino.add(cu);
+        camino.addDistancia(1);
+        caminos.add(camino);
+    }
+
+        
+    private Camino subRutaMasCorta(ArrayList<Camino> rutas, Cuadrante cuad) {
+        Camino min = new Camino(Integer.MAX_VALUE);
+        for (Camino camino : rutas) {
+            Camino c = camino.subCamino(cuad);
+            if (camino.contains(cuad) && min.compareTo(c) > 0) {
+                min = c;
+                min.addDistancia(min.ruta.size());
             }
-            return min;
+        }
+        return min;
+    }
+
+    private ArrayList<Punto> getPuntos() {
+        List<Punto> list = Arrays.asList(new Punto(595,48),new Punto(499,48),new Punto(51,140),new Punto(906,364),
+                new Punto(907,140),new Punto(683,408),new Punto(1040,590),new Punto(54,590),
+                new Punto(235,320),new Punto(411,504));
+        return new ArrayList(list);
+    }
+    
+    private void paintPuntos(Graphics g){
+        g.setColor(Color.WHITE);
+        for (Punto punto : puntos) {
+            g.fillOval(punto.getX(), punto.getY(), Punto.RADIO*2, Punto.RADIO*2);
+        }
+    }
+
+    boolean validComePunto(int x, int y) {
+        for (Punto punto : puntos) {
+            if (punto.intersects(x, y)) {
+                this.puntos.remove(punto);
+                return true;
+            } 
+        }
+        return false;
+    }
+    
+    public boolean isEmptyPuntos(){
+        return this.puntos.isEmpty();
+    }
+        
+    private class Punto{
+        int x, y;
+        static final int RADIO = 15;
+
+        public Punto(int x, int y) {
+            this.x = x;
+            this.y = y;
         }
 
-        private void add(ArrayList<Camino> caminos, Cuadrante cuad, Cuadrante cu) {
-            Camino camino = subRutaMasCorta(caminos, cuad);
-            camino.add(cu);
-            camino.addDistancia(1);
-            caminos.add(camino);
+        public int getX() {
+            return x;
+        }
+
+        public int getY() {
+            return y;
         }
         
-        
-        private Camino subRutaMasCorta(ArrayList<Camino> rutas, Cuadrante cuad) {
-            Camino min = new Camino(Integer.MAX_VALUE);
-            for (Camino camino : rutas) {
-                Camino c = camino.subCamino(cuad);
-                if (camino.contains(cuad) && min.compareTo(c) > 0) {
-                    min = c;
-                    min.addDistancia(min.ruta.size());
-                }
+        boolean intersects(int x,int y){
+            return new javafx.scene.shape.Circle(this.x+RADIO,this.y+RADIO,RADIO).intersects(x, y, Personaje.RADIO, Personaje.RADIO);
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 7;
+            hash = 83 * hash + this.x;
+            hash = 83 * hash + this.y;
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
             }
-            return min;
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final Punto other = (Punto) obj;
+            if (this.x != other.x) {
+                return false;
+            }
+            if (this.y != other.y) {
+                return false;
+            }
+            return true;
         }
+        
+        
+    }
 
     class Camino implements Comparable{
         
@@ -282,7 +434,7 @@ public class Tablero {
         
         private Camino subCamino(Cuadrante cuad) {
             Camino camino;
-            List a = (List) this.ruta.subList(0, this.ruta.indexOf(cuad) + 1);
+            List a = this.ruta.subList(0, this.ruta.indexOf(cuad) + 1);
             camino = new Camino(a);
             return camino;
         }

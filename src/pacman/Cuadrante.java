@@ -44,7 +44,7 @@ public class Cuadrante {
     }
     
     public boolean intersects(int x, int y){
-        return this.rect.intersects(x,y,56,56);
+        return this.rect.intersects(x,y,Personaje.RADIO,Personaje.RADIO);
     }
 
     @Override

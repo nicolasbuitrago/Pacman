@@ -7,6 +7,7 @@ package pacman;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
+import javax.swing.JLabel;
 
 /**
  *
@@ -14,8 +15,15 @@ import java.awt.Graphics;
  */
 public class Pacman extends Personaje{
     
+    private Puntaje puntaje;
+    
     public Pacman (int x, int y, int vx, int vy, String path){
         super(x, y, vx, vy, path);
+        this.puntaje = new Puntaje();
+    }
+
+    public JLabel getPuntaje() {
+        return puntaje.lblPuntaje;
     }
     
     public Runnable getMovieLoop(Canvas c, Tablero tablero){
@@ -56,6 +64,7 @@ public class Pacman extends Personaje{
     public void moveRigth(Tablero tablero, long time){
         if (tablero.isCamino(x + vx, y)) {
             x += vx;
+            if(tablero.validComePunto(x,y)) this.puntaje.addPuntos();
             if(x>Tablero.WIDTH) x = -50;
             currentAnimation = Personaje.RIGTH;
             animations[Personaje.RIGTH].update(time);
@@ -67,9 +76,11 @@ public class Pacman extends Personaje{
     public void moveLeft(Tablero tablero, long time){
         if (tablero.isCamino(x - vx, y)) {
             x -= vx;
+            if(tablero.validComePunto(x,y)) this.puntaje.addPuntos();
             if(x<-25) x = Tablero.WIDTH;
             currentAnimation = Personaje.LEFT;
-            animations[Personaje.LEFT].update(time);tablero.setCuadrante(this);
+            animations[Personaje.LEFT].update(time);
+            tablero.setCuadrante(this);
         }
     }
     
@@ -77,9 +88,11 @@ public class Pacman extends Personaje{
     public void moveUp(Tablero tablero, long time) {
         if (tablero.isCamino(x, y - vy)) {
             y -= vy;
+            if(tablero.validComePunto(x,y)) this.puntaje.addPuntos();
             if(y<-25) y = Tablero.HEIGHT;
             currentAnimation = Personaje.UP;
-            animations[Personaje.UP].update(time);tablero.setCuadrante(this);
+            animations[Personaje.UP].update(time);
+            tablero.setCuadrante(this);
         }
     }
      
@@ -87,10 +100,36 @@ public class Pacman extends Personaje{
     public void moveDown(Tablero tablero, long time) {
         if (tablero.isCamino(x, y + vy)) {
             y += vy;
+            if(tablero.validComePunto(x,y)) this.puntaje.addPuntos();
             if(y>Tablero.HEIGHT) y = -50;
             currentAnimation = Personaje.DOWN;
-            animations[Personaje.DOWN].update(time);tablero.setCuadrante(this);
+            animations[Personaje.DOWN].update(time);
+            tablero.setCuadrante(this);
         }
+    }
+    
+    private class Puntaje{
+        private JLabel lblPuntaje;
+        private int puntaje;
+        private final String PUNTAJE = "PUNTAJE: ";
+
+        public Puntaje() {
+            this.lblPuntaje = new JLabel(PUNTAJE+"0");
+            this.lblPuntaje.setFont(new java.awt.Font("Tahoma", 1, 12));
+            this.lblPuntaje.setBounds(15, 5, 200, 20);
+            this.puntaje = 0;
+        }
+        
+        public void addPunto(){
+            this.puntaje++;
+            this.lblPuntaje.setText(PUNTAJE+this.puntaje);
+        }
+        
+        public void addPuntos(){
+            this.puntaje += 10;
+            this.lblPuntaje.setText(PUNTAJE+this.puntaje);
+        }
+        
     }
     
 }
