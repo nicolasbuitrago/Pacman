@@ -5,6 +5,7 @@
  */
 package pacman;
 
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import java.util.PriorityQueue;
 public class Tablero {
     
     private Cuadrante[][] tablero;
+    private Canvas canvas;
     private ArrayList<Cuadrante> grafo;
     private ArrayList<Punto> puntos;
     Map<Integer, ArrayList<Cuadrante>> adyacencias;
@@ -33,8 +35,9 @@ public class Tablero {
     public static final int WIDTH = 1125;
     public static final int HEIGHT = 675;
 
-    public Tablero(int[][] mundo, int m, int n) {
+    public Tablero(Canvas canvas, int[][] mundo, int m, int n) {
         this.tablero = new Cuadrante[m][n];
+        this.canvas = canvas;
         this.puntos = getPuntos();
         this.grafo = new ArrayList();
         for (int i = 0; i < m; i++) {
@@ -337,6 +340,14 @@ public class Tablero {
     public boolean isEmptyPuntos(){
         return this.puntos.isEmpty();
     }
+
+    void paintCamino(Camino camino) {
+        Graphics g = canvas.getGraphics();
+        g.setColor(Color.red);
+        for (Cuadrante cuadrante : camino.ruta) {
+            g.fillRect(cuadrante.getX(), cuadrante.getY(), TAM_CUADRANTE, TAM_CUADRANTE);
+        }
+    }
         
     private class Punto{
         int x, y;
@@ -408,7 +419,7 @@ public class Tablero {
 
         private Camino(List sub) {
             this.ruta = new ArrayList();
-            this.ruta.addAll((Collection<? extends Cuadrante>) sub);
+            this.ruta.addAll(sub);
             this.distancia = 0;
 
         }
