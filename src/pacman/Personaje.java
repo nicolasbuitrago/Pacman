@@ -20,7 +20,7 @@ public abstract class Personaje {
     public static final int LEFT = 3;
     public static final int NONE = -1;
     
-    public static final int RADIO = 35;
+    public static final int DIAMETRO = 35;
     
     protected Animation[] animations;
     protected int x;

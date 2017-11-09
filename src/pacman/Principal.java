@@ -61,7 +61,7 @@ public class Principal extends JFrame {
     public Principal(int w, int h)throws Exception{
         c = new Canvas();
         J1 = new Pacman(523, 320, 8, 8, "/Pacman");//Los ultimos dos son velocidad
-        F = new Fantasma(406, 590, 1, 1, "/Fantasma");
+        F = new Fantasma(406, 590, 6, 6, "/Fantasma");
         String[] names = {"adelante","arriba","abajo","atras"};
         J1.loadPics(names);
         F.loadPics(names);

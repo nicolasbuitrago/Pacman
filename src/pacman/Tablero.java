@@ -31,8 +31,9 @@ public class Tablero {
     private Map<Integer, ArrayList<Cuadrante>> adyacencias;
     private int[][] adyacencia;
     private int m,n;
-    private final int TAM_CUADRANTE = 45;
-    public static final int WIDTH = 1125 , HEIGHT = 675;
+    public static final int WIDTH = 1125 ,
+            HEIGHT = 675,
+            TAM_CUADRANTE = 45;
 
     public Tablero(Canvas canvas,Pacman p, Fantasma f, int[][] mundo, int m, int n) {
         this.tablero = new Cuadrante[m][n];
@@ -377,7 +378,7 @@ public class Tablero {
     }
 
     boolean isComePacman() {
-        return new Rectangle(pacman.getX(),pacman.getY(),Personaje.RADIO,Personaje.RADIO).intersects(fantasma.getX(), fantasma.getY(), Personaje.RADIO, Personaje.RADIO);
+        return new Rectangle(pacman.getX(),pacman.getY(),Personaje.DIAMETRO,Personaje.DIAMETRO).intersects(fantasma.getX(), fantasma.getY(), Personaje.DIAMETRO, Personaje.DIAMETRO);
 //        return pacman.getCuadrante().equals(fantasma.getCuadrante());
     }
         
@@ -399,7 +400,7 @@ public class Tablero {
         }
         
         boolean intersects(int x,int y){
-            return new javafx.scene.shape.Circle(this.x+RADIO,this.y+RADIO,RADIO).intersects(x, y, Personaje.RADIO, Personaje.RADIO);
+            return new javafx.scene.shape.Circle(this.x+RADIO,this.y+RADIO,RADIO).intersects(x, y, Personaje.DIAMETRO, Personaje.DIAMETRO);
         }
 
         @Override

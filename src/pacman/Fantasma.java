@@ -25,7 +25,7 @@ public class Fantasma extends Personaje{
             @Override
             public void run() {
                 long startTime = System.currentTimeMillis();
-                long currentTime = 0; int Jcd = J.currentDirection;
+                long currentTime = 0; int Jcd = J.currentDirection; int ant = F.currentDirection;
                 while(true){
                     try{
                         if (J.currentDirection != Jcd) {
@@ -35,7 +35,10 @@ public class Fantasma extends Personaje{
                             if (camino.getDistancia() != Integer.MAX_VALUE) {
                                 F.currentDirection = tablero.getDirection(camino.get(0), camino.get(1));
                             }
-
+                            if (F.currentDirection != ant) {
+                                ant = F.currentDirection;
+                                F.moveToCenterCuarante(tablero);
+                            }
                             System.out.println("FD = " + F.currentDirection);
 
                             currentTime = System.currentTimeMillis() - startTime;
@@ -75,7 +78,7 @@ public class Fantasma extends Personaje{
             x += vx;
             if(tablero.isComePacman()) tablero.getPacman().currentStatus = Personaje.MUERTO;
             currentAnimation = Personaje.RIGTH;
-            animations[Personaje.RIGTH].update(time);//tablero.setCuadrante(this);
+            animations[Personaje.RIGTH].update(time); //tablero.setCuadrante(this);
         }
     }
     
@@ -85,7 +88,7 @@ public class Fantasma extends Personaje{
             x -= vx;
             if(tablero.isComePacman()) tablero.getPacman().currentStatus = Personaje.MUERTO;
             currentAnimation = Personaje.LEFT;
-            animations[Personaje.LEFT].update(time);//tablero.setCuadrante(this);
+            animations[Personaje.LEFT].update(time); //tablero.setCuadrante(this);
         }
     }
     
@@ -107,6 +110,12 @@ public class Fantasma extends Personaje{
             currentAnimation = Personaje.DOWN;
             animations[Personaje.DOWN].update(time);//tablero.setCuadrante(this);
         }
+    }
+
+    private void moveToCenterCuarante(Tablero tablero) {
+        tablero.setCuadrante(this); 
+        this.x = cuadrante.getX()+Tablero.TAM_CUADRANTE/2-Personaje.DIAMETRO/2;
+        this.y = cuadrante.getY()+Tablero.TAM_CUADRANTE/2-Personaje.DIAMETRO/2;
     }
  
 }
