@@ -10,13 +10,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
-import java.util.PriorityQueue;
+import java.awt.Rectangle;
 
 /**
  *
@@ -375,6 +374,11 @@ public class Tablero {
 //        for (Cuadrante cuadrante : camino.ruta) {
 //            g.fillRect(cuadrante.getX(), cuadrante.getY(), TAM_CUADRANTE, TAM_CUADRANTE);
 //        }
+    }
+
+    boolean isComePacman() {
+        return new Rectangle(pacman.getX(),pacman.getY(),Personaje.RADIO,Personaje.RADIO).intersects(fantasma.getX(), fantasma.getY(), Personaje.RADIO, Personaje.RADIO);
+//        return pacman.getCuadrante().equals(fantasma.getCuadrante());
     }
         
     private class Punto{

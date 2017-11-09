@@ -60,13 +60,13 @@ public class Principal extends JFrame {
     
     public Principal(int w, int h)throws Exception{
         c = new Canvas();
-        tablero = new Tablero(c,J1,F,mundo, 15, 25);
-        
         J1 = new Pacman(523, 320, 8, 8, "/Pacman");//Los ultimos dos son velocidad
         F = new Fantasma(406, 590, 7, 7, "/Fantasma");
         String[] names = {"adelante","arriba","abajo","atras"};
         J1.loadPics(names);
         F.loadPics(names);
+        tablero = new Tablero(c,J1,F,mundo, 15, 25);
+        
         this.setLayout(null);
         this.setSize(w, h+60);
         c.setLocation(0, 35);
@@ -162,7 +162,7 @@ public class Principal extends JFrame {
         },"Movimientos"); 
 //        movLoop.setPriority(Thread.MAX_PRIORITY);
        Sound sound = new Sound(J1,F);
-        movFant = new Thread(((Fantasma)F).getMovieLoop((Pacman)J1, tablero),"MovFant");
+        movFant = new Thread(((Fantasma)F).getMovieLoop(tablero),"MovFant");
     }
     
     public static void main(String[] args) {
