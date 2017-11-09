@@ -28,7 +28,7 @@ public class Fantasma extends Personaje{
                 long currentTime = 0; int Jcd = J.currentDirection; int ant = F.currentDirection;
                 while(true){
                     try{
-                        if (J.currentDirection != Jcd) {
+                        if(J.currentDirection != Personaje.NONE){//if (J.currentDirection != Jcd) {
                             tablero.setCuadrante(F);
                             Camino camino = tablero.dijkstra(cuadrante, J.getCuadrante(), tablero);
                             tablero.paintCamino(camino, cuadrante);
