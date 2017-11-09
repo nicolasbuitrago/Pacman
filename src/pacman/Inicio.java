@@ -55,6 +55,7 @@ public class Inicio extends javax.swing.JFrame {
         lblEmepzar.setForeground(new java.awt.Color(255, 255, 255));
         lblEmepzar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblEmepzar.setText("Empezar");
+        lblEmepzar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         lblEmepzar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblEmepzarMouseClicked(evt);
@@ -65,6 +66,7 @@ public class Inicio extends javax.swing.JFrame {
         lblSalir.setForeground(new java.awt.Color(255, 255, 255));
         lblSalir.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblSalir.setText("Salir");
+        lblSalir.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         lblSalir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblSalirMouseClicked(evt);
@@ -89,13 +91,13 @@ public class Inicio extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(114, Short.MAX_VALUE)
+                .addContainerGap(110, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(85, 85, 85)
-                .addComponent(lblEmepzar)
-                .addGap(46, 46, 46)
-                .addComponent(lblSalir)
-                .addGap(48, 48, 48))
+                .addComponent(lblEmepzar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addComponent(lblSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
