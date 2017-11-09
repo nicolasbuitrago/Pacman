@@ -7,7 +7,9 @@ package pacman;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import static pacman.Personaje.MUERTO;
 
 /**
  *
@@ -24,6 +26,15 @@ public class Pacman extends Personaje{
 
     public JLabel getPuntaje() {
         return puntaje.lblPuntaje;
+    }
+    
+    @Override
+    public void loadPics(String[] names)throws Exception{
+        super.loadPics(names);
+        for (int i = 1; i <= 11; i++) {
+            animations[MUERTO]=new Animation();
+            animations[MUERTO].addScene(new ImageIcon(getClass().getResource("/Sprites"+path+"//muerte"+i+".png")).getImage()    , 5000);
+        }
     }
     
     public Runnable getMovieLoop(Canvas c, Tablero tablero){
@@ -106,6 +117,11 @@ public class Pacman extends Personaje{
             animations[Personaje.DOWN].update(time);
             tablero.setCuadrante(this);
         }
+    }
+    
+    public void muerte(long time){
+        currentAnimation = Personaje.MUERTO;
+        animations[Personaje.MUERTO].update(time);
     }
     
     private class Puntaje{

@@ -41,7 +41,8 @@ public class Sound implements Runnable {
         this.fantasma = fantasma;
         this.cf = -1;
 
-        t = new Thread(this);
+        t = new Thread(this,"Sonidos");
+        t.setPriority(6);
         t.start();
         // play, stop, loop the sound clip
     }
@@ -59,17 +60,17 @@ public class Sound implements Runnable {
                     switch (this.pacman.currentStatus) {
                         case Personaje.NORMAL: {
                             stop();
-                            System.out.println("dddddddd");
+//                            System.out.println("dddddddd");
                             if (!isActive() && !chomp.isActive()) {
                                 loop(chomp);
                             }
-                            System.out.println("wwwww");
+//                            System.out.println("wwwww");
                             this.cp = Personaje.NORMAL;
-                            System.out.println("ssss");
+//                            System.out.println("ssss");
                             break;
                         }
                         case Personaje.MUERTO: {
-                            stop(chomp);
+                            chomp.stop();
                             play(death, 1500);
                             this.cp = Personaje.MUERTO;
                             close();

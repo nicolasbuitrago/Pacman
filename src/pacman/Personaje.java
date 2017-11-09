@@ -34,7 +34,7 @@ public abstract class Personaje {
     protected int currentStatus;
     
     public static final int NORMAL = 0;
-    public static final int MUERTO = 1;
+    public static final int MUERTO = 4;
     public static final int COMIENDO = 2;
     
     public Personaje (int x, int y, int vx, int vy, String path){
@@ -45,12 +45,17 @@ public abstract class Personaje {
         this.vy = vy;
         this.currentDirection = NONE;
         this.currentStatus = NORMAL;
-        this.animations = new Animation[4];
+        this.animations = new Animation[5];
     }
     
+    /**
+     * Se encarga de cargar los sprites del personaje dada su ubicacion
+     * @param names
+     * @throws Exception 
+     */
     public void loadPics(String[] names)throws Exception{
         for (int j=0;j<4;j++) {
-            String name=names[j];
+            String name = names[j];
             animations[j]=new Animation();
             for (int i = 1; i <= 2; i++) {
                 //System.out.println("/Sprites"+path+"//"+name+i+".png");
@@ -78,41 +83,17 @@ public abstract class Personaje {
     
 //    public abstract Runnable getMovieLoop(Canvas c, Tablero tablero);
     
-    private double getDistancia(int x, int y){
-        return Math.sqrt(Math.pow(Math.abs(x - this.x),2) + Math.pow(Math.abs(y - this.y),2));
-    }   
+//    private double getDistancia(int x, int y){
+//        return Math.sqrt(Math.pow(Math.abs(x - this.x),2) + Math.pow(Math.abs(y - this.y),2));
+//    }   
     
-    public void moveRigth(Tablero tablero, long time){
-        if (tablero.isCamino(x + vx, y)) {
-            x += vx;
-            currentAnimation = Personaje.RIGTH;
-            animations[Personaje.RIGTH].update(time);//tablero.setCuadrante(this);
-        }
-    }
+    public abstract void moveRigth(Tablero tablero, long time);
     
-    public void moveLeft(Tablero tablero, long time){
-        if (tablero.isCamino(x - vx, y)) {
-            x -= vx;
-            currentAnimation = Personaje.LEFT;
-            animations[Personaje.LEFT].update(time);//tablero.setCuadrante(this);
-        }
-    }
+    public abstract void moveLeft(Tablero tablero, long time);
     
-    public void moveUp(Tablero tablero, long time) {
-        if (tablero.isCamino(x, y - vy)) {
-            y -= vy;
-            currentAnimation = Personaje.UP;
-            animations[Personaje.UP].update(time);//tablero.setCuadrante(this);
-        }
-    }
+    public abstract void moveUp(Tablero tablero, long time);
      
-    public void moveDown(Tablero tablero, long time) {
-        if (tablero.isCamino(x, y + vy)) {
-            y += vy;
-            currentAnimation = Personaje.DOWN;
-            animations[Personaje.DOWN].update(time);//tablero.setCuadrante(this);
-        }
-    }
+    public abstract void moveDown(Tablero tablero, long time);
      
     public void draw(Graphics g) {
         g.drawImage(animations[currentAnimation].getImage(), x, y, null);

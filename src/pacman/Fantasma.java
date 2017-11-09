@@ -52,5 +52,41 @@ public class Fantasma extends Personaje{
             }
         };
     }
+    
+    @Override
+    public void moveRigth(Tablero tablero, long time){
+        if (tablero.isCamino(x + vx, y)) {
+            x += vx;
+            currentAnimation = Personaje.RIGTH;
+            animations[Personaje.RIGTH].update(time);//tablero.setCuadrante(this);
+        }
+    }
+    
+    @Override
+    public void moveLeft(Tablero tablero, long time){
+        if (tablero.isCamino(x - vx, y)) {
+            x -= vx;
+            currentAnimation = Personaje.LEFT;
+            animations[Personaje.LEFT].update(time);//tablero.setCuadrante(this);
+        }
+    }
+    
+    @Override
+    public void moveUp(Tablero tablero, long time) {
+        if (tablero.isCamino(x, y - vy)) {
+            y -= vy;
+            currentAnimation = Personaje.UP;
+            animations[Personaje.UP].update(time);//tablero.setCuadrante(this);
+        }
+    }
+     
+    @Override
+    public void moveDown(Tablero tablero, long time) {
+        if (tablero.isCamino(x, y + vy)) {
+            y += vy;
+            currentAnimation = Personaje.DOWN;
+            animations[Personaje.DOWN].update(time);//tablero.setCuadrante(this);
+        }
+    }
  
 }
