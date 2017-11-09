@@ -93,7 +93,7 @@ public class Principal extends JFrame {
                    case 'a':{F.currentDirection = Personaje.LEFT; break;}
                    case 's':{F.currentDirection = Personaje.DOWN;break;}
                    case 'd':{F.currentDirection = Personaje.RIGTH; break;}
-                   case 'm':{J1.currentStatus = Personaje.MUERTO; break;}
+//                   case 'm':{J1.currentStatus = Personaje.MUERTO; break;}
 //                   case 'z':{J1.currentStatus = Personaje.COMIENDO; break;}
                }
             }
@@ -147,8 +147,8 @@ public class Principal extends JFrame {
                     c.getBufferStrategy().show();
                     
                     if (tablero.isEmptyPuntos() || J1.currentStatus == Personaje.MUERTO) {
+                        tablero.paintTablero(g);
                         if (J1.currentStatus == Personaje.MUERTO) {
-                            tablero.paintTablero(g);
                             J1.muerte(currentTime);
                         }
                         J1.draw(g);
