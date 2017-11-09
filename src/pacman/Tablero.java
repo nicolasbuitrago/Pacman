@@ -223,22 +223,32 @@ public class Tablero {
     }
     
     public int getDirection(Cuadrante inicio, Cuadrante fin){
-        int d;
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if(tablero[i][j].equals(inicio)){
-                    if(tablero[i+1][j].equals(fin)){
-                        return Personaje.RIGTH;
-                    }else if(tablero[i-1][j].equals(fin)){
-                        return Personaje.LEFT;
-                    }else if(tablero[i][j+1].equals(fin)){
-                        return Personaje.DOWN;
-                    }else if(tablero[i][j-1].equals(fin)){
-                        return Personaje.UP;
-                    }else{System.out.println("ERROR en getDirection Tablero");}
-                }
-            }
-        }
+//        int d;
+//        for (int i = 0; i < m; i++) {
+//            for (int j = 0; j < n; j++) {
+//                if(tablero[i][j].equals(inicio)){
+//                    if(tablero[i+1][j].equals(fin)){
+//                        return Personaje.RIGTH;
+//                    }else if(tablero[i-1][j].equals(fin)){
+//                        return Personaje.LEFT;
+//                    }else if(tablero[i][j+1].equals(fin)){
+//                        return Personaje.DOWN;
+//                    }else if(tablero[i][j-1].equals(fin)){
+//                        return Personaje.UP;
+//                    }else{System.out.println("ERROR en getDirection Tablero");}
+//                }
+//            }
+//        }
+
+        if(fin.getX() > inicio.getX()){
+            return Personaje.RIGTH;
+        }else if(fin.getX() < inicio.getX()){
+            return Personaje.LEFT;
+        }else if(fin.getY() > inicio.getY()){
+            return Personaje.DOWN;
+        }else if(fin.getY() < inicio.getY()){
+            return Personaje.UP;
+        }else{System.out.println("**********ERROR en getDirection Tablero********************");}
         return 9;
     }
     
@@ -289,7 +299,7 @@ public class Tablero {
             if (camino.compareTo(min) < 0 && camino.ruta.get(camino.ruta.size() - 1).equals(cf)) {
                 min = camino;
             }//else if(min.compareTo(ruta)==0) System.out.println("SON IGUALES LAS RUTAS =0");
-        }
+        }if(min.distancia == Integer.MAX_VALUE)  System.out.println("Problemas con el minimo de la funcion rutaMasCorta");
         return min;
     }
 
@@ -341,12 +351,19 @@ public class Tablero {
         return this.puntos.isEmpty();
     }
 
-    void paintCamino(Camino camino) {
+    void paintCamino(Camino camino, Cuadrante cuad) {
         Graphics g = canvas.getGraphics();
         g.setColor(Color.red);
-        for (Cuadrante cuadrante : camino.ruta) {
+        for (int i = 0; i < camino.ruta.size(); i++) {
+            Cuadrante cuadrante = camino.ruta.get(i);
+            if(cuad.equals(cuadrante)){
+                System.out.println("i = "+i);
+            }
             g.fillRect(cuadrante.getX(), cuadrante.getY(), TAM_CUADRANTE, TAM_CUADRANTE);
         }
+//        for (Cuadrante cuadrante : camino.ruta) {
+//            g.fillRect(cuadrante.getX(), cuadrante.getY(), TAM_CUADRANTE, TAM_CUADRANTE);
+//        }
     }
         
     private class Punto{
@@ -414,6 +431,7 @@ public class Tablero {
         
         public Camino(int distancia) {
             this.distancia = distancia;
+            this.ruta = new ArrayList();
         }
 
 
@@ -441,6 +459,10 @@ public class Tablero {
         
         public Cuadrante get(int index){
             return this.ruta.get(index);
+        }
+        
+        public int getDistancia(){
+            return this.distancia;
         }
         
         private Camino subCamino(Cuadrante cuad) {

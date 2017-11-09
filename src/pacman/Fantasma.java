@@ -30,9 +30,11 @@ public class Fantasma extends Personaje{
                     try{
                         if(J.currentDirection != Jcd){tablero.setCuadrante(F);
                         Camino camino = tablero.dijkstra(cuadrante, J.getCuadrante(), tablero);
-                        tablero.paintCamino(camino);
-                        F.currentDirection = tablero.getDirection(camino.get(0), camino.get(1));
-                            System.out.println("FD = "+F.currentDirection);
+                        tablero.paintCamino(camino,cuadrante);
+                        if(camino.getDistancia()!=Integer.MAX_VALUE)F.currentDirection = tablero.getDirection(camino.get(0), camino.get(1));
+                            
+                        System.out.println("FD = "+F.currentDirection);
+                        
                         currentTime = System.currentTimeMillis() - startTime;
                         switch(F.currentDirection){
                             case Personaje.RIGTH:{ F.moveRigth(tablero,currentTime); break;}
@@ -41,7 +43,9 @@ public class Fantasma extends Personaje{
                             case Personaje.UP:{    F.moveUp   (tablero,currentTime); break;}
                         }}
                         Thread.sleep(500);
-                    }catch(Exception e){
+                    } catch (IndexOutOfBoundsException ie) {
+                        System.out.println("Problema 34");
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }

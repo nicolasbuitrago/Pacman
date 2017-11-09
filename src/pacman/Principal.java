@@ -63,7 +63,7 @@ public class Principal extends JFrame {
         tablero = new Tablero(c,mundo, 15, 25);
         
         J1 = new Pacman(523, 320, 8, 8, "/Pacman");//Los ultimos dos son velocidad
-        F = new Fantasma(406, 590, 8, 8, "/Fantasma");
+        F = new Fantasma(406, 590, 7, 7, "/Fantasma");
         String[] names = {"adelante","arriba","abajo","atras"};
         J1.loadPics(names);
         F.loadPics(names);
