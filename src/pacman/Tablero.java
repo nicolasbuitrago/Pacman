@@ -26,7 +26,7 @@ public class Tablero {
     
     private Cuadrante[][] tablero;
     private Canvas canvas;
-    private Personaje Pacman, Fantasma;
+    private Personaje pacman, fantasma;
     private ArrayList<Cuadrante> grafo;
     private ArrayList<Punto> puntos;
     private Map<Integer, ArrayList<Cuadrante>> adyacencias;
@@ -35,9 +35,11 @@ public class Tablero {
     private final int TAM_CUADRANTE = 45;
     public static final int WIDTH = 1125 , HEIGHT = 675;
 
-    public Tablero(Canvas canvas,Pacman p,  int[][] mundo, int m, int n) {
+    public Tablero(Canvas canvas,Pacman p, Fantasma f, int[][] mundo, int m, int n) {
         this.tablero = new Cuadrante[m][n];
         this.canvas = canvas;
+        this.pacman = p;
+        this.fantasma = f;
         this.puntos = getPuntos();
         this.grafo = new ArrayList();
         for (int i = 0; i < m; i++) {
@@ -71,6 +73,14 @@ public class Tablero {
 
     public int getN() {
         return n;
+    }
+    
+    public Pacman getPacman(){
+        return (Pacman) pacman;
+    }
+    
+    public Fantasma getFantasma(){
+        return (Fantasma) fantasma;
     }
     
     public void paintTablero(Graphics g){
