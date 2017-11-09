@@ -248,7 +248,7 @@ public class Tablero {
             return Personaje.DOWN;
         }else if(fin.getY() < inicio.getY()){
             return Personaje.UP;
-        }else{System.out.println("**********ERROR en getDirection Tablero********************");}
+        }else{System.out.println("*******************ERROR en getDirection Tablero********************");}
         return 9;
     }
     
@@ -337,10 +337,11 @@ public class Tablero {
         }
     }
 
-    boolean validComePunto(int x, int y) {
+    boolean validComePunto(Pacman p, int x, int y) {
         for (Punto punto : puntos) {
             if (punto.intersects(x, y)) {
                 this.puntos.remove(punto);
+                p.currentStatus = Personaje.COMIENDO;
                 return true;
             } 
         }

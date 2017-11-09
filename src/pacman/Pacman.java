@@ -64,7 +64,7 @@ public class Pacman extends Personaje{
     public void moveRigth(Tablero tablero, long time){
         if (tablero.isCamino(x + vx, y)) {
             x += vx;
-            if(tablero.validComePunto(x,y)) this.puntaje.addPuntos();
+            if(tablero.validComePunto(this,x,y)) this.puntaje.addPuntos();
             if(x>Tablero.WIDTH) x = -50;
             currentAnimation = Personaje.RIGTH;
             animations[Personaje.RIGTH].update(time);
@@ -76,7 +76,7 @@ public class Pacman extends Personaje{
     public void moveLeft(Tablero tablero, long time){
         if (tablero.isCamino(x - vx, y)) {
             x -= vx;
-            if(tablero.validComePunto(x,y)) this.puntaje.addPuntos();
+            if(tablero.validComePunto(this,x,y)) this.puntaje.addPuntos();
             if(x<-25) x = Tablero.WIDTH;
             currentAnimation = Personaje.LEFT;
             animations[Personaje.LEFT].update(time);
@@ -88,7 +88,7 @@ public class Pacman extends Personaje{
     public void moveUp(Tablero tablero, long time) {
         if (tablero.isCamino(x, y - vy)) {
             y -= vy;
-            if(tablero.validComePunto(x,y)) this.puntaje.addPuntos();
+            if(tablero.validComePunto(this,x,y)) this.puntaje.addPuntos();
             if(y<-25) y = Tablero.HEIGHT;
             currentAnimation = Personaje.UP;
             animations[Personaje.UP].update(time);
@@ -100,7 +100,7 @@ public class Pacman extends Personaje{
     public void moveDown(Tablero tablero, long time) {
         if (tablero.isCamino(x, y + vy)) {
             y += vy;
-            if(tablero.validComePunto(x,y)) this.puntaje.addPuntos();
+            if(tablero.validComePunto(this,x,y)) this.puntaje.addPuntos();
             if(y>Tablero.HEIGHT) y = -50;
             currentAnimation = Personaje.DOWN;
             animations[Personaje.DOWN].update(time);

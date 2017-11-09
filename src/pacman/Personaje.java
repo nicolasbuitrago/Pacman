@@ -53,7 +53,7 @@ public abstract class Personaje {
             String name=names[j];
             animations[j]=new Animation();
             for (int i = 1; i <= 2; i++) {
-                System.out.println("/Sprites"+path+"//"+name+i+".png");
+                //System.out.println("/Sprites"+path+"//"+name+i+".png");
                 animations[j].addScene(
                 new ImageIcon(getClass().getResource("/Sprites"+path+"//"+name+i+".png")).getImage()    , 100);
             }
