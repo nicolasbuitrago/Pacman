@@ -274,7 +274,7 @@ public class Tablero {
             Cuadrante cuad = cola.poll();
             int u = cuad.getName();
             visto[cuad.getName()] = true;
-            ArrayList<Cuadrante> cuads = adyacencias.get(u);
+//            ArrayList<Cuadrante> cuads = adyacencias.get(u);
             for (Cuadrante cuadrante : adyacencias.get(u)) {
                 if (distancia[cuadrante.getName()] > distancia[u] + 1) {
                     distancia[cuadrante.getName()] = distancia[u] + 1;

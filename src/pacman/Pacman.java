@@ -33,7 +33,7 @@ public class Pacman extends Personaje{
         super.loadPics(names);
         for (int i = 1; i <= 11; i++) {
             animations[MUERTO]=new Animation();
-            animations[MUERTO].addScene(new ImageIcon(getClass().getResource("/Sprites"+path+"//muerte"+i+".png")).getImage()    , 5000);
+            animations[MUERTO].addScene(new ImageIcon(getClass().getResource("/Sprites"+path+"//muerte"+i+".png")).getImage()    , 500);
         }
     }
     

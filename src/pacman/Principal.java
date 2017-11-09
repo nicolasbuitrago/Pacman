@@ -147,8 +147,11 @@ public class Principal extends JFrame {
                     c.getBufferStrategy().show();
                     
                     if (tablero.isEmptyPuntos() || J1.currentStatus == Personaje.MUERTO) {
-                        if(J1.currentStatus == Personaje.MUERTO) J1.muerte(currentTime);
-                        tablero.paintTablero(g);J1.draw(g);F.draw(g);
+                        if(J1.currentStatus == Personaje.MUERTO) 
+                        tablero.paintTablero(g);
+                        J1.muerte(currentTime);
+                        J1.draw(g);
+                        F.draw(g);
                         c.getBufferStrategy().show();
                         break;
                     }
