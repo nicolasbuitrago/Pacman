@@ -60,7 +60,7 @@ public class Principal extends JFrame {
     
     public Principal(int w, int h)throws Exception{
         c = new Canvas();
-        tablero = new Tablero(c,mundo, 15, 25);
+        tablero = new Tablero(c,J1,F,mundo, 15, 25);
         
         J1 = new Pacman(523, 320, 8, 8, "/Pacman");//Los ultimos dos son velocidad
         F = new Fantasma(406, 590, 7, 7, "/Fantasma");
