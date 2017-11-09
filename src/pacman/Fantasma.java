@@ -17,9 +17,9 @@ public class Fantasma extends Personaje{
         super(x, y, vx, vy, path);
     }
     
-    public Runnable getMovieLoop(Pacman J, Tablero tablero){
+    public Runnable getMovieLoop(Tablero tablero){
         Fantasma F = this;
-        
+        Pacman J = tablero.getPacman();
         return new Runnable() {
 
             @Override
