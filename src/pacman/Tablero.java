@@ -26,16 +26,16 @@ public class Tablero {
     
     private Cuadrante[][] tablero;
     private Canvas canvas;
+    private Personaje Pacman, Fantasma;
     private ArrayList<Cuadrante> grafo;
     private ArrayList<Punto> puntos;
-    Map<Integer, ArrayList<Cuadrante>> adyacencias;
+    private Map<Integer, ArrayList<Cuadrante>> adyacencias;
     private int[][] adyacencia;
     private int m,n;
     private final int TAM_CUADRANTE = 45;
-    public static final int WIDTH = 1125;
-    public static final int HEIGHT = 675;
+    public static final int WIDTH = 1125 , HEIGHT = 675;
 
-    public Tablero(Canvas canvas, int[][] mundo, int m, int n) {
+    public Tablero(Canvas canvas,Pacman p,  int[][] mundo, int m, int n) {
         this.tablero = new Cuadrante[m][n];
         this.canvas = canvas;
         this.puntos = getPuntos();
