@@ -61,7 +61,7 @@ public class Principal extends JFrame {
     public Principal(int w, int h)throws Exception{
         c = new Canvas();
         J1 = new Pacman(523, 320, 8, 8, "/Pacman");//Los ultimos dos son velocidad
-        F = new Fantasma(406, 590, 6, 6, "/Fantasma");
+        F = new Fantasma(406, 590, 7, 7, "/Fantasma");
         String[] names = {"adelante","arriba","abajo","atras"};
         J1.loadPics(names);
         F.loadPics(names);
@@ -162,22 +162,22 @@ public class Principal extends JFrame {
             }// System.out.println(tablero.isEmptyPuntos());
         },"Movimientos"); 
 //        movLoop.setPriority(Thread.MAX_PRIORITY);
-       //Sound sound = new Sound(J1,F);
+       Sound sound = new Sound(J1,F);
         movFant = new Thread(((Fantasma)F).getMovieLoop(tablero),"MovFant");
     }
     
     public static void main(String[] args) {
-        try{
-            Principal p = new Principal(Tablero.WIDTH,Tablero.HEIGHT);
-            p.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            p.setResizable(false);
-            p.setLocationRelativeTo(null);
-            p.setVisible(true);
-            p.movLoop.start();
-            p.movFant.start();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+//        try{
+//            Principal p = new Principal(Tablero.WIDTH,Tablero.HEIGHT);
+//            p.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//            p.setResizable(false);
+//            p.setLocationRelativeTo(null);
+//            p.setVisible(true);
+//            p.movLoop.start();
+//            p.movFant.start();
+//        }catch(Exception e){
+//            e.printStackTrace();
+//        }
     }
     
 }
