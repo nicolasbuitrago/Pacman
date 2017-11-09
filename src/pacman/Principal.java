@@ -61,7 +61,7 @@ public class Principal extends JFrame {
     public Principal(int w, int h)throws Exception{
         c = new Canvas();
         J1 = new Pacman(523, 320, 8, 8, "/Pacman");//Los ultimos dos son velocidad
-        F = new Fantasma(406, 590, 7, 7, "/Fantasma");
+        F = new Fantasma(406, 590, 1, 1, "/Fantasma");
         String[] names = {"adelante","arriba","abajo","atras"};
         J1.loadPics(names);
         F.loadPics(names);
@@ -147,9 +147,10 @@ public class Principal extends JFrame {
                     c.getBufferStrategy().show();
                     
                     if (tablero.isEmptyPuntos() || J1.currentStatus == Personaje.MUERTO) {
-                        if(J1.currentStatus == Personaje.MUERTO) 
-                        tablero.paintTablero(g);
-                        J1.muerte(currentTime);
+                        if (J1.currentStatus == Personaje.MUERTO) {
+                            tablero.paintTablero(g);
+                            J1.muerte(currentTime);
+                        }
                         J1.draw(g);
                         F.draw(g);
                         c.getBufferStrategy().show();
@@ -161,7 +162,7 @@ public class Principal extends JFrame {
             }// System.out.println(tablero.isEmptyPuntos());
         },"Movimientos"); 
 //        movLoop.setPriority(Thread.MAX_PRIORITY);
-       Sound sound = new Sound(J1,F);
+       //Sound sound = new Sound(J1,F);
         movFant = new Thread(((Fantasma)F).getMovieLoop(tablero),"MovFant");
     }
     
