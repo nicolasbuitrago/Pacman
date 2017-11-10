@@ -76,9 +76,11 @@ public abstract class Personaje {
         return y;
     }
     
-    void setPosition(int x, int y) {
+    void reiniciar(int x, int y) {
         this.x = x;
         this.y = y;
+        this.currentDirection = NONE;
+        this.currentStatus = NONE;
     }
 
     public void setCuadrante(Cuadrante cuadrante) {

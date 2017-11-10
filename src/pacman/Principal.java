@@ -196,16 +196,19 @@ public class Principal extends JFrame {
     private void reiniciar(){
         if(pacman.getVidas()>=0){
             this.estado.setText("");
-            this.pacman.setPosition(523, 320);
-            this.fantasma.setPosition(406, 590);
+            this.pacman.reiniciar(523, 320);
+            this.fantasma.reiniciar(406, 590);
             movLoop = new Thread( getMovieLoop(),"Movimientos");
             movFant = new Thread(((Fantasma)fantasma).getMovieLoop(tablero),"MovFant");
+            
+            movLoop.start();
+            movFant.start();
         }else{
             if(this.estado.getText().equals("GAME OVER")){
                 inicio.reiniciar();
                 this.dispose();
             }else
-                this.estado.setText("GAME OVER");
+                this.estado.setText("GAME OVER");System.out.println("***********"+pacman.getVidas());
         }
             
 //        inicio.reiniciar();
@@ -213,6 +216,8 @@ public class Principal extends JFrame {
     }
     
     public Runnable getMovieLoop(){
+        JLabel estado = this.estado;
+        
         return new Runnable() {
 
             @Override
@@ -252,7 +257,7 @@ public class Principal extends JFrame {
                             vidas[pacman.getVidas()].setVisible(false);
                             pacman.quitarVidas();
                             estado.setText("PERDISTE  :(");
-                             
+                            if(pacman.getVidas() == -1) estado.setText("GAME OVER");System.out.println("***********"+pacman.getVidas());
                         }else{
                             estado.setText("GANASTE!! :)");
                         }
