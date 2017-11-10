@@ -134,7 +134,7 @@ public class Pacman extends Personaje{
             this.lblPuntaje = new JLabel(PUNTAJE+"0");
             this.lblPuntaje.setFont(new java.awt.Font("Tahoma", 1, 25));
             this.lblPuntaje.setForeground(Color.WHITE);
-            this.lblPuntaje.setBounds(15, 15, 200, 20);
+            this.lblPuntaje.setBounds(15, 12, 200, 30);
             this.puntaje = 0;
         }
         

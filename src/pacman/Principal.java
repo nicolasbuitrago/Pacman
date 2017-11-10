@@ -10,7 +10,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -24,6 +27,8 @@ public class Principal extends JFrame {
     public Pacman J1;
     public Fantasma F;
     public Tablero tablero;
+    public JLabel estado;
+    public Inicio inicio;
     public int[][] mundo = {
         
             {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -60,27 +65,97 @@ public class Principal extends JFrame {
 
     };
     
-    public Principal(int w, int h)throws Exception{
-        c = new Canvas();
+    public Principal(Inicio inicio, int w, int h)throws Exception{
+        c = new Canvas(); this.inicio = inicio;
         J1 = new Pacman(523, 320, 8, 8, "/Pacman");//Los ultimos dos son velocidad
-        F = new Fantasma(406, 590, 4, 4, "/Fantasma");
+        F = new Fantasma(406, 590, 5, 5, "/Fantasma");
         String[] names = {"adelante","arriba","abajo","atras"};
         J1.loadPics(names);
         F.loadPics(names);
         tablero = new Tablero(c,J1,F,mundo, 15, 25);
         
-        this.setSize(w, h+80);
+        this.setSize(w, h+85);
         JPanel panel = new JPanel();
         panel.setBackground(Color.BLACK);
-        panel.setSize(w,h+80);
+        panel.setSize(w,h+85);
         panel.setLayout(null);
         
-        c.setLocation(0, 50);
+        JLabel reiniciar = new JLabel("REINICIAR");
+        reiniciar.setFont(new java.awt.Font("Tahoma", 1, 25));
+        reiniciar.setForeground(Color.WHITE);
+        reiniciar.setBounds(w-150, 12, 150, 30);
+        reiniciar.addMouseListener(getMouseListener());
+        
+        estado = new JLabel();
+        estado.setFont(new java.awt.Font("Tahoma", 1, 25));
+        estado.setHorizontalAlignment(JLabel.CENTER);
+        estado.setForeground(Color.WHITE);
+        estado.setBounds(200, 12, w-200-150, 30);
+        
+        c.setLocation(0, 55);
         c.setSize(w, h);
         panel.add(J1.getPuntaje());
+        panel.add(estado);
+        panel.add(reiniciar);
         panel.add(c);
         this.add(panel);
-        this.addKeyListener(new KeyListener() {
+        
+        this.addKeyListener(getKeyListener());
+        
+        movLoop = new Thread( () -> {
+            c.createBufferStrategy(2);
+            Graphics g = c.getBufferStrategy().getDrawGraphics();
+            long startTime = System.currentTimeMillis();
+            long currentTime = 0; J1.currentStatus = Personaje.NORMAL;
+            while(true){
+                try{
+                        
+                    tablero.paintTablero(g);
+                    
+                    currentTime = System.currentTimeMillis() - startTime;
+                    switch(J1.currentDirection){
+                        case Personaje.RIGTH:{ J1.moveRigth(tablero,currentTime); break;}
+                        case Personaje.DOWN:{  J1.moveDown (tablero,currentTime); break;}
+                        case Personaje.LEFT:{  J1.moveLeft (tablero,currentTime); break;}
+                        case Personaje.UP:{    J1.moveUp   (tablero,currentTime); break;}
+                    } //System.out.println("J1:  x = "+J1.x+",   y = "+J1.y);
+                    J1.draw(g);
+                    switch(F.currentDirection){
+                        case Personaje.RIGTH:{ F.moveRigth(tablero,currentTime); break;}
+                        case Personaje.DOWN:{  F.moveDown (tablero,currentTime); break;}
+                        case Personaje.LEFT:{  F.moveLeft (tablero,currentTime); break;}
+                        case Personaje.UP:{    F.moveUp   (tablero,currentTime); break;}
+                    }
+                    F.draw(g);
+                    
+                    Thread.sleep(30);
+                    c.getBufferStrategy().show();
+                    
+                    if (tablero.isEmptyPuntos() || J1.currentStatus == Personaje.MUERTO) {
+                        tablero.paintTablero(g);
+                        if (J1.currentStatus == Personaje.MUERTO) {
+                            J1.muerte(currentTime);
+                            estado.setText("PERDISTE  :(");
+                        }else{
+                            estado.setText("GANASTE!! :)");
+                        }
+                        J1.draw(g);
+                        F.draw(g);
+                        c.getBufferStrategy().show();
+                        break;
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }// System.out.println(tablero.isEmptyPuntos());
+        },"Movimientos"); 
+//        movLoop.setPriority(Thread.MAX_PRIORITY);
+       //Sound sound = new Sound(J1,F);
+        movFant = new Thread(((Fantasma)F).getMovieLoop(tablero),"MovFant");
+    }
+    
+    public KeyListener getKeyListener(){
+        return new KeyListener() {
 
             @Override
             public void keyTyped(KeyEvent e) {
@@ -122,55 +197,42 @@ public class Principal extends JFrame {
                }
             }
             
-        });
-        
-        movLoop = new Thread( () -> {
-            c.createBufferStrategy(2);
-            Graphics g = c.getBufferStrategy().getDrawGraphics();
-            long startTime = System.currentTimeMillis();
-            long currentTime = 0; J1.currentStatus = Personaje.NORMAL;
-            while(true){
-                try{
-                        
-                    tablero.paintTablero(g);
-                    
-                    currentTime = System.currentTimeMillis() - startTime;
-                    switch(J1.currentDirection){
-                        case Pacman.RIGTH:{ J1.moveRigth(tablero,currentTime); break;}
-                        case Pacman.DOWN:{  J1.moveDown (tablero,currentTime); break;}
-                        case Pacman.LEFT:{  J1.moveLeft (tablero,currentTime); break;}
-                        case Pacman.UP:{    J1.moveUp   (tablero,currentTime); break;}
-                    } //System.out.println("J1:  x = "+J1.x+",   y = "+J1.y);
-                    J1.draw(g);
-                    switch(F.currentDirection){
-                        case Personaje.RIGTH:{ F.moveRigth(tablero,currentTime); break;}
-                        case Personaje.DOWN:{  F.moveDown (tablero,currentTime); break;}
-                        case Personaje.LEFT:{  F.moveLeft (tablero,currentTime); break;}
-                        case Personaje.UP:{    F.moveUp   (tablero,currentTime); break;}
-                    }
-                    F.draw(g);
-                    
-                    Thread.sleep(30);
-                    c.getBufferStrategy().show();
-                    
-                    if (tablero.isEmptyPuntos() || J1.currentStatus == Personaje.MUERTO) {
-                        tablero.paintTablero(g);
-                        if (J1.currentStatus == Personaje.MUERTO) {
-                            J1.muerte(currentTime);
-                        }
-                        J1.draw(g);
-                        F.draw(g);
-                        c.getBufferStrategy().show();
-                        break;
-                    }
-                }catch(Exception e){
-                    e.printStackTrace();
-                }
-            }// System.out.println(tablero.isEmptyPuntos());
-        },"Movimientos"); 
-//        movLoop.setPriority(Thread.MAX_PRIORITY);
-       //Sound sound = new Sound(J1,F);
-        movFant = new Thread(((Fantasma)F).getMovieLoop(tablero),"MovFant");
+        };
+    }
+    
+    private MouseListener getMouseListener() {
+        return new MouseListener(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                reiniciar();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                
+            }
+            
+        };
+    }
+    
+    private void reiniciar(){
+        inicio.reiniciar();
+        this.dispose();
     }
     
     public static void main(String[] args) {
@@ -186,5 +248,6 @@ public class Principal extends JFrame {
 //            e.printStackTrace();
 //        }
     }
+
     
 }

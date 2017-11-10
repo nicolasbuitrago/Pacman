@@ -26,7 +26,7 @@ public class Inicio extends javax.swing.JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         try {
-            p = new Principal(Tablero.WIDTH,Tablero.HEIGHT);
+            p = new Principal(this,Tablero.WIDTH,Tablero.HEIGHT);
            
         }catch(Exception e){
             e.printStackTrace();
@@ -142,6 +142,21 @@ public class Inicio extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_lblSalirMouseClicked
 
+    
+    public void reiniciar(){
+       try {
+            p = new Principal(this,Tablero.WIDTH,Tablero.HEIGHT);
+            p.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            p.setResizable(false);
+            p.setLocationRelativeTo(null);this.setVisible(false);
+            p.setVisible(true);
+            p.movLoop.start();
+            p.movFant.start();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -176,11 +191,11 @@ public class Inicio extends javax.swing.JFrame {
             public void run() {
                 Inicio i = new Inicio();
                 i.setVisible(true);
-                try {
-                    Thread.sleep(4500);
-//                    i.s = true;
-                } catch (Exception e) {
-                }
+//                try {
+//                    Thread.sleep(4500);
+////                    i.s = true;
+//                } catch (Exception e) {
+//                }
             }
         });
     }
