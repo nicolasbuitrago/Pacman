@@ -23,9 +23,9 @@ import javax.swing.JPanel;
 public class Principal extends JFrame {
 
     public Thread movLoop, movFant;
-    public Canvas c;
-    public Pacman J1;
-    public Fantasma F;
+    public Canvas canvas;
+    public Pacman pacman;
+    public Fantasma fantasma;
     public Tablero tablero;
     public JLabel estado;
     public Inicio inicio;
@@ -66,13 +66,13 @@ public class Principal extends JFrame {
     };
     
     public Principal(Inicio inicio, int w, int h)throws Exception{
-        c = new Canvas(); this.inicio = inicio;
-        J1 = new Pacman(523, 320, 8, 8, "/Pacman");//Los ultimos dos son velocidad
-        F = new Fantasma(406, 590, 5, 5, "/Fantasma");
+        canvas = new Canvas(); this.inicio = inicio;
+        pacman = new Pacman(523, 320, 8, 8, "/Pacman");//Los ultimos dos son velocidad
+        fantasma = new Fantasma(406, 590, 5, 5, "/Fantasma");
         String[] names = {"adelante","arriba","abajo","atras"};
-        J1.loadPics(names);
-        F.loadPics(names);
-        tablero = new Tablero(c,J1,F,mundo, 15, 25);
+        pacman.loadPics(names);
+        fantasma.loadPics(names);
+        tablero = new Tablero(canvas,pacman,fantasma,mundo, 15, 25);
         
         this.setSize(w, h+85);
         JPanel panel = new JPanel();
@@ -92,56 +92,56 @@ public class Principal extends JFrame {
         estado.setForeground(Color.WHITE);
         estado.setBounds(200, 12, w-200-150, 30);
         
-        c.setLocation(0, 55);
-        c.setSize(w, h);
-        panel.add(J1.getPuntaje());
+        canvas.setLocation(0, 55);
+        canvas.setSize(w, h);
+        panel.add(pacman.getPuntaje());
         panel.add(estado);
         panel.add(reiniciar);
-        panel.add(c);
+        panel.add(canvas);
         this.add(panel);
         
         this.addKeyListener(getKeyListener());
         
         movLoop = new Thread( () -> {
-            c.createBufferStrategy(2);
-            Graphics g = c.getBufferStrategy().getDrawGraphics();
+            canvas.createBufferStrategy(2);
+            Graphics g = canvas.getBufferStrategy().getDrawGraphics();
             long startTime = System.currentTimeMillis();
-            long currentTime = 0; J1.currentStatus = Personaje.NORMAL;
+            long currentTime = 0; pacman.currentStatus = Personaje.NORMAL;
             while(true){
                 try{
                         
                     tablero.paintTablero(g);
                     
                     currentTime = System.currentTimeMillis() - startTime;
-                    switch(J1.currentDirection){
-                        case Personaje.RIGTH:{ J1.moveRigth(tablero,currentTime); break;}
-                        case Personaje.DOWN:{  J1.moveDown (tablero,currentTime); break;}
-                        case Personaje.LEFT:{  J1.moveLeft (tablero,currentTime); break;}
-                        case Personaje.UP:{    J1.moveUp   (tablero,currentTime); break;}
+                    switch(pacman.currentDirection){
+                        case Personaje.RIGTH:{ pacman.moveRigth(tablero,currentTime); break;}
+                        case Personaje.DOWN:{  pacman.moveDown (tablero,currentTime); break;}
+                        case Personaje.LEFT:{  pacman.moveLeft (tablero,currentTime); break;}
+                        case Personaje.UP:{    pacman.moveUp   (tablero,currentTime); break;}
                     } //System.out.println("J1:  x = "+J1.x+",   y = "+J1.y);
-                    J1.draw(g);
-                    switch(F.currentDirection){
-                        case Personaje.RIGTH:{ F.moveRigth(tablero,currentTime); break;}
-                        case Personaje.DOWN:{  F.moveDown (tablero,currentTime); break;}
-                        case Personaje.LEFT:{  F.moveLeft (tablero,currentTime); break;}
-                        case Personaje.UP:{    F.moveUp   (tablero,currentTime); break;}
+                    pacman.draw(g);
+                    switch(fantasma.currentDirection){
+                        case Personaje.RIGTH:{ fantasma.moveRigth(tablero,currentTime); break;}
+                        case Personaje.DOWN:{  fantasma.moveDown (tablero,currentTime); break;}
+                        case Personaje.LEFT:{  fantasma.moveLeft (tablero,currentTime); break;}
+                        case Personaje.UP:{    fantasma.moveUp   (tablero,currentTime); break;}
                     }
-                    F.draw(g);
+                    fantasma.draw(g);
                     
                     Thread.sleep(30);
-                    c.getBufferStrategy().show();
+                    canvas.getBufferStrategy().show();
                     
-                    if (tablero.isEmptyPuntos() || J1.currentStatus == Personaje.MUERTO) {
+                    if (tablero.isEmptyPuntos() || pacman.currentStatus == Personaje.MUERTO) {
                         tablero.paintTablero(g);
-                        if (J1.currentStatus == Personaje.MUERTO) {
-                            J1.muerte(currentTime);
+                        if (pacman.currentStatus == Personaje.MUERTO) {
+                            pacman.muerte(currentTime);
                             estado.setText("PERDISTE  :(");
                         }else{
                             estado.setText("GANASTE!! :)");
                         }
-                        J1.draw(g);
-                        F.draw(g);
-                        c.getBufferStrategy().show();
+                        pacman.draw(g);
+                        fantasma.draw(g);
+                        canvas.getBufferStrategy().show();
                         break;
                     }
                 }catch(Exception e){
@@ -151,7 +151,7 @@ public class Principal extends JFrame {
         },"Movimientos"); 
 //        movLoop.setPriority(Thread.MAX_PRIORITY);
        //Sound sound = new Sound(J1,F);
-        movFant = new Thread(((Fantasma)F).getMovieLoop(tablero),"MovFant");
+        movFant = new Thread(((Fantasma)fantasma).getMovieLoop(tablero),"MovFant");
     }
     
     public KeyListener getKeyListener(){
@@ -165,17 +165,18 @@ public class Principal extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                switch(e.getKeyCode()){
-                   case KeyEvent.VK_UP   :{ J1.currentDirection = Personaje.UP; break;}
-                   case KeyEvent.VK_DOWN :{ J1.currentDirection = Personaje.DOWN; break;}
-                   case KeyEvent.VK_LEFT :{ J1.currentDirection = Personaje.LEFT; break;}
-                   case KeyEvent.VK_RIGHT:{ J1.currentDirection = Personaje.RIGTH; break;}
+                   case KeyEvent.VK_UP   :{ pacman.currentDirection = Personaje.UP; break;}
+                   case KeyEvent.VK_DOWN :{ pacman.currentDirection = Personaje.DOWN; break;}
+                   case KeyEvent.VK_LEFT :{ pacman.currentDirection = Personaje.LEFT; break;}
+                   case KeyEvent.VK_RIGHT:{ pacman.currentDirection = Personaje.RIGTH; break;}
                }
                switch(e.getKeyChar()){
-                   case 'w':{F.currentDirection = Personaje.UP; break;}
-                   case 'a':{F.currentDirection = Personaje.LEFT; break;}
-                   case 's':{F.currentDirection = Personaje.DOWN;break;}
-                   case 'd':{F.currentDirection = Personaje.RIGTH; break;}
+                   case 'w':{fantasma.currentDirection = Personaje.UP; break;}
+                   case 'a':{fantasma.currentDirection = Personaje.LEFT; break;}
+                   case 's':{fantasma.currentDirection = Personaje.DOWN;break;}
+                   case 'd':{fantasma.currentDirection = Personaje.RIGTH; break;}
 //                   case 'm':{J1.currentStatus = Personaje.MUERTO; break;}
+//                   case 'z':{J1.currentStatus = Personaje.COMIENDO; break;}//                   case 'm':{J1.currentStatus = Personaje.MUERTO; break;}
 //                   case 'z':{J1.currentStatus = Personaje.COMIENDO; break;}
                }
             }
@@ -183,17 +184,17 @@ public class Principal extends JFrame {
             @Override
             public void keyReleased(KeyEvent e) {
                switch(e.getKeyCode()){
-                    case KeyEvent.VK_UP   :{ J1.currentDirection = Personaje.NONE; break;}
-                    case KeyEvent.VK_DOWN :{ J1.currentDirection = Personaje.NONE; break;}
-                    case KeyEvent.VK_LEFT :{ J1.currentDirection = Personaje.NONE; break;}
-                    case KeyEvent.VK_RIGHT:{ J1.currentDirection = Personaje.NONE; break;}
+                    case KeyEvent.VK_UP   :{ pacman.currentDirection = Personaje.NONE; break;}
+                    case KeyEvent.VK_DOWN :{ pacman.currentDirection = Personaje.NONE; break;}
+                    case KeyEvent.VK_LEFT :{ pacman.currentDirection = Personaje.NONE; break;}
+                    case KeyEvent.VK_RIGHT:{ pacman.currentDirection = Personaje.NONE; break;}
                }
                switch(e.getKeyChar()){
-                   case 'w':{F.currentDirection = Personaje.NONE; break;}
-                   case 'a':{F.currentDirection = Personaje.NONE; break;}
-                   case 's':{F.currentDirection = Personaje.NONE; break;}
-                   case 'd':{F.currentDirection = Personaje.NONE; break;}
-//                   case 'z':{J1.currentStatus = Personaje.NONE; break;}
+                   case 'w':{fantasma.currentDirection = Personaje.NONE; break;}
+                   case 'a':{fantasma.currentDirection = Personaje.NONE; break;}
+                   case 's':{fantasma.currentDirection = Personaje.NONE; break;}
+                   case 'd':{fantasma.currentDirection = Personaje.NONE; break;}
+//                   case 'z':{J1.currentStatus = Personaje.NONE; break;}//                   case 'z':{J1.currentStatus = Personaje.NONE; break;}
                }
             }
             
