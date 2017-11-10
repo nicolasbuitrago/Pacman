@@ -44,7 +44,7 @@ public abstract class Personaje {
         this.vx = vx;
         this.vy = vy;
         this.currentDirection = NONE;
-        this.currentStatus = NORMAL;
+        this.currentStatus = NONE;
         this.animations = new Animation[5];
     }
     

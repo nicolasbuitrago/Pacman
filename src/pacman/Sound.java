@@ -8,8 +8,6 @@ package pacman;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -37,9 +35,9 @@ public class Sound implements Runnable {
         this.eat   = getClip("src/Audio/eat.wav");
 
         this.pacman = pacman;
-        this.cp = -1;
+        this.cp = Personaje.NONE;
         this.fantasma = fantasma;
-        this.cf = -1;
+        this.cf = Personaje.NONE;
 
         t = new Thread(this,"Sonidos");
         t.setPriority(6);
@@ -52,11 +50,11 @@ public class Sound implements Runnable {
         
         play(start,4500);
         start.close();
-        
         while (true) {
             try {
                 System.out.println("cs = " + this.pacman.currentStatus);
-                if (cp != this.pacman.currentStatus) {
+                
+                if (cp != this.pacman.currentStatus) {//System.out.println("cs = " + this.pacman.currentStatus);
                     switch (this.pacman.currentStatus) {
                         case Personaje.NORMAL: {
                             stop();

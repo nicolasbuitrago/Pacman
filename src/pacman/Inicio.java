@@ -6,7 +6,6 @@
 package pacman;
 
 import javax.swing.JFrame;
-import javax.swing.UIManager;
 
 /**
  *
@@ -15,17 +14,20 @@ import javax.swing.UIManager;
 public class Inicio extends javax.swing.JFrame {
 
     Principal p;
+//    boolean s;
     
     /**
      * Creates new form Inicio
      */
     public Inicio() {
-        initComponents();
+        initComponents(); 
+//        this.s = false;
+//        this.lblEmepzar.setEnabled(s);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         try {
-            
             p = new Principal(Tablero.WIDTH,Tablero.HEIGHT);
+           
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -48,8 +50,11 @@ public class Inicio extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sprites/PacmanTitle.png"))); // NOI18N
 
         lblEmepzar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblEmepzar.setForeground(new java.awt.Color(255, 255, 255));
@@ -78,26 +83,27 @@ public class Inicio extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(265, 265, 265)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblEmepzar, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-                    .addComponent(lblSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(107, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(113, 113, 113))
+                .addContainerGap(135, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(107, 107, 107))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblEmepzar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(252, 252, 252))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(110, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(85, 85, 85)
+                .addContainerGap(118, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
                 .addComponent(lblEmepzar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
                 .addComponent(lblSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40))
+                .addGap(64, 64, 64))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -117,6 +123,7 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblEmepzarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEmepzarMouseClicked
+//        if(s){this.lblEmepzar.setEnabled(s);
         try{
 //            Principal p = new Principal(Tablero.WIDTH,Tablero.HEIGHT);
             p.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -128,6 +135,7 @@ public class Inicio extends javax.swing.JFrame {
         }catch(Exception e){
             e.printStackTrace();
         }
+//    }
     }//GEN-LAST:event_lblEmepzarMouseClicked
 
     private void lblSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSalirMouseClicked
@@ -161,10 +169,18 @@ public class Inicio extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+//        Inicio i = new Inicio();
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Inicio().setVisible(true);
+                Inicio i = new Inicio();
+                i.setVisible(true);
+                try {
+                    Thread.sleep(4500);
+//                    i.s = true;
+                } catch (Exception e) {
+                }
             }
         });
     }

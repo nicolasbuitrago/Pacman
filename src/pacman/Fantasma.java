@@ -63,7 +63,7 @@ public class Fantasma extends Personaje{
                         }
                         Thread.sleep(500);
                     } catch (IndexOutOfBoundsException ie) {
-                        System.out.println("Problema 34");
+                        System.out.println("P 34");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

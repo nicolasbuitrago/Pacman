@@ -121,7 +121,7 @@ public class Principal extends JFrame {
             c.createBufferStrategy(2);
             Graphics g = c.getBufferStrategy().getDrawGraphics();
             long startTime = System.currentTimeMillis();
-            long currentTime = 0;// boolean sw = true;
+            long currentTime = 0; J1.currentStatus = Personaje.NORMAL;
             while(true){
                 try{
                         
