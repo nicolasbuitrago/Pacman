@@ -59,13 +59,12 @@ public abstract class Personaje {
             animations[j]=new Animation();
             for (int i = 1; i <= 2; i++) {
                 //System.out.println("/Sprites"+path+"//"+name+i+".png");
-                animations[j].addScene(
-                new ImageIcon(getClass().getResource("/Sprites"+path+"//"+name+i+".png")).getImage()    , 100);
+                animations[j].addScene( new ImageIcon(getClass().getResource("/Sprites"+path+"//"+name+i+".png")).getImage()    , 100);
             }
         }
 //        for (int i = 1; i <= 11; i++) {
 //            animations[MUERTO]=new Animation();
-//            animations[MUERTO].addScene(new ImageIcon(getClass().getResource("/Sprites"+path+"//muerte"+1+".png")).getImage()    , 100);
+//            animations[MUERTO].addScene(new ImageIcon(getClass().getResource("/Sprites"+path+"//muerte1.png")).getImage()    , 100);
 //        }
     }
 
@@ -75,6 +74,11 @@ public abstract class Personaje {
 
     public int getY() {
         return y;
+    }
+    
+    void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     public void setCuadrante(Cuadrante cuadrante) {

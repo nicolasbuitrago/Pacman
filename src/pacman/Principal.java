@@ -28,6 +28,7 @@ public class Principal extends JFrame {
     public Fantasma fantasma;
     public Tablero tablero;
     public JLabel estado, reiniciar;
+    JLabel[] vidas;
     public Inicio inicio;
     public int[][] mundo = {
         
@@ -66,7 +67,7 @@ public class Principal extends JFrame {
     };
     
     public Principal(Inicio inicio, int w, int h)throws Exception{
-        this.setTitle("Pacman");
+        this.setTitle("Pacman"); 
         canvas = new Canvas(); this.inicio = inicio;
         pacman = new Pacman(523, 320, 8, 8, "/Pacman");//Los ultimos dos son velocidad
         fantasma = new Fantasma(406, 590, 5, 5, "/Fantasma");
@@ -81,18 +82,22 @@ public class Principal extends JFrame {
         panel.setSize(w,h+85);
         panel.setLayout(null);
         
+        
+        vidas = new JLabel[3];
+        getVidas(panel,200);
+        
+        estado = new JLabel();
+        estado.setFont(new java.awt.Font("Tahoma", 1, 25));
+        estado.setHorizontalAlignment(JLabel.CENTER);
+        estado.setForeground(Color.WHITE);
+        estado.setBounds(320, 12, w-200-150, 30);
+        
         reiniciar = new JLabel("REINICIAR");
         reiniciar.setFont(new java.awt.Font("Tahoma", 1, 25));
         reiniciar.setForeground(Color.WHITE);
         reiniciar.setBounds(w-150, 12, 150, 30);
 //        reiniciar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         reiniciar.addMouseListener(getMouseListener());
-        
-        estado = new JLabel();
-        estado.setFont(new java.awt.Font("Tahoma", 1, 25));
-        estado.setHorizontalAlignment(JLabel.CENTER);
-        estado.setForeground(Color.WHITE);
-        estado.setBounds(200, 12, w-200-150, 30);
         
         canvas.setLocation(0, 55);
         canvas.setSize(w, h);
@@ -104,53 +109,7 @@ public class Principal extends JFrame {
         
         this.addKeyListener(getKeyListener());
         
-        movLoop = new Thread( () -> {
-            canvas.createBufferStrategy(2);
-            Graphics g = canvas.getBufferStrategy().getDrawGraphics();
-            long startTime = System.currentTimeMillis();
-            long currentTime = 0; pacman.currentStatus = Personaje.NORMAL;
-            while(true){
-                try{
-                        
-                    tablero.paintTablero(g);
-                    
-                    currentTime = System.currentTimeMillis() - startTime;
-                    switch(pacman.currentDirection){
-                        case Personaje.RIGTH:{ pacman.moveRigth(tablero,currentTime); break;}
-                        case Personaje.DOWN:{  pacman.moveDown (tablero,currentTime); break;}
-                        case Personaje.LEFT:{  pacman.moveLeft (tablero,currentTime); break;}
-                        case Personaje.UP:{    pacman.moveUp   (tablero,currentTime); break;}
-                    } //System.out.println("J1:  x = "+J1.x+",   y = "+J1.y);
-                    pacman.draw(g);
-                    switch(fantasma.currentDirection){
-                        case Personaje.RIGTH:{ fantasma.moveRigth(tablero,currentTime); break;}
-                        case Personaje.DOWN:{  fantasma.moveDown (tablero,currentTime); break;}
-                        case Personaje.LEFT:{  fantasma.moveLeft (tablero,currentTime); break;}
-                        case Personaje.UP:{    fantasma.moveUp   (tablero,currentTime); break;}
-                    }
-                    fantasma.draw(g);
-                    
-                    Thread.sleep(30);
-                    canvas.getBufferStrategy().show();
-                    
-                    if (tablero.isEmptyPuntos() || pacman.currentStatus == Personaje.MUERTO) {
-                        tablero.paintTablero(g);
-                        if (pacman.currentStatus == Personaje.MUERTO) {
-                            pacman.muerte(currentTime);
-                            estado.setText("PERDISTE  :(");
-                        }else{
-                            estado.setText("GANASTE!! :)");
-                        }
-                        pacman.draw(g);
-                        fantasma.draw(g);
-                        canvas.getBufferStrategy().show();
-                        break;
-                    }
-                }catch(Exception e){
-                    e.printStackTrace();
-                }
-            }// System.out.println(tablero.isEmptyPuntos());
-        },"Movimientos"); 
+        movLoop = new Thread( getMovieLoop(),"Movimientos"); 
 //        movLoop.setPriority(Thread.MAX_PRIORITY);
 //        Sound sound = new Sound(pacman,fantasma);
         movFant = new Thread(((Fantasma)fantasma).getMovieLoop(tablero),"MovFant");
@@ -235,8 +194,79 @@ public class Principal extends JFrame {
     }
     
     private void reiniciar(){
-        inicio.reiniciar();
-        this.dispose();
+        if(pacman.getVidas()>=0){
+            this.estado.setText("");
+            this.pacman.setPosition(523, 320);
+            this.fantasma.setPosition(406, 590);
+            movLoop = new Thread( getMovieLoop(),"Movimientos");
+            movFant = new Thread(((Fantasma)fantasma).getMovieLoop(tablero),"MovFant");
+        }else{
+            if(this.estado.getText().equals("GAME OVER")){
+                inicio.reiniciar();
+                this.dispose();
+            }else
+                this.estado.setText("GAME OVER");
+        }
+            
+//        inicio.reiniciar();
+//        this.dispose();
+    }
+    
+    public Runnable getMovieLoop(){
+        return new Runnable() {
+
+            @Override
+            public void run() {
+                canvas.createBufferStrategy(2);
+            Graphics g = canvas.getBufferStrategy().getDrawGraphics();
+            long startTime = System.currentTimeMillis();
+            long currentTime = 0; pacman.currentStatus = Personaje.NORMAL;
+            while(true){
+                try{
+                        
+                    tablero.paintTablero(g);
+                    
+                    currentTime = System.currentTimeMillis() - startTime;
+                    switch(pacman.currentDirection){
+                        case Personaje.RIGTH:{ pacman.moveRigth(tablero,currentTime); break;}
+                        case Personaje.DOWN:{  pacman.moveDown (tablero,currentTime); break;}
+                        case Personaje.LEFT:{  pacman.moveLeft (tablero,currentTime); break;}
+                        case Personaje.UP:{    pacman.moveUp   (tablero,currentTime); break;}
+                    } //System.out.println("J1:  x = "+J1.x+",   y = "+J1.y);
+                    pacman.draw(g);
+                    switch(fantasma.currentDirection){
+                        case Personaje.RIGTH:{ fantasma.moveRigth(tablero,currentTime); break;}
+                        case Personaje.DOWN:{  fantasma.moveDown (tablero,currentTime); break;}
+                        case Personaje.LEFT:{  fantasma.moveLeft (tablero,currentTime); break;}
+                        case Personaje.UP:{    fantasma.moveUp   (tablero,currentTime); break;}
+                    }
+                    fantasma.draw(g);
+                    
+                    Thread.sleep(30);
+                    canvas.getBufferStrategy().show();
+                    
+                    if (tablero.isEmptyPuntos() || pacman.currentStatus == Personaje.MUERTO) {
+                        tablero.paintTablero(g);
+                        if (pacman.currentStatus == Personaje.MUERTO) {
+                            pacman.muerte(currentTime);
+                            vidas[pacman.getVidas()].setVisible(false);
+                            pacman.quitarVidas();
+                            estado.setText("PERDISTE  :(");
+                             
+                        }else{
+                            estado.setText("GANASTE!! :)");
+                        }
+                        pacman.draw(g);
+                        fantasma.draw(g);
+                        canvas.getBufferStrategy().show();
+                        break;
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+            }
+        };
     }
     
     public static void main(String[] args) {
@@ -251,6 +281,16 @@ public class Principal extends JFrame {
 //        }catch(Exception e){
 //            e.printStackTrace();
 //        }
+    }
+
+    private void getVidas(JPanel panel, int posi) {
+        for (int i = 0; i < 3; i++) {
+            vidas[i] = new JLabel();
+            vidas[i].setIcon(this.pacman.getImg());
+            vidas[i].setBounds(posi, 12, Personaje.DIAMETRO, Personaje.DIAMETRO);
+            posi += Personaje.DIAMETRO+5;
+            panel.add(vidas[i]);
+        }
     }
 
     

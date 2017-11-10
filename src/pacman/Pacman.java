@@ -8,9 +8,9 @@ package pacman;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import static pacman.Personaje.MUERTO;
 
 /**
  *
@@ -19,24 +19,40 @@ import static pacman.Personaje.MUERTO;
 public class Pacman extends Personaje{
     
     private Puntaje puntaje;
+    private int vidas;
+    ImageIcon img;
     
     public Pacman (int x, int y, int vx, int vy, String path){
         super(x, y, vx, vy, path);
+        this.img = new ImageIcon(getClass().getResource("/Sprites"+path+"//adelante1.png"));
         this.puntaje = new Puntaje();
+        this.vidas = 2;
     }
 
     public JLabel getPuntaje() {
         return puntaje.lblPuntaje;
     }
+
+    public int getVidas() {
+        return vidas;
+    }
     
-//    @Override
-//    public void loadPics(String[] names)throws Exception{
-//        super.loadPics(names);
-//        for (int i = 1; i <= 11; i++) {
-//            animations[MUERTO]=new Animation();
-//            animations[MUERTO].addScene(new ImageIcon(getClass().getResource("/Sprites"+path+"//muerte"+i+".png")).getImage()    , 500);
-//        }
-//    }
+    public void quitarVidas(){
+        vidas--;
+    }
+
+    public ImageIcon getImg() {
+        return img;
+    }
+    
+    @Override
+    public void loadPics(String[] names)throws Exception{
+        super.loadPics(names);
+        for (int i = 1; i <= 11; i++) {
+            animations[MUERTO]=new Animation();
+            animations[MUERTO].addScene(new ImageIcon(getClass().getResource("/Sprites"+path+"//muerte"+i+".png")).getImage()    , 500);
+        }
+    }
     
     public Runnable getMovieLoop(Canvas c, Tablero tablero){
         Pacman J1 = this;
@@ -123,6 +139,7 @@ public class Pacman extends Personaje{
     public void muerte(long time){
         currentAnimation = Personaje.MUERTO;
         animations[Personaje.MUERTO].update(time);
+        
     }
     
     private class Puntaje{
