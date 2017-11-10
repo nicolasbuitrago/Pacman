@@ -6,10 +6,12 @@
 package pacman;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
@@ -61,18 +63,23 @@ public class Principal extends JFrame {
     public Principal(int w, int h)throws Exception{
         c = new Canvas();
         J1 = new Pacman(523, 320, 8, 8, "/Pacman");//Los ultimos dos son velocidad
-        F = new Fantasma(406, 590, 7, 7, "/Fantasma");
+        F = new Fantasma(406, 590, 4, 4, "/Fantasma");
         String[] names = {"adelante","arriba","abajo","atras"};
         J1.loadPics(names);
         F.loadPics(names);
         tablero = new Tablero(c,J1,F,mundo, 15, 25);
         
-        this.setLayout(null);
-        this.setSize(w, h+60);
-        c.setLocation(0, 35);
+        this.setSize(w, h+80);
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.BLACK);
+        panel.setSize(w,h+80);
+        panel.setLayout(null);
+        
+        c.setLocation(0, 50);
         c.setSize(w, h);
-        this.add(J1.getPuntaje());
-        this.add(c);
+        panel.add(J1.getPuntaje());
+        panel.add(c);
+        this.add(panel);
         this.addKeyListener(new KeyListener() {
 
             @Override
@@ -162,7 +169,7 @@ public class Principal extends JFrame {
             }// System.out.println(tablero.isEmptyPuntos());
         },"Movimientos"); 
 //        movLoop.setPriority(Thread.MAX_PRIORITY);
-       Sound sound = new Sound(J1,F);
+       //Sound sound = new Sound(J1,F);
         movFant = new Thread(((Fantasma)F).getMovieLoop(tablero),"MovFant");
     }
     

@@ -6,6 +6,7 @@
 package pacman;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -131,8 +132,9 @@ public class Pacman extends Personaje{
 
         public Puntaje() {
             this.lblPuntaje = new JLabel(PUNTAJE+"0");
-            this.lblPuntaje.setFont(new java.awt.Font("Tahoma", 1, 20));
-            this.lblPuntaje.setBounds(15, 5, 200, 20);
+            this.lblPuntaje.setFont(new java.awt.Font("Tahoma", 1, 25));
+            this.lblPuntaje.setForeground(Color.WHITE);
+            this.lblPuntaje.setBounds(15, 15, 200, 20);
             this.puntaje = 0;
         }
         
