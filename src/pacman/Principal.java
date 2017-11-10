@@ -171,15 +171,15 @@ public class Principal extends JFrame {
                    case KeyEvent.VK_LEFT :{ pacman.currentDirection = Personaje.LEFT; break;}
                    case KeyEvent.VK_RIGHT:{ pacman.currentDirection = Personaje.RIGTH; break;}
                }
-               switch(e.getKeyChar()){
-                   case 'w':{fantasma.currentDirection = Personaje.UP; break;}
-                   case 'a':{fantasma.currentDirection = Personaje.LEFT; break;}
-                   case 's':{fantasma.currentDirection = Personaje.DOWN;break;}
-                   case 'd':{fantasma.currentDirection = Personaje.RIGTH; break;}
-//                   case 'm':{J1.currentStatus = Personaje.MUERTO; break;}
-//                   case 'z':{J1.currentStatus = Personaje.COMIENDO; break;}//                   case 'm':{J1.currentStatus = Personaje.MUERTO; break;}
-//                   case 'z':{J1.currentStatus = Personaje.COMIENDO; break;}
-               }
+//               switch(e.getKeyChar()){
+//                   case 'w':{fantasma.currentDirection = Personaje.UP; break;}
+//                   case 'a':{fantasma.currentDirection = Personaje.LEFT; break;}
+//                   case 's':{fantasma.currentDirection = Personaje.DOWN;break;}
+//                   case 'd':{fantasma.currentDirection = Personaje.RIGTH; break;}
+////                   case 'm':{J1.currentStatus = Personaje.MUERTO; break;}
+////                   case 'z':{J1.currentStatus = Personaje.COMIENDO; break;}//                   case 'm':{J1.currentStatus = Personaje.MUERTO; break;}
+////                   case 'z':{J1.currentStatus = Personaje.COMIENDO; break;}
+//               }
             }
 
             @Override
@@ -190,13 +190,13 @@ public class Principal extends JFrame {
                     case KeyEvent.VK_LEFT :{ pacman.currentDirection = Personaje.NONE; break;}
                     case KeyEvent.VK_RIGHT:{ pacman.currentDirection = Personaje.NONE; break;}
                }
-               switch(e.getKeyChar()){
-                   case 'w':{fantasma.currentDirection = Personaje.NONE; break;}
-                   case 'a':{fantasma.currentDirection = Personaje.NONE; break;}
-                   case 's':{fantasma.currentDirection = Personaje.NONE; break;}
-                   case 'd':{fantasma.currentDirection = Personaje.NONE; break;}
-//                   case 'z':{J1.currentStatus = Personaje.NONE; break;}//                   case 'z':{J1.currentStatus = Personaje.NONE; break;}
-               }
+//               switch(e.getKeyChar()){
+//                   case 'w':{fantasma.currentDirection = Personaje.NONE; break;}
+//                   case 'a':{fantasma.currentDirection = Personaje.NONE; break;}
+//                   case 's':{fantasma.currentDirection = Personaje.NONE; break;}
+//                   case 'd':{fantasma.currentDirection = Personaje.NONE; break;}
+////                   case 'z':{J1.currentStatus = Personaje.NONE; break;}//                   case 'z':{J1.currentStatus = Personaje.NONE; break;}
+//               }
             }
             
         };
