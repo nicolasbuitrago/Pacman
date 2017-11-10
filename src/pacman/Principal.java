@@ -27,7 +27,7 @@ public class Principal extends JFrame {
     public Pacman pacman;
     public Fantasma fantasma;
     public Tablero tablero;
-    public JLabel estado;
+    public JLabel estado, reiniciar;
     public Inicio inicio;
     public int[][] mundo = {
         
@@ -81,10 +81,11 @@ public class Principal extends JFrame {
         panel.setSize(w,h+85);
         panel.setLayout(null);
         
-        JLabel reiniciar = new JLabel("REINICIAR");
+        reiniciar = new JLabel("REINICIAR");
         reiniciar.setFont(new java.awt.Font("Tahoma", 1, 25));
         reiniciar.setForeground(Color.WHITE);
         reiniciar.setBounds(w-150, 12, 150, 30);
+//        reiniciar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         reiniciar.addMouseListener(getMouseListener());
         
         estado = new JLabel();
@@ -203,6 +204,7 @@ public class Principal extends JFrame {
     }
     
     private MouseListener getMouseListener() {
+        JLabel reini =  this.reiniciar;
         return new MouseListener(){
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -221,12 +223,12 @@ public class Principal extends JFrame {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                
+                reini.setForeground(Color.BLUE);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                
+                reini.setForeground(Color.WHITE);
             }
             
         };

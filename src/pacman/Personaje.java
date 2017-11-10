@@ -63,6 +63,10 @@ public abstract class Personaje {
                 new ImageIcon(getClass().getResource("/Sprites"+path+"//"+name+i+".png")).getImage()    , 100);
             }
         }
+//        for (int i = 1; i <= 11; i++) {
+//            animations[MUERTO]=new Animation();
+//            animations[MUERTO].addScene(new ImageIcon(getClass().getResource("/Sprites"+path+"//muerte"+1+".png")).getImage()    , 100);
+//        }
     }
 
     public int getX() {
