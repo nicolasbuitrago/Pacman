@@ -8,6 +8,7 @@ package pacman;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.awt.Rectangle;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -31,6 +33,8 @@ public class Tablero {
     private Map<Integer, ArrayList<Cuadrante>> adyacencias;
     private int[][] adyacencia;
     private int m,n;
+    private Image imgWall;
+    
     public static final int WIDTH = 1125 ,
             HEIGHT = 675,
             TAM_CUADRANTE = 45;
@@ -56,6 +60,8 @@ public class Tablero {
         }
         this.m = m;
         this.n = n;
+        
+        this.imgWall = new ImageIcon(getClass().getResource("/Sprites/wall.png")).getImage();
         
         this.adyacencia = new int[grafo.size()][grafo.size()];
         inicializarAdyacencia(); adyacencias = new HashMap();
@@ -84,16 +90,17 @@ public class Tablero {
     }
     
     public void paintTablero(Graphics g){
-//        g.setColor(Color.BLACK);
+        g.setColor(Color.BLACK);
 //        g.fillRect(0,0, c.getWidth(), c.getHeight());                        
         for (int i = 0; i < this.m; i++) {
             for (int j = 0; j < this.n; j++) {
                 if (tablero[i][j].isIs()) {
-                    g.setColor(Color.BLACK);
+//                    g.setColor(Color.BLACK);
                     g.fillRect(TAM_CUADRANTE * j, TAM_CUADRANTE * i, TAM_CUADRANTE, TAM_CUADRANTE);
                 } else {
-                    g.setColor(Color.BLUE);
-                    g.fillRect(TAM_CUADRANTE * j, TAM_CUADRANTE * i, TAM_CUADRANTE, TAM_CUADRANTE);
+//                    g.setColor(Color.BLUE);
+//                    g.fillRect(TAM_CUADRANTE * j, TAM_CUADRANTE * i, TAM_CUADRANTE, TAM_CUADRANTE);
+                    g.drawImage(imgWall,TAM_CUADRANTE * j, TAM_CUADRANTE * i, canvas);
                 }
             }
         }

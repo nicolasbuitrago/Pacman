@@ -66,6 +66,7 @@ public class Principal extends JFrame {
     };
     
     public Principal(Inicio inicio, int w, int h)throws Exception{
+        this.setTitle("Pacman");
         canvas = new Canvas(); this.inicio = inicio;
         pacman = new Pacman(523, 320, 8, 8, "/Pacman");//Los ultimos dos son velocidad
         fantasma = new Fantasma(406, 590, 5, 5, "/Fantasma");
