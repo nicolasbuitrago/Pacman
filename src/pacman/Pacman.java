@@ -45,14 +45,14 @@ public class Pacman extends Personaje{
         return img;
     }
     
-    @Override
-    public void loadPics(String[] names)throws Exception{
-        super.loadPics(names);
-        for (int i = 1; i <= 11; i++) {
-            animations[MUERTO]=new Animation();
-            animations[MUERTO].addScene(new ImageIcon(getClass().getResource("/Sprites"+path+"//muerte"+i+".png")).getImage()    , 500);
-        }
-    }
+//    @Override
+//    public void loadPics(String[] names)throws Exception{
+//        super.loadPics(names);
+//        for (int i = 1; i <= 11; i++) {
+//            animations[MUERTO]=new Animation();
+//            animations[MUERTO].addScene(new ImageIcon(getClass().getResource("/Sprites"+path+"//muerte"+i+".png")).getImage()    , 500);
+//        }
+//    }
     
     public Runnable getMovieLoop(Canvas c, Tablero tablero){
         Pacman J1 = this;
@@ -136,11 +136,11 @@ public class Pacman extends Personaje{
         }
     }
     
-    public void muerte(long time){
-        currentAnimation = Personaje.MUERTO;
-        animations[Personaje.MUERTO].update(time);
-        
-    }
+//    public void muerte(long time){
+//        currentAnimation = Personaje.MUERTO;
+//        animations[Personaje.MUERTO].update(time);
+//        
+//    }
     
     private class Puntaje{
         private JLabel lblPuntaje;

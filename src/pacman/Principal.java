@@ -260,6 +260,7 @@ public class Principal extends JFrame {
                             if(pacman.getVidas() == -1) estado.setText("GAME OVER");System.out.println("***********"+pacman.getVidas());
                         }else{
                             estado.setText("GANASTE!! :)");
+//                            fantasma.muerte(currentTime);
                         }
                         pacman.draw(g);
                         fantasma.draw(g);

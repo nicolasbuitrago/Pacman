@@ -63,8 +63,8 @@ public abstract class Personaje {
             }
         }
 //        for (int i = 1; i <= 11; i++) {
-//            animations[MUERTO]=new Animation();
-//            animations[MUERTO].addScene(new ImageIcon(getClass().getResource("/Sprites"+path+"//muerte1.png")).getImage()    , 100);
+            animations[MUERTO]=new Animation();
+            animations[MUERTO].addScene(new ImageIcon(getClass().getResource("/Sprites"+path+"//muerte1.png")).getImage()    , 100);
 //        }
     }
 
@@ -89,6 +89,12 @@ public abstract class Personaje {
     
     public Cuadrante getCuadrante() {
         return this.cuadrante;
+    }
+    
+    public void muerte(long time){
+        currentAnimation = Personaje.MUERTO;
+        animations[Personaje.MUERTO].update(time);
+        
     }
     
 //    public abstract Runnable getMovieLoop(Canvas c, Tablero tablero);
