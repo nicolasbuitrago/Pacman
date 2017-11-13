@@ -50,6 +50,7 @@ public class Sound implements Runnable {
     public void run() {
         
         play(start,4500);
+        start.stop();
         start.close();
         while (true) {
             try {
@@ -84,14 +85,15 @@ public class Sound implements Runnable {
                             t.suspend();
                             break;
                         }
-//                        case Personaje.GANO: {
+                        case Personaje.GANO: {
 //                            chomp.stop();
-//                            play(win, 1500);
-//                            this.cp = Personaje.GANO;
-//                            close();
-//                            t.suspend();
-//                            break;
-//                        }
+                            play(win, 5000);
+                            this.cp = Personaje.GANO;
+                            stop();
+                            close();
+                            t.suspend();
+                            break;
+                        }
                         case Personaje.COMIENDO: {
 //                            chomp.flush();//stop(chomp);
                              play(eat,1000);
@@ -109,8 +111,14 @@ public class Sound implements Runnable {
             if (cp != this.pacman.currentStatus) {
                 switch (this.fantasma.currentStatus) {
                     case Personaje.MUERTO: {
-                        
+                        chomp.stop();
+                        play(win, 15000);
+                        this.cp = Personaje.GANO;
                         this.cf = Personaje.MUERTO;
+                        stop();
+                        close();
+                        t.suspend();
+
                         break;
                     }
                 }
@@ -122,7 +130,7 @@ public class Sound implements Runnable {
     public void win(){
         chomp.stop();
         chomp.close();
-        play(win,1500);
+        play(win,3500);
         this.cp = Personaje.GANO;
         stop();
         close();

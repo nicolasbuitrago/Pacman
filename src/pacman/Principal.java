@@ -244,7 +244,9 @@ public class Principal extends JFrame {
 //                            if(pacman.getVidas() == -1) estado.setText("GAME OVER");System.out.println("***********"+pacman.getVidas());
                         }else{
                             estado.setText("GANASTE!! :)");
-                            pacman.currentStatus = Personaje.GANO;
+//                            pacman.currentStatus = Personaje.GANO;
+//                            sound.win();
+                            fantasma.currentStatus = Personaje.MUERTO;
                             fantasma.muerte(currentTime);
                         }
                         pacman.draw(g);
