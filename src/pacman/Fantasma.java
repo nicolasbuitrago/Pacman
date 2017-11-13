@@ -76,6 +76,7 @@ public class Fantasma extends Personaje{
     public void moveRigth(Tablero tablero, long time){
         if (tablero.isCamino(x + vx, y)) {
             x += vx;
+            if(tablero.validComePunto(this,x,y)) {}
             if(tablero.isComePacman()) tablero.getPacman().currentStatus = Personaje.MUERTO;
             currentAnimation = Personaje.RIGTH;
             animations[Personaje.RIGTH].update(time); //tablero.setCuadrante(this);
@@ -86,6 +87,7 @@ public class Fantasma extends Personaje{
     public void moveLeft(Tablero tablero, long time){
         if (tablero.isCamino(x - vx, y)) {
             x -= vx;
+            if(tablero.validComePunto(this,x,y)){}
             if(tablero.isComePacman()) tablero.getPacman().currentStatus = Personaje.MUERTO;
             currentAnimation = Personaje.LEFT;
             animations[Personaje.LEFT].update(time); //tablero.setCuadrante(this);
@@ -96,6 +98,7 @@ public class Fantasma extends Personaje{
     public void moveUp(Tablero tablero, long time) {
         if (tablero.isCamino(x, y - vy)) {
             y -= vy;
+            if(tablero.validComePunto(this,x,y)) {}
             if(tablero.isComePacman()) tablero.getPacman().currentStatus = Personaje.MUERTO;
             currentAnimation = Personaje.UP;
             animations[Personaje.UP].update(time);//tablero.setCuadrante(this);
@@ -106,6 +109,7 @@ public class Fantasma extends Personaje{
     public void moveDown(Tablero tablero, long time) {
         if (tablero.isCamino(x, y + vy)) {
             y += vy;
+            if(tablero.validComePunto(this,x,y)) {}
             if(tablero.isComePacman()) tablero.getPacman().currentStatus = Personaje.MUERTO;
             currentAnimation = Personaje.DOWN;
             animations[Personaje.DOWN].update(time);//tablero.setCuadrante(this);

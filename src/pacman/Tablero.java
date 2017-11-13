@@ -106,6 +106,24 @@ public class Tablero {
         }
         if(!this.puntos.isEmpty()) paintPuntos(g);
     }
+    
+    public void paintTablero(){
+        Graphics g = canvas.getGraphics();
+        g.setColor(Color.BLACK);                        
+        for (int i = 0; i < this.m; i++) {
+            for (int j = 0; j < this.n; j++) {
+                if (tablero[i][j].isIs()) {
+                    g.fillRect(TAM_CUADRANTE * j, TAM_CUADRANTE * i, TAM_CUADRANTE, TAM_CUADRANTE);
+                } else {
+                    g.drawImage(imgWall,TAM_CUADRANTE * j, TAM_CUADRANTE * i, canvas);
+                }
+            }
+        }
+        if(!this.puntos.isEmpty()) paintPuntos(g);
+        pacman.draw(g);
+        fantasma.draw(g);
+        canvas.getBufferStrategy().show();
+    }
 
     public boolean isCamino(int x, int y) {
         
@@ -350,15 +368,26 @@ public class Tablero {
     private void paintPuntos(Graphics g){
         g.setColor(Color.WHITE);
         for (Punto punto : puntos) {
-            g.fillOval(punto.getX(), punto.getY(), Punto.RADIO*2, Punto.RADIO*2);
+            for (Cuadrante cuadrante : grafo) {
+                if (cuadrante.intersects(punto.getX(), punto.getY())) {
+                    g.fillOval(punto.getX(), punto.getY(), Punto.RADIO * 2, Punto.RADIO * 2);
+                    cuadrante.setHavePunto(true);
+                    punto.cuadrante = cuadrante;
+                }
+            }
+            
         }
     }
 
-    boolean validComePunto(Pacman p, int x, int y) {
+    boolean validComePunto(Personaje p, int x, int y) {
         for (Punto punto : puntos) {
             if (punto.intersects(x, y)) {
-                this.puntos.remove(punto);
-                p.currentStatus = Personaje.COMIENDO;
+                if (p instanceof Pacman) {
+                    this.puntos.remove(punto);
+                    p.currentStatus = Personaje.COMIENDO;
+                }else{
+                    reubicar(punto);
+                }
                 return true;
             } 
         }
@@ -388,9 +417,25 @@ public class Tablero {
         return new Rectangle(pacman.getX(),pacman.getY(),Personaje.DIAMETRO,Personaje.DIAMETRO).intersects(fantasma.getX(), fantasma.getY(), Personaje.DIAMETRO, Personaje.DIAMETRO);
 //        return pacman.getCuadrante().equals(fantasma.getCuadrante());
     }
+
+    private void reubicar(Punto punto) {
+        Cuadrante cuad;System.out.println("REUBICANDO*****************");
+        do{
+            int r = (int) (Math.random() * (grafo.size()-1));
+            cuad = grafo.get(r);
+            if(!cuad.isHavePunto()){
+                punto.cuadrante.setHavePunto(false);
+                
+                cuad.setHavePunto(true);
+            }
+        }while(punto.cuadrante.isHavePunto());
+        punto.setCuadrante(cuad);
+//        this.paintTablero();
+    }
         
     private class Punto{
         int x, y;
+        Cuadrante cuadrante;
         static final int RADIO = 15;
 
         public Punto(int x, int y) {
@@ -404,6 +449,12 @@ public class Tablero {
 
         public int getY() {
             return y;
+        }
+
+        public void setCuadrante(Cuadrante cuadrante) {
+            this.cuadrante = cuadrante;
+            this.x = cuadrante.getX()+(Tablero.TAM_CUADRANTE - RADIO*2)/2;
+            this.y = cuadrante.getY()+(Tablero.TAM_CUADRANTE - RADIO*2)/2;
         }
         
         boolean intersects(int x,int y){

@@ -15,12 +15,14 @@ import java.util.Objects;
 public class Cuadrante {
     
     private Rectangle rect;
-    private boolean is;
+    private boolean is,
+            havePunto;
     private int name;
 
     public Cuadrante(int x, int y, int size, boolean is){
         this.rect = new Rectangle(x, y, size, size);  //if(rect.intersects(100, 120, 56,56)) System.out.println(y/100+","+x/100);
         this.is = is;
+        this.havePunto = false;
     }
 
     public int getX() {
@@ -41,6 +43,14 @@ public class Cuadrante {
 
     public void setName(int name) {
         this.name = name;
+    }
+
+    public boolean isHavePunto() {
+        return havePunto;
+    }
+
+    public void setHavePunto(boolean havePunto) {
+        this.havePunto = havePunto;
     }
     
     public boolean intersects(int x, int y){

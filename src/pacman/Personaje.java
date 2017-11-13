@@ -99,7 +99,7 @@ public abstract class Personaje {
     
 //    public abstract Runnable getMovieLoop(Canvas c, Tablero tablero);
     
-//    private double getDistancia(int x, int y){
+//    private double getDistancia(int x, int y){  (int) (Math.random() * 1000) + 1;
 //        return Math.sqrt(Math.pow(Math.abs(x - this.x),2) + Math.pow(Math.abs(y - this.y),2));
 //    }   
     
