@@ -8,8 +8,7 @@ package pacman;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
-import javax.swing.ImageIcon;
+//import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 /**
@@ -19,31 +18,31 @@ import javax.swing.JLabel;
 public class Pacman extends Personaje{
     
     private Puntaje puntaje;
-    private int vidas;
-    ImageIcon img;
+//    private int vidas;
+//    ImageIcon img;
     
     public Pacman (int x, int y, int vx, int vy, String path){
         super(x, y, vx, vy, path);
-        this.img = new ImageIcon(getClass().getResource("/Sprites"+path+"//adelante1.png"));
+//        this.img = new ImageIcon(getClass().getResource("/Sprites"+path+"//adelante1.png"));
         this.puntaje = new Puntaje();
-        this.vidas = 2;
+//        this.vidas = 2;
     }
 
     public JLabel getPuntaje() {
         return puntaje.lblPuntaje;
     }
 
-    public int getVidas() {
-        return vidas;
-    }
-    
-    public void quitarVidas(){
-        vidas--;
-    }
+//    public int getVidas() {
+//        return vidas;
+//    }
+//    
+//    public void quitarVidas(){
+//        vidas--;
+//    }
 
-    public ImageIcon getImg() {
-        return img;
-    }
+//    public ImageIcon getImg() {
+//        return img;
+//    }
     
 //    @Override
 //    public void loadPics(String[] names)throws Exception{

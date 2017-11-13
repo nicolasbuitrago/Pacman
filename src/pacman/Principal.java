@@ -28,7 +28,7 @@ public class Principal extends JFrame {
     public Fantasma fantasma;
     public Tablero tablero;
     public JLabel estado, reiniciar;
-    JLabel[] vidas;
+//    JLabel[] vidas;
     public Inicio inicio;
     public int[][] mundo = {
         
@@ -83,14 +83,14 @@ public class Principal extends JFrame {
         panel.setLayout(null);
         
         
-        vidas = new JLabel[3];
-        getVidas(panel,200);
+//        vidas = new JLabel[3];
+//        getVidas(panel,200);
         
         estado = new JLabel();
         estado.setFont(new java.awt.Font("Tahoma", 1, 25));
         estado.setHorizontalAlignment(JLabel.CENTER);
         estado.setForeground(Color.WHITE);
-        estado.setBounds(320, 12, w-200-150, 30);
+        estado.setBounds(200, 12, w-200-150, 30);
         
         reiniciar = new JLabel("REINICIAR");
         reiniciar.setFont(new java.awt.Font("Tahoma", 1, 25));
@@ -194,25 +194,25 @@ public class Principal extends JFrame {
     }
     
     private void reiniciar(){
-        if(pacman.getVidas()>=0){
-            this.estado.setText("");
-            this.pacman.reiniciar(523, 320);
-            this.fantasma.reiniciar(406, 590);
-            movLoop = new Thread( getMovieLoop(),"Movimientos");
-            movFant = new Thread(((Fantasma)fantasma).getMovieLoop(tablero),"MovFant");
+//        if(pacman.getVidas()>=0){
+//            this.estado.setText("");
+//            this.pacman.reiniciar(523, 320);
+//            this.fantasma.reiniciar(406, 590);
+//            movLoop = new Thread( getMovieLoop(),"Movimientos");
+//            movFant = new Thread(((Fantasma)fantasma).getMovieLoop(tablero),"MovFant");
+//            
+//            movLoop.start();
+//            movFant.start();
+//        }else{
+//            if(this.estado.getText().equals("GAME OVER")){
+//                inicio.reiniciar();
+//                this.dispose();
+//            }else
+//                this.estado.setText("GAME OVER");System.out.println("***********"+pacman.getVidas());
+//        }
             
-            movLoop.start();
-            movFant.start();
-        }else{
-            if(this.estado.getText().equals("GAME OVER")){
-                inicio.reiniciar();
-                this.dispose();
-            }else
-                this.estado.setText("GAME OVER");System.out.println("***********"+pacman.getVidas());
-        }
-            
-//        inicio.reiniciar();
-//        this.dispose();
+        inicio.reiniciar();
+        this.dispose();
     }
     
     public Runnable getMovieLoop(){
@@ -254,13 +254,13 @@ public class Principal extends JFrame {
                         tablero.paintTablero(g);
                         if (pacman.currentStatus == Personaje.MUERTO) {
                             pacman.muerte(currentTime);
-                            vidas[pacman.getVidas()].setVisible(false);
-                            pacman.quitarVidas();
+//                            vidas[pacman.getVidas()].setVisible(false);
+//                            pacman.quitarVidas();
                             estado.setText("PERDISTE  :(");
-                            if(pacman.getVidas() == -1) estado.setText("GAME OVER");System.out.println("***********"+pacman.getVidas());
+//                            if(pacman.getVidas() == -1) estado.setText("GAME OVER");System.out.println("***********"+pacman.getVidas());
                         }else{
                             estado.setText("GANASTE!! :)");
-//                            fantasma.muerte(currentTime);
+                            fantasma.muerte(currentTime);
                         }
                         pacman.draw(g);
                         fantasma.draw(g);
@@ -289,15 +289,15 @@ public class Principal extends JFrame {
 //        }
     }
 
-    private void getVidas(JPanel panel, int posi) {
-        for (int i = 0; i < 3; i++) {
-            vidas[i] = new JLabel();
-            vidas[i].setIcon(this.pacman.getImg());
-            vidas[i].setBounds(posi, 12, Personaje.DIAMETRO, Personaje.DIAMETRO);
-            posi += Personaje.DIAMETRO+5;
-            panel.add(vidas[i]);
-        }
-    }
+//    private void getVidas(JPanel panel, int posi) {
+//        for (int i = 0; i < 3; i++) {
+//            vidas[i] = new JLabel();
+//            vidas[i].setIcon(this.pacman.getImg());
+//            vidas[i].setBounds(posi, 12, Personaje.DIAMETRO, Personaje.DIAMETRO);
+//            posi += Personaje.DIAMETRO+5;
+//            panel.add(vidas[i]);
+//        }
+//    }
 
     
 }
