@@ -323,9 +323,9 @@ public class Tablero {
     }
 
     private ArrayList<Punto> getPuntos() {
-        List<Punto> list = Arrays.asList(new Punto(595,48)/*,new Punto(499,48),new Punto(51,140),new Punto(906,364),
+        List<Punto> list = Arrays.asList(new Punto(595,48),new Punto(499,48),new Punto(51,140),new Punto(906,364),
                 new Punto(907,140),new Punto(683,408),new Punto(1040,590),new Punto(54,590),
-                new Punto(235,320),new Punto(411,504)*/);
+                new Punto(235,320),new Punto(411,504));
         return new ArrayList(list);
     }
     
