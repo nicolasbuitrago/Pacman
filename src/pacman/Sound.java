@@ -21,7 +21,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class Sound implements Runnable {
 
     Thread t;
-    private Clip start, chomp, death, eat;
+    private Clip start, chomp, death, eat, win;
     private Personaje pacman, fantasma;
     private int cp, cf;
 
@@ -33,6 +33,7 @@ public class Sound implements Runnable {
         this.chomp = getClip("src/Audio/chomp.wav");
         this.death = getClip("src/Audio/death.wav");
         this.eat   = getClip("src/Audio/eat.wav");
+        this.win   = getClip("src/Audio/win.wav");
 
         this.pacman = pacman;
         this.cp = Personaje.NONE;
@@ -67,6 +68,14 @@ public class Sound implements Runnable {
 //                            System.out.println("ssss");
                             break;
                         }
+//                        case Personaje.GANO: {
+//                            chomp.stop();System.out.println("*************GANO");
+//                            play(win, 1500);
+//                            this.cp = Personaje.GANO;
+//                            close();
+//                            t.suspend();
+//                            break;
+//                        }
                         case Personaje.MUERTO: {
                             chomp.stop();
                             play(death, 1500);
@@ -75,6 +84,14 @@ public class Sound implements Runnable {
                             t.suspend();
                             break;
                         }
+//                        case Personaje.GANO: {
+//                            chomp.stop();
+//                            play(win, 1500);
+//                            this.cp = Personaje.GANO;
+//                            close();
+//                            t.suspend();
+//                            break;
+//                        }
                         case Personaje.COMIENDO: {
 //                            chomp.flush();//stop(chomp);
                              play(eat,1000);
@@ -82,6 +99,7 @@ public class Sound implements Runnable {
                             this.pacman.currentStatus = Personaje.NORMAL;
                             break;
                         }
+                        
                     }
                 }
             } catch (Exception e) {
@@ -99,6 +117,16 @@ public class Sound implements Runnable {
             }
         }
         
+    }
+    
+    public void win(){
+        chomp.stop();
+        chomp.close();
+        play(win,1500);
+        this.cp = Personaje.GANO;
+        stop();
+        close();
+        t.suspend();
     }
 
     private Clip getClip(String fileName) {
@@ -161,6 +189,7 @@ public class Sound implements Runnable {
         chomp.close();
         eat.close();
         death.close();
+        win.close();
     }
     
     public void stop(){
@@ -172,6 +201,9 @@ public class Sound implements Runnable {
         }
         if(this.death.isActive()){
             death.stop();
+        }
+        if(this.win.isActive()){
+            win.stop();
         }
     }
 }

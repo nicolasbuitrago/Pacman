@@ -33,9 +33,10 @@ public abstract class Personaje {
     protected int currentDirection;
     protected int currentStatus;
     
-    public static final int NORMAL = 0;
-    public static final int MUERTO = 4;
-    public static final int COMIENDO = 2;
+    public static final int NORMAL = 0,
+            MUERTO = 4,
+            COMIENDO = 2,
+            GANO = 6;
     
     public Personaje (int x, int y, int vx, int vy, String path){
         this.path = path;
@@ -95,13 +96,7 @@ public abstract class Personaje {
         currentAnimation = Personaje.MUERTO;
         animations[Personaje.MUERTO].update(time);
         
-    }
-    
-//    public abstract Runnable getMovieLoop(Canvas c, Tablero tablero);
-    
-//    private double getDistancia(int x, int y){  (int) (Math.random() * 1000) + 1;
-//        return Math.sqrt(Math.pow(Math.abs(x - this.x),2) + Math.pow(Math.abs(y - this.y),2));
-//    }   
+    } 
     
     public abstract void moveRigth(Tablero tablero, long time);
     

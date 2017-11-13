@@ -28,7 +28,7 @@ public class Fantasma extends Personaje{
                 long currentTime = 0; int Jcd = J.currentDirection; int ant = F.currentDirection;
                 while(true){
                     try{
-                        if(J.currentDirection != Personaje.NONE){//if (J.currentDirection != Jcd) {
+                        if(J.currentDirection != Personaje.NONE){
                             tablero.setCuadrante(F);
                             Camino camino = tablero.dijkstra(cuadrante, J.getCuadrante(), tablero);
 //                            tablero.paintCamino(camino, cuadrante);
@@ -39,7 +39,7 @@ public class Fantasma extends Personaje{
                                 ant = F.currentDirection;
                                 F.moveToCenterCuarante(tablero);
                             }
-                            System.out.println("FD = " + F.currentDirection);
+//                            System.out.println("FD = " + F.currentDirection);
 
                             currentTime = System.currentTimeMillis() - startTime;
                             switch (F.currentDirection) {
@@ -63,7 +63,6 @@ public class Fantasma extends Personaje{
                         }
                         Thread.sleep(500);
                     } catch (IndexOutOfBoundsException ie) {
-                        System.out.println("P 34");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

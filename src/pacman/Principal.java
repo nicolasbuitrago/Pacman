@@ -28,48 +28,48 @@ public class Principal extends JFrame {
     public Fantasma fantasma;
     public Tablero tablero;
     public JLabel estado, reiniciar;
-//    JLabel[] vidas;
     public Inicio inicio;
+    public Sound sound;
     public int[][] mundo = {
         
-//            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-//            {1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-//            {1,0,1,1,1,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1,0,1,0,1},
-//            {1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,1},
-//            {1,1,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,0,1,0,1,0,1},
-//            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,1},
-//            {1,0,1,1,1,0,1,1,0,1,1,0,0,1,1,0,1,1,1,0,1,0,1,0,1},
-//            {1,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1},
-//            {1,0,1,0,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1},
-//            {1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-//            {1,0,1,0,1,0,1,0,1,1,1,0,1,0,1,1,1,1,1,1,1,0,1,0,1},
-//            {1,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,1},
-//            {1,0,1,1,1,0,1,0,1,0,1,1,1,0,1,0,1,0,1,1,1,1,1,0,1},
-//            {1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1},
-//            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-            
-            {1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+            {1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
             {1,0,1,1,1,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1,0,1,0,1},
             {1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,1},
             {1,1,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,0,1,0,1,0,1},
             {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,1},
             {1,0,1,1,1,0,1,1,0,1,1,0,0,1,1,0,1,1,1,0,1,0,1,0,1},
-            {0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
+            {1,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1},
             {1,0,1,0,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1},
             {1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
             {1,0,1,0,1,0,1,0,1,1,1,0,1,0,1,1,1,1,1,1,1,0,1,0,1},
             {1,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,1},
             {1,0,1,1,1,0,1,0,1,0,1,1,1,0,1,0,1,0,1,1,1,1,1,0,1},
             {1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1},
-            {1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1}
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+            
+//            {1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1},
+//            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//            {1,0,1,1,1,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1,0,1,0,1},
+//            {1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,1},
+//            {1,1,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,0,1,0,1,0,1},
+//            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,1},
+//            {1,0,1,1,1,0,1,1,0,1,1,0,0,1,1,0,1,1,1,0,1,0,1,0,1},
+//            {0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
+//            {1,0,1,0,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,0,1,1,1,1},
+//            {1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//            {1,0,1,0,1,0,1,0,1,1,1,0,1,0,1,1,1,1,1,1,1,0,1,0,1},
+//            {1,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,1},
+//            {1,0,1,1,1,0,1,0,1,0,1,1,1,0,1,0,1,0,1,1,1,1,1,0,1},
+//            {1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1},
+//            {1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1}
 
     };
     
     public Principal(Inicio inicio, int w, int h)throws Exception{
         this.setTitle("Pacman"); 
         canvas = new Canvas(); this.inicio = inicio;
-        pacman = new Pacman(523, 320, 8, 8, "/Pacman");//Los ultimos dos son velocidad
+        pacman = new Pacman(523, 320, 8, 8, "/Pacman");
         fantasma = new Fantasma(406, 590, 5, 5, "/Fantasma");
         String[] names = {"adelante","arriba","abajo","atras"};
         pacman.loadPics(names);
@@ -96,7 +96,6 @@ public class Principal extends JFrame {
         reiniciar.setFont(new java.awt.Font("Tahoma", 1, 25));
         reiniciar.setForeground(Color.WHITE);
         reiniciar.setBounds(w-150, 12, 150, 30);
-//        reiniciar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         reiniciar.addMouseListener(getMouseListener());
         
         canvas.setLocation(0, 55);
@@ -110,8 +109,7 @@ public class Principal extends JFrame {
         this.addKeyListener(getKeyListener());
         
         movLoop = new Thread( getMovieLoop(),"Movimientos"); 
-//        movLoop.setPriority(Thread.MAX_PRIORITY);
-//        Sound sound = new Sound(pacman,fantasma);
+        sound = new Sound(pacman,fantasma);
         movFant = new Thread(((Fantasma)fantasma).getMovieLoop(tablero),"MovFant");
     }
     
@@ -131,32 +129,17 @@ public class Principal extends JFrame {
                    case KeyEvent.VK_LEFT :{ pacman.currentDirection = Personaje.LEFT; break;}
                    case KeyEvent.VK_RIGHT:{ pacman.currentDirection = Personaje.RIGTH; break;}
                }
-//               switch(e.getKeyChar()){
-//                   case 'w':{fantasma.currentDirection = Personaje.UP; break;}
-//                   case 'a':{fantasma.currentDirection = Personaje.LEFT; break;}
-//                   case 's':{fantasma.currentDirection = Personaje.DOWN;break;}
-//                   case 'd':{fantasma.currentDirection = Personaje.RIGTH; break;}
-////                   case 'm':{J1.currentStatus = Personaje.MUERTO; break;}
-////                   case 'z':{J1.currentStatus = Personaje.COMIENDO; break;}//                   case 'm':{J1.currentStatus = Personaje.MUERTO; break;}
-////                   case 'z':{J1.currentStatus = Personaje.COMIENDO; break;}
-//               }
+
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
                switch(e.getKeyCode()){
-//                    case KeyEvent.VK_UP   :{ pacman.currentDirection = Personaje.NONE; break;}
-//                    case KeyEvent.VK_DOWN :{ pacman.currentDirection = Personaje.NONE; break;}
-//                    case KeyEvent.VK_LEFT :{ pacman.currentDirection = Personaje.NONE; break;}
-//                    case KeyEvent.VK_RIGHT:{ pacman.currentDirection = Personaje.NONE; break;}
+                    case KeyEvent.VK_UP   :{ pacman.currentDirection = Personaje.NONE; break;}
+                    case KeyEvent.VK_DOWN :{ pacman.currentDirection = Personaje.NONE; break;}
+                    case KeyEvent.VK_LEFT :{ pacman.currentDirection = Personaje.NONE; break;}
+                    case KeyEvent.VK_RIGHT:{ pacman.currentDirection = Personaje.NONE; break;}
                }
-//               switch(e.getKeyChar()){
-//                   case 'w':{fantasma.currentDirection = Personaje.NONE; break;}
-//                   case 'a':{fantasma.currentDirection = Personaje.NONE; break;}
-//                   case 's':{fantasma.currentDirection = Personaje.NONE; break;}
-//                   case 'd':{fantasma.currentDirection = Personaje.NONE; break;}
-////                   case 'z':{J1.currentStatus = Personaje.NONE; break;}//                   case 'z':{J1.currentStatus = Personaje.NONE; break;}
-//               }
             }
             
         };
@@ -210,7 +193,8 @@ public class Principal extends JFrame {
 //            }else
 //                this.estado.setText("GAME OVER");System.out.println("***********"+pacman.getVidas());
 //        }
-            
+        sound.stop();
+        sound.close();
         inicio.reiniciar();
         this.dispose();
     }
@@ -237,7 +221,7 @@ public class Principal extends JFrame {
                         case Personaje.DOWN:{  pacman.moveDown (tablero,currentTime); break;}
                         case Personaje.LEFT:{  pacman.moveLeft (tablero,currentTime); break;}
                         case Personaje.UP:{    pacman.moveUp   (tablero,currentTime); break;}
-                    } //System.out.println("J1:  x = "+J1.x+",   y = "+J1.y);
+                    } 
                     pacman.draw(g);
                     switch(fantasma.currentDirection){
                         case Personaje.RIGTH:{ fantasma.moveRigth(tablero,currentTime); break;}
@@ -260,6 +244,7 @@ public class Principal extends JFrame {
 //                            if(pacman.getVidas() == -1) estado.setText("GAME OVER");System.out.println("***********"+pacman.getVidas());
                         }else{
                             estado.setText("GANASTE!! :)");
+                            pacman.currentStatus = Personaje.GANO;
                             fantasma.muerte(currentTime);
                         }
                         pacman.draw(g);

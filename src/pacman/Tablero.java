@@ -240,40 +240,13 @@ public class Tablero {
                 cuads.add(tablero[i][j-1]);
             }
         }
-        
-//        if(i<m && grafo.contains(tablero[i+1][j])){
-//            
-//        }
-//        if(i>0 && grafo.contains(tablero[i-1][j])){
-//            
-//        }
-//        if(j<n && grafo.contains(tablero[i][j+1])){
-//            cuads.add(tablero[i][j+1]);
-//        }
-//        if(j>0 && grafo.contains(tablero[i][j-1])){
-//            cuads.add(tablero[i][j-1]);
-//        }
+
         
         return cuads;
     }
     
     public int getDirection(Cuadrante inicio, Cuadrante fin){
-//        int d;
-//        for (int i = 0; i < m; i++) {
-//            for (int j = 0; j < n; j++) {
-//                if(tablero[i][j].equals(inicio)){
-//                    if(tablero[i+1][j].equals(fin)){
-//                        return Personaje.RIGTH;
-//                    }else if(tablero[i-1][j].equals(fin)){
-//                        return Personaje.LEFT;
-//                    }else if(tablero[i][j+1].equals(fin)){
-//                        return Personaje.DOWN;
-//                    }else if(tablero[i][j-1].equals(fin)){
-//                        return Personaje.UP;
-//                    }else{System.out.println("ERROR en getDirection Tablero");}
-//                }
-//            }
-//        }
+
 
         if(fin.getX() > inicio.getX()){
             return Personaje.RIGTH;
@@ -289,7 +262,6 @@ public class Tablero {
     
     public Camino dijkstra(Cuadrante inicio, Cuadrante fin, Tablero tablero) {
         int[] distancia = new int[grafo.size()];
-//        Map<Integer, Integer> distancia = new HashMap();
         boolean[] visto = new boolean[grafo.size()];
         ArrayList<Camino> caminos = new ArrayList();
         for (Cuadrante cuadrante : grafo) {
@@ -298,9 +270,7 @@ public class Tablero {
             visto[i++] = false;
         }
         distancia[inicio.getName()] = 0;
-//        PriorityQueue<Cuadrante> cola = new PriorityQueue();
         Queue<Cuadrante> cola = new LinkedList();
-//        ArrayList<Cuadrante> cola = new ArrayList();  // cola de prioridad
         Camino camino = new Camino();
         camino.add(inicio);
         cola.add(inicio);
@@ -309,7 +279,7 @@ public class Tablero {
             Cuadrante cuad = cola.poll();
             int u = cuad.getName();
             visto[cuad.getName()] = true;
-//            ArrayList<Cuadrante> cuads = adyacencias.get(u);
+
             for (Cuadrante cuadrante : adyacencias.get(u)) {
                 if (distancia[cuadrante.getName()] > distancia[u] + 1) {
                     distancia[cuadrante.getName()] = distancia[u] + 1;
@@ -317,13 +287,7 @@ public class Tablero {
                     cola.add(grafo.get(cuadrante.getName())); //  if(j==nf.getName()){ imprimirRuta(Ruta.rutaMasCorta(rutas,nf));System.out.println("+++++");}
                 }
             }
-//            for (int j = 0; j < grafo.size(); j++) {
-//                if (adyacencia[u][j] == 1 && distancia[j] > distancia[u] + 1) {
-//                    distancia[j] = distancia[u] + 1;
-//                    add(caminos, cuad, grafo.get(j));
-//                    cola.add(grafo.get(j)); //  if(j==nf.getName()){ imprimirRuta(Ruta.rutaMasCorta(rutas,nf));System.out.println("+++++");}
-//                }
-//            }
+
         }
         return rutaMasCorta(caminos, fin);
     }
@@ -359,9 +323,9 @@ public class Tablero {
     }
 
     private ArrayList<Punto> getPuntos() {
-        List<Punto> list = Arrays.asList(new Punto(595,48),new Punto(499,48),new Punto(51,140),new Punto(906,364),
+        List<Punto> list = Arrays.asList(new Punto(595,48)/*,new Punto(499,48),new Punto(51,140),new Punto(906,364),
                 new Punto(907,140),new Punto(683,408),new Punto(1040,590),new Punto(54,590),
-                new Punto(235,320),new Punto(411,504));
+                new Punto(235,320),new Punto(411,504)*/);
         return new ArrayList(list);
     }
     
@@ -408,18 +372,16 @@ public class Tablero {
             }
             g.fillRect(cuadrante.getX(), cuadrante.getY(), TAM_CUADRANTE, TAM_CUADRANTE);
         }
-//        for (Cuadrante cuadrante : camino.ruta) {
-//            g.fillRect(cuadrante.getX(), cuadrante.getY(), TAM_CUADRANTE, TAM_CUADRANTE);
-//        }
+
     }
 
     boolean isComePacman() {
         return new Rectangle(pacman.getX(),pacman.getY(),Personaje.DIAMETRO,Personaje.DIAMETRO).intersects(fantasma.getX(), fantasma.getY(), Personaje.DIAMETRO, Personaje.DIAMETRO);
-//        return pacman.getCuadrante().equals(fantasma.getCuadrante());
+
     }
 
     private void reubicar(Punto punto) {
-        Cuadrante cuad;//System.out.println("REUBICANDO*****************");
+        Cuadrante cuad;
         do{
             int r = (int) (Math.random() * (grafo.size()-1));
             cuad = grafo.get(r);
