@@ -25,7 +25,10 @@ public class Fantasma extends Personaje{
             @Override
             public void run() {
                 long startTime = System.currentTimeMillis();
-                long currentTime = 0; int Jcd = J.currentDirection; int ant = F.currentDirection;
+                long currentTime = 0;
+                int Jcd = J.currentDirection;
+                int ant = F.currentDirection;
+//                boolean sw = false;
                 while(true){
                     try{
                         if(J.currentDirection != Personaje.NONE){
@@ -61,7 +64,12 @@ public class Fantasma extends Personaje{
                                 }
                             }
                         }
-                        Thread.sleep(500);
+//                        if(sw){
+//                            J.addPunto();
+//                        }else if(J.currentDirection != Personaje.NONE && F.currentStatus != Personaje.MUERTO){
+//                            sw = true;
+//                        }
+                        Thread.sleep(550);
                     } catch (IndexOutOfBoundsException ie) {
                     } catch (Exception e) {
                         e.printStackTrace();

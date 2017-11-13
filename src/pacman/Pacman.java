@@ -45,6 +45,14 @@ public class Pacman extends Personaje{
 //    }
     
     
+     public void addPunto(){
+            this.puntaje.addPunto();
+        }
+        
+        public void addPuntos(){
+            this.puntaje.addPuntos();
+        }
+        
     public Runnable getMovieLoop(Canvas c, Tablero tablero){
         Pacman J1 = this;
         

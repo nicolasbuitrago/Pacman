@@ -54,7 +54,7 @@ public class Sound implements Runnable {
         start.close();
         while (true) {
             try {
-                System.out.println("cs = " + this.pacman.currentStatus);
+                System.out.println(this.pacman.currentStatus);
                 
                 if (cp != this.pacman.currentStatus) {//System.out.println("cs = " + this.pacman.currentStatus);
                     switch (this.pacman.currentStatus) {

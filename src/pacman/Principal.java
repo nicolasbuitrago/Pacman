@@ -70,7 +70,7 @@ public class Principal extends JFrame {
         this.setTitle("Pacman"); 
         canvas = new Canvas(); this.inicio = inicio;
         pacman = new Pacman(523, 320, 8, 8, "/Pacman");
-        fantasma = new Fantasma(406, 590, 5, 5, "/Fantasma");
+        fantasma = new Fantasma(406, 590, 6, 6, "/Fantasma");
         String[] names = {"adelante","arriba","abajo","atras"};
         pacman.loadPics(names);
         fantasma.loadPics(names);
@@ -135,10 +135,10 @@ public class Principal extends JFrame {
             @Override
             public void keyReleased(KeyEvent e) {
                switch(e.getKeyCode()){
-                    case KeyEvent.VK_UP   :{ pacman.currentDirection = Personaje.NONE; break;}
-                    case KeyEvent.VK_DOWN :{ pacman.currentDirection = Personaje.NONE; break;}
-                    case KeyEvent.VK_LEFT :{ pacman.currentDirection = Personaje.NONE; break;}
-                    case KeyEvent.VK_RIGHT:{ pacman.currentDirection = Personaje.NONE; break;}
+//                    case KeyEvent.VK_UP   :{ pacman.currentDirection = Personaje.NONE; break;}
+//                    case KeyEvent.VK_DOWN :{ pacman.currentDirection = Personaje.NONE; break;}
+//                    case KeyEvent.VK_LEFT :{ pacman.currentDirection = Personaje.NONE; break;}
+//                    case KeyEvent.VK_RIGHT:{ pacman.currentDirection = Personaje.NONE; break;}
                }
             }
             
@@ -210,12 +210,13 @@ public class Principal extends JFrame {
             Graphics g = canvas.getBufferStrategy().getDrawGraphics();
             long startTime = System.currentTimeMillis();
             long currentTime = 0; pacman.currentStatus = Personaje.NORMAL;
+            int sec = 0;
             while(true){
                 try{
                         
                     tablero.paintTablero(g);
                     
-                    currentTime = System.currentTimeMillis() - startTime;
+                    currentTime = System.currentTimeMillis() - startTime;//System.out.println("CurrTime = "+currentTime);
                     switch(pacman.currentDirection){
                         case Personaje.RIGTH:{ pacman.moveRigth(tablero,currentTime); break;}
                         case Personaje.DOWN:{  pacman.moveDown (tablero,currentTime); break;}
@@ -233,6 +234,11 @@ public class Principal extends JFrame {
                     
                     Thread.sleep(30);
                     canvas.getBufferStrategy().show();
+                    
+                    if(currentTime/1000 != sec && pacman.currentDirection != Personaje.NONE){
+                        sec = (int) currentTime/1000;
+                        pacman.addPunto();
+                    }
                     
                     if (tablero.isEmptyPuntos() || pacman.currentStatus == Personaje.MUERTO) {
                         tablero.paintTablero(g);
