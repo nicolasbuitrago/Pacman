@@ -275,19 +275,6 @@ public class Principal extends JFrame {
         };
     }
     
-    public static void main(String[] args) {
-//        try{
-//            Principal p = new Principal(Tablero.WIDTH,Tablero.HEIGHT);
-//            p.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//            p.setResizable(false);
-//            p.setLocationRelativeTo(null);
-//            p.setVisible(true);
-//            p.movLoop.start();
-//            p.movFant.start();
-//        }catch(Exception e){
-//            e.printStackTrace();
-//        }
-    }
 
 //    private void getVidas(JPanel panel, int posi) {
 //        for (int i = 0; i < 3; i++) {

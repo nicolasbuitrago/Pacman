@@ -419,7 +419,7 @@ public class Tablero {
     }
 
     private void reubicar(Punto punto) {
-        Cuadrante cuad;System.out.println("REUBICANDO*****************");
+        Cuadrante cuad;//System.out.println("REUBICANDO*****************");
         do{
             int r = (int) (Math.random() * (grafo.size()-1));
             cuad = grafo.get(r);
