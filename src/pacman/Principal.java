@@ -207,63 +207,63 @@ public class Principal extends JFrame {
             @Override
             public void run() {
                 canvas.createBufferStrategy(2);
-            Graphics g = canvas.getBufferStrategy().getDrawGraphics();
-            long startTime = System.currentTimeMillis();
-            long currentTime = 0; pacman.currentStatus = Personaje.NORMAL;
-            int sec = 0;
-            while(true){
-                try{
-                        
-                    tablero.paintTablero(g);
-                    
-                    currentTime = System.currentTimeMillis() - startTime;//System.out.println("CurrTime = "+currentTime);
-                    switch(pacman.currentDirection){
-                        case Personaje.RIGTH:{ pacman.moveRigth(tablero,currentTime); break;}
-                        case Personaje.DOWN:{  pacman.moveDown (tablero,currentTime); break;}
-                        case Personaje.LEFT:{  pacman.moveLeft (tablero,currentTime); break;}
-                        case Personaje.UP:{    pacman.moveUp   (tablero,currentTime); break;}
-                    } 
-                    pacman.draw(g);
-                    switch(fantasma.currentDirection){
-                        case Personaje.RIGTH:{ fantasma.moveRigth(tablero,currentTime); break;}
-                        case Personaje.DOWN:{  fantasma.moveDown (tablero,currentTime); break;}
-                        case Personaje.LEFT:{  fantasma.moveLeft (tablero,currentTime); break;}
-                        case Personaje.UP:{    fantasma.moveUp   (tablero,currentTime); break;}
-                    }
-                    fantasma.draw(g);
-                    
-                    Thread.sleep(30);
-                    canvas.getBufferStrategy().show();
-                    
-                    if(currentTime/1000 != sec && pacman.currentDirection != Personaje.NONE){
-                        sec = (int) currentTime/1000;
-                        pacman.addPunto();
-                    }
-                    
-                    if (tablero.isEmptyPuntos() || pacman.currentStatus == Personaje.MUERTO) {
+                Graphics g = canvas.getBufferStrategy().getDrawGraphics();
+                long startTime = System.currentTimeMillis();
+                long currentTime = 0; pacman.currentStatus = Personaje.NORMAL;
+                int sec = 0;
+                while(true){
+                    try{
+
                         tablero.paintTablero(g);
-                        if (pacman.currentStatus == Personaje.MUERTO) {
-                            pacman.muerte(currentTime);
-//                            vidas[pacman.getVidas()].setVisible(false);
-//                            pacman.quitarVidas();
-                            estado.setText("PERDISTE  :(");
-//                            if(pacman.getVidas() == -1) estado.setText("GAME OVER");System.out.println("***********"+pacman.getVidas());
-                        }else{
-                            estado.setText("GANASTE!! :)");
-//                            pacman.currentStatus = Personaje.GANO;
-//                            sound.win();
-                            fantasma.currentStatus = Personaje.MUERTO;
-                            fantasma.muerte(currentTime);
-                        }
+
+                        currentTime = System.currentTimeMillis() - startTime;//System.out.println("CurrTime = "+currentTime);
+                        switch(pacman.currentDirection){
+                            case Personaje.RIGTH:{ pacman.moveRigth(tablero,currentTime); break;}
+                            case Personaje.DOWN:{  pacman.moveDown (tablero,currentTime); break;}
+                            case Personaje.LEFT:{  pacman.moveLeft (tablero,currentTime); break;}
+                            case Personaje.UP:{    pacman.moveUp   (tablero,currentTime); break;}
+                        } 
                         pacman.draw(g);
+                        switch(fantasma.currentDirection){
+                            case Personaje.RIGTH:{ fantasma.moveRigth(tablero,currentTime); break;}
+                            case Personaje.DOWN:{  fantasma.moveDown (tablero,currentTime); break;}
+                            case Personaje.LEFT:{  fantasma.moveLeft (tablero,currentTime); break;}
+                            case Personaje.UP:{    fantasma.moveUp   (tablero,currentTime); break;}
+                        }
                         fantasma.draw(g);
+
+                        Thread.sleep(30);
                         canvas.getBufferStrategy().show();
-                        break;
+
+                        if(currentTime/1000 != sec && pacman.currentDirection != Personaje.NONE){
+                            sec = (int) currentTime/1000;
+                            pacman.addPunto();
+                        }
+
+                        if (tablero.isEmptyPuntos() || pacman.currentStatus == Personaje.MUERTO) {
+                            tablero.paintTablero(g);
+                            if (pacman.currentStatus == Personaje.MUERTO) {
+                                pacman.muerte(currentTime);
+    //                            vidas[pacman.getVidas()].setVisible(false);
+    //                            pacman.quitarVidas();
+                                estado.setText("PERDISTE  :(");
+    //                            if(pacman.getVidas() == -1) estado.setText("GAME OVER");System.out.println("***********"+pacman.getVidas());
+                            }else{
+                                estado.setText("GANASTE!! :)");
+    //                            pacman.currentStatus = Personaje.GANO;
+    //                            sound.win();
+                                fantasma.currentStatus = Personaje.MUERTO;
+                                fantasma.muerte(currentTime);
+                            }
+                            pacman.draw(g);
+                            fantasma.draw(g);
+                            canvas.getBufferStrategy().show();
+                            break;
+                        }
+                    }catch(Exception e){
+                        e.printStackTrace();
                     }
-                }catch(Exception e){
-                    e.printStackTrace();
                 }
-            }
             }
         };
     }
